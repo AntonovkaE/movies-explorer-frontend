@@ -1,4 +1,4 @@
-.aboutProject {
+.promo {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -7,7 +7,7 @@
     background-color: #F3C1F8;
 }
 
-.aboutProject__background {
+.promo__background {
     background-image: url('../../images/backgrond-about.svg');
     height: 230px;
     width: 100%;
@@ -32,7 +32,7 @@
 }
 
 @media screen and (min-width: 768px) {
-    .aboutProject {
+    .promo {
         padding: 300px 44px 70px;
     }
 
@@ -51,10 +51,10 @@
         width: 626px;
         align-self: flex-start;
     }
-    .aboutProject {
+    .promo {
         padding: 50px 70px 60px;
     }
-    .aboutProject__background {
+    .promo__background {
         background-position: right;
     }
 
