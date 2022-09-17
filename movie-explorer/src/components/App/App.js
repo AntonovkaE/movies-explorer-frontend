@@ -11,10 +11,12 @@ function App() {
 
   return (
     <div className="root">
-      <Header isAuth={true} theme={theme}/>
-      <Routes>
-        <Route path="/" element={<Main/>}></Route>
-      </Routes>
+      <Header isAuth={false} theme={theme}/>
+      <main>
+        <Routes>
+          <Route path="/" element={<Main/>}></Route>
+        </Routes>
+      </main>
     </div>
   );
 }
