@@ -1,0 +1,111 @@
+.aboutProject__title {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    /* identical to box height */
+    margin: 0;
+    letter-spacing: -0.04em;
+
+    color: #000000;
+}
+
+.aboutProject {
+    padding: 70px 0;
+}
+
+.aboutProject__title::after {
+    margin-top: 28px;
+    margin-bottom: 60px;
+    content: '';
+    display: block;
+    width: 100%;
+    border-bottom: 1px solid #000000;
+}
+
+.aboutProject__paragraph:not(:last-child) {
+    margin: 0 0 56px;
+}
+
+.paragraph__heading {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    margin: 0 auto 16px;
+}
+
+.aboutProject__paragraphs {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto 60px;
+
+}
+
+.paragraph__text {
+    margin: 0;
+}
+
+.deadlines {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    text-align: center;
+}
+
+.deadlines__item_back {
+    width: 35%;
+    max-width: 140px;
+}
+
+.deadlines__item_front {
+    width: inherit;
+}
+
+.deadlines__heading {
+    padding-bottom: 11px;
+    padding-top: 11px;
+}
+
+
+.deadlines__heading_back {
+    color: #FFFFFF;
+    background-color: #000000;
+}
+
+
+.deadlines__heading_front {
+    background-color: #F2F2F2;
+}
+
+.deadlines__subheading {
+    color: #A0A0A0;
+    margin: 10px auto 0;
+}
+
+@media screen and (min-width: 768px) {
+    .aboutProject {
+        padding: 50px 0;
+    }
+
+    .aboutProject__paragraphs {
+        /*width: calc(50% - 15px);*/
+        flex-direction: row;
+        margin-bottom: 93px;
+    }
+    .aboutProject__paragraph {
+        width: calc(50% - 15px);
+    }
+
+    .aboutProject__paragraph:not(:last-child) {
+        margin: 0 30px 0 0;
+    }
+
+    .deadlines__item_back {
+        max-width: 228px;
+    }
+}
+
+

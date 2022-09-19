@@ -1,0 +1,23 @@
+/*.section {*/
+/*    margin: 70px auto 0;*/
+/*}*/
+
+.section__content {
+    width: 88.75%;
+    margin: 0 auto;
+}
+
+@media screen and (min-width: 768px){
+    .section__content {
+        min-width: 668px;
+        max-width: 1150px;
+    }
+
+}
+
+/*@media screen and (min-width: 1280px) {*/
+/*    .section__content {*/
+/*        max-width: 1140px;*/
+/*        !*margin: 0 auto;*!*/
+/*    }*/
+/*}*/

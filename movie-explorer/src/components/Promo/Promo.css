@@ -1,10 +1,16 @@
 .promo {
+    background-color: #F3C1F8;
+}
+
+.promo__content {
     display: flex;
     flex-direction: column;
     align-items: center;
-
     padding: 183px 0 60px;
-    background-color: #F3C1F8;
+}
+
+.section_promo {
+    margin: 0;
 }
 
 .promo__background {
@@ -32,8 +38,8 @@
 }
 
 @media screen and (min-width: 768px) {
-    .promo {
-        padding: 300px 44px 70px;
+    .promo__content {
+        padding: 300px 0 70px;
     }
 
     .page__title {
@@ -51,7 +57,7 @@
         width: 626px;
         align-self: flex-start;
     }
-    .promo {
+    .promo__content {
         padding: 50px 70px 60px;
     }
     .promo__background {
