@@ -25,12 +25,23 @@
     margin: 0 auto 50px;
 }
 
+.section__title_techs {
+    margin-bottom: 60px;
+}
+
 
 @media screen and (min-width: 768px) {
     .techs {
         background-color: #F5F5F5;
     }
-    .techs__heading {
+
+    .section__title_techs::after {
+        margin-bottom: 80px;
+    }
+    .techs__subheading {
+        font-size: 12px;
+        line-height: 18px;
+        width: 460px;
         margin: 0 auto 83px;
     }
 
@@ -44,6 +55,7 @@
     .techs {
         padding: 100px 0;
     }
+
     .techs-list__item {
         font-size: 14px;
         line-height: 17px;

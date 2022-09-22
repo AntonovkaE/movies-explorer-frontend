@@ -4,9 +4,9 @@ import './Techs.css'
 function Techs() {
   return(<section className="techs section">
     <div className="section__content">
-      <h2 className="section__title">Технологии</h2>
+      <h2 className="section__title section__title_techs">Технологии</h2>
       <h3 className="section__heading techs__heading">7 технологий</h3>
-      <p className="section__subheading_techs">На курсе веб-разработки мы освоили технологии, которые применили в дипломном проекте.</p>
+      <p className="section__subheading_techs techs__subheading">На курсе веб-разработки мы освоили технологии, которые применили в дипломном проекте.</p>
       <ul className="list techs-list">
         <li className="techs-list__item" >
           HTML

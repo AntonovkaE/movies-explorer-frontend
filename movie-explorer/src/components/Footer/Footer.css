@@ -13,9 +13,11 @@
     align-items: center;
     margin: 0 auto 30px;
 }
+
 .footer__link:not(:last-child) {
     margin-bottom: 12px;
 }
+
 .footer__projectName {
     margin: 0;
     font-size: 12px;
@@ -39,5 +41,44 @@
 
 .footer__date {
     margin: 0;
-    color:  #A0A0A0;
+    color: #A0A0A0;
+    letter-spacing: 0;
+}
+
+@media screen and (max-width: 768px) {
+    .footer {
+        padding: 79px 30px 20px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        font-size: 13px;
+        line-height: 16px;
+    }
+
+    .footer__projectName {
+        width: 100%;
+        font-size: 13px;
+        line-height: 16px;
+    }
+
+    .footer__projectName::after {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .footer__links {
+        flex-direction: row;
+        align-items: center;
+        margin: 0;
+        order: 2;
+    }
+
+    .footer__link:not(:last-child) {
+        margin-bottom: 0;
+        margin-right: 20px;
+    }
+    .footer__date {
+        margin: 0;
+    }
+
 }

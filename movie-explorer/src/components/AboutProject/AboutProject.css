@@ -15,7 +15,6 @@
     display: flex;
     flex-direction: column;
     margin: 0 auto 60px;
-
 }
 
 .paragraph__text {
@@ -61,10 +60,19 @@
     letter-spacing: 0;
 }
 
+.section__title_aboutProject {
+    margin-bottom: 60px;
+}
+
 @media screen and (min-width: 768px) {
+    .section__title_aboutProject::after {
+        margin-bottom: 70px;
+    }
     .paragraph__heading {
         font-size: 20px;
         line-height: 24px;
+        margin: 0 0 22px;
+
     }
 
     .paragraph__text {
@@ -77,6 +85,7 @@
         flex-direction: row;
         margin-bottom: 93px;
     }
+
     .aboutProject__paragraph {
         width: calc(50% - 15px);
     }
@@ -88,12 +97,24 @@
     .deadlines__item_back {
         width: 140px;
     }
+    .deadlines__heading {
+        font-size: 14px;
+        line-height: 17px;
+        padding: 9px 0;
+    }
+
+    .deadlines__subheading {
+        margin: 14px auto 0;
+        font-size: 14px;
+        line-height: 17px;
+    }
 }
 
 @media screen and (min-width: 1280px) {
     .aboutProject {
         padding: 110px 0;
     }
+
     .deadlines__item_back {
         width: 228px;
     }

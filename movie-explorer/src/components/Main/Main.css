@@ -7,6 +7,7 @@
     margin: 0 auto;
     padding: 70px 0;
 }
+
 .section__title {
     font-family: 'Inter';
     font-style: normal;
@@ -35,28 +36,35 @@
 
 .section__title::after {
     margin-top: 28px;
-    margin-bottom: 60px;
     content: '';
     display: block;
     width: 100%;
     border-bottom: 1px solid #000000;
 }
 
-
 .section__content_bg {
     width: 100%;
     padding: 183px 0 40px;
 }
 
+@media screen and (min-width: 768px) {
+    .section__title {
+        font-size: 22px;
+        line-height: 27px;
+    }
 
+    .section__title::after {
+        margin-top: 23px;
+    }
 
-@media screen and (min-width: 768px){
     .section__content {
         width: 86.98%;
         padding: 90px 0;
     }
+
     .section__content_bg {
         width: 680px;
+        padding: 300px 0 70px;
     }
 
     .section__subheading {
@@ -75,13 +83,16 @@
     .section__content {
         width: 1140px;
     }
+
     .section__subheading {
         font-size: 14px;
         line-height: 20px;
     }
+
     .section__content {
         padding: 0;
     }
+
     .section__content_bg {
         width: 1140px;
     }
