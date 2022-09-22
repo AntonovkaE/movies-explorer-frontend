@@ -5,6 +5,7 @@ import '../../vendor/normalize.css';
 import '../../vendor/fonts/inter.css';
 import { Route, Routes } from 'react-router-dom';
 import Main from '../Main/Main';
+import Footer from '../Footer/Footer';
 
 function App() {
   const [theme, setTheme] = useState('pink');
@@ -17,6 +18,7 @@ function App() {
           <Route path="/" element={<Main/>}></Route>
         </Routes>
       </main>
+      <Footer/>
     </div>
   );
 }

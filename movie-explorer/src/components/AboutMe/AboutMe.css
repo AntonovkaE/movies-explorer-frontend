@@ -13,7 +13,10 @@
 
 
 .aboutMe__photo {
-    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    width: 292px;
+    height: 352px;
     border-radius: 10px;
 }
 
@@ -55,7 +58,7 @@
     content: '';
     display: block;
     width: 100%;
-    border-bottom: 1px solid #E6E6E6;;
+    border-bottom: 1px solid #E6E6E6;
 }
 
 @media screen and (min-width: 768px) {
@@ -75,8 +78,7 @@
         line-height: 40px;
     }
     .aboutMe__photo {
-        object-fit: cover;
-        object-position: center;
+
         width: 255px;
         height: 307px;
         flex-wrap: wrap;

@@ -29,6 +29,10 @@
     letter-spacing: -0.04em;
 }
 
+.section__subheading {
+    margin: 0 auto 20px 0;
+}
+
 .section__title::after {
     margin-top: 28px;
     margin-bottom: 60px;
