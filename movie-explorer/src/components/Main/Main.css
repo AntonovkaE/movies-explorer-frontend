@@ -48,8 +48,7 @@
 
 @media screen and (min-width: 768px){
     .section__content {
-        width: 668px;
-        max-width: 1150px;
+        width: 86.98%;
         padding: 90px 0;
     }
     .section__content_bg {
@@ -69,6 +68,9 @@
 }
 
 @media screen and (min-width: 1280px) {
+    .section__content {
+        width: 1140px;
+    }
     .section__subheading {
         font-size: 14px;
         line-height: 20px;

@@ -1,5 +1,10 @@
+.aboutMe__flex {
+    display: flex;
+    flex-direction: column;
+}
+
 .section__heading_aboutMe {
-    margin: 40px auto 20px;
+    margin: 40px auto 20px 0;
 }
 
 .section__subheading_aboutMe {
@@ -19,6 +24,11 @@
 
 .aboutMe__description {
     margin: 0 auto 40px;
+    letter-spacing: 0;
+}
+
+.portfolio-list {
+    width: 100%;
 }
 .portfolio-list::before {
     display: block;
@@ -30,13 +40,15 @@
 }
 
 .portfolio-list__item {
-    font-size: 18px;
-    line-height: 28px;
     background-image: url("../../images/arrow-link.svg");
     background-repeat: no-repeat;
     background-position: right;
 }
 
+.portfolio-list__link {
+    font-size: 18px;
+    line-height: 28px;
+}
 .portfolio-list__item:not(:last-child)::after {
     margin-top: 19px;
     margin-bottom: 20px;
@@ -46,6 +58,50 @@
     border-bottom: 1px solid #E6E6E6;;
 }
 
+@media screen and (min-width: 768px) {
+    .aboutMe__flex {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
 
+    .aboutMe__inf {
+        order: -1;
+        width: 364px;
+    }
 
+    .section__heading_aboutMe {
+        margin: 0 auto 16px 0;
+        font-size: 40px;
+        line-height: 40px;
+    }
+    .aboutMe__photo {
+        object-fit: cover;
+        object-position: center;
+        width: 255px;
+        height: 307px;
+        flex-wrap: wrap;
+        margin: 0 0 90px auto;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .aboutMe {
+        padding: 110px 0 125px;
+    }
+    .aboutMe__inf {
+        width: 600px;
+    }
+    .aboutMe__photo {
+        margin: 0 0 100px auto;
+    }
+    .aboutMe__description {
+        font-size: 14px;
+        line-height: 22px;
+        margin: 0 auto 99px 0;
+    }
+    .portfolio-list::before {
+        margin: 0 auto 50px;
+    }
+
+}
 
