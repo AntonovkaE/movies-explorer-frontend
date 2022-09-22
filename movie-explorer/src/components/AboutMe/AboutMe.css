@@ -1,0 +1,51 @@
+.section__heading_aboutMe {
+    margin: 40px auto 20px;
+}
+
+.section__subheading_aboutMe {
+    text-align: left;
+}
+
+
+.aboutMe__photo {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.aboutMe__gitHub {
+    display: block;
+    margin: 0 auto 70px;
+}
+
+.aboutMe__description {
+    margin: 0 auto 40px;
+}
+.portfolio-list::before {
+    display: block;
+    color: #A0A0A0;
+    font-size: 14px;
+    line-height: 20px;
+    content: attr(aria-label);
+    margin: 0 auto 40px;
+}
+
+.portfolio-list__item {
+    font-size: 18px;
+    line-height: 28px;
+    background-image: url("../../images/arrow-link.svg");
+    background-repeat: no-repeat;
+    background-position: right;
+}
+
+.portfolio-list__item:not(:last-child)::after {
+    margin-top: 19px;
+    margin-bottom: 20px;
+    content: '';
+    display: block;
+    width: 100%;
+    border-bottom: 1px solid #E6E6E6;;
+}
+
+
+
+
