@@ -118,6 +118,19 @@
     .deadlines__item_back {
         width: 228px;
     }
+    .aboutProject__paragraph {
+        width: calc(50% - 20px);
+    }
+    .paragraph__heading {
+        margin: 0 0 26px;
+    }
+    .paragraph__text {
+        font-size: 14px;
+        line-height: 20px;
+    }
+    .aboutProject__paragraphs {
+        margin-bottom: 110px;
+    }
 }
 
 

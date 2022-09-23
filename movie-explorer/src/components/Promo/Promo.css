@@ -6,7 +6,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 183px 0 60px;
+    padding: 183px 0 40px;
 }
 
 .section_promo {
@@ -45,20 +45,30 @@
         margin-bottom: 140px;
         width: 680px;
     }
-
+    .promo__content {
+        padding: 300px 0 70px;
+    }
 }
 
 @media screen and (min-width: 1280px){
     .page__title {
         text-align: left;
+        margin-bottom: 102px;
         width: 626px;
         align-self: flex-start;
     }
-    .promo{
+    .promo__content {
         padding: 50px 70px 60px;
     }
+    /*.promo {*/
+    /*    padding: 0;*/
+    /*}*/
     .promo__background {
         background-position: right;
+        height: 244px;
+        width: 722px;
+        align-self: end;
+        background-size: cover;
     }
 
 }

@@ -19,6 +19,7 @@
 }
 
 .footer__projectName {
+    width: 100%;
     margin: 0;
     font-size: 12px;
     line-height: 15px;
@@ -45,7 +46,7 @@
     letter-spacing: 0;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 768px) {
     .footer {
         padding: 79px 30px 20px;
         flex-direction: row;
@@ -79,6 +80,13 @@
     }
     .footer__date {
         margin: 0;
+    }
+
+}
+
+@media screen and (min-width: 1280px){
+    .footer {
+        padding: 79px 70px 20px;
     }
 
 }
