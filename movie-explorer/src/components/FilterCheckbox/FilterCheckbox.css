@@ -1,6 +1,7 @@
 .filter {
     display: flex;
     justify-content: center;
+    width: 100%;
 }
 .filter__input[type=checkbox]{
     height: 0;
@@ -50,4 +51,11 @@
     font-size: 11px;
     line-height: 18px;
     letter-spacing: 0;
+}
+
+@media screen and (min-width: 768px){
+    .filter__label-text {
+        font-size: 12px;
+    }
+
 }
