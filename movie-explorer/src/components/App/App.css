@@ -17,11 +17,15 @@
     display: none;
 }
 
-.root {
+body {
     font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
     font-size: 11px;
     line-height: 16px;
     letter-spacing: -0.04em;
+}
+
+.button {
+    border: none;
 }

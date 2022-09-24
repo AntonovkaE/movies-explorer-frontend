@@ -6,20 +6,20 @@ import '../../vendor/fonts/inter.css';
 import { Route, Routes } from 'react-router-dom';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
+import Movies from '../Movies/Movies';
 
 function App() {
-  const [theme, setTheme] = useState('pink');
-
   return (
-    <div className="root">
-      <Header isAuth={false} theme={theme}/>
+    <>
+      <Header isAuth={true}/>
       <main>
         <Routes>
           <Route path="/" element={<Main/>}></Route>
+          <Route path="/movies" element={<Movies/>}></Route>
         </Routes>
       </main>
       <Footer/>
-    </div>
+    </>
   );
 }
 
