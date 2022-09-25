@@ -1,0 +1,16 @@
+.button_movie {
+    border-radius: 30px;
+    min-width: 100px;
+    padding: 9px 0;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 11px;
+    letter-spacing: 0;
+}
+.button_default {
+    background: #F9F9F9;;
+}
+
+.button_success {
+    background: #FF4062 url("../../images/checkMark.svg");
+}
