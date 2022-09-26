@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import './App.css';
 import Header from '../Header/Header';
-import '../../vendor/normalize.css';
-import '../../vendor/fonts/inter.css';
+import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 import Movies from '../Movies/Movies';
+import Profile from '../Profile/Profile';
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -17,6 +16,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Main/>}></Route>
           <Route path="/movies" element={<Movies movies={movies}/>}></Route>
+          <Route path="/saved-movies" element={<Movies movies={movies}/>}></Route>
+          <Route path="/profile" element={<Profile movies={movies}/>}></Route>
         </Routes>
       </main>
       <Footer/>

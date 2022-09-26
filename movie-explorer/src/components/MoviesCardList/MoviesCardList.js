@@ -16,18 +16,7 @@ function MovieCardList() {
         <MovieCard key="2" srcImage={second}/>
         <MovieCard key="3" srcImage={third}/>
         <MovieCard key="4" srcImage={forth}/>
-        <MovieCard key="1" srcImage={first}/>
-        <MovieCard key="2" srcImage={second}/>
-        <MovieCard key="3" srcImage={third}/>
-        <MovieCard key="4" srcImage={forth}/>
-        <MovieCard key="1" srcImage={first}/>
-        <MovieCard key="2" srcImage={second}/>
-        <MovieCard key="3" srcImage={third}/>
-        <MovieCard key="4" srcImage={forth}/>
-        <MovieCard key="1" srcImage={first}/>
-        <MovieCard key="2" srcImage={second}/>
-        <MovieCard key="3" srcImage={third}/>
-        <MovieCard key="4" srcImage={forth}/>
+
         {/*{movies.map((movie, i) => (*/}
         {/*  <MovieCard key={movie._id} movie={movie}/>*/}
         {/*))}*/}
