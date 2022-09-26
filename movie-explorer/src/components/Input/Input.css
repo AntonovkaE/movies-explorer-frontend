@@ -1,0 +1,39 @@
+.form__label {
+    display: flex;
+    width: 100%;
+    border-bottom: solid 1px #E8E8E8;
+}
+.form__label_edit-form {
+    padding-bottom: 16px;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 0 17px 0;
+}
+
+.form__label_edit-form:nth-last-child{
+    margin: 0;
+}
+
+.form__input {
+    border: none;
+    text-align: right;
+}
+
+.form__label_without-line {
+    border: none;
+}
+
+.form__label:focus {
+    outline: #A0A0A0 1px solid;
+}
+
+.form__label::-webkit-input-placeholder {
+    color: #000000;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 13px;
+}
+
+.form__label:-moz-placeholder {
+    color: #000000;
+}

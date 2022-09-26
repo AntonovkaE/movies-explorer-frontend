@@ -1,8 +1,12 @@
 import React from 'react';
+import './Input.css';
 
 function Input({
+  form,
+  line= true,
   value = '',
   name,
+  label,
   onChange = () => {},
   placeholder,
   maxLength,
@@ -10,10 +14,11 @@ function Input({
   type = 'text',
 }) {
   return (
-    <label htmlFor={`${name}-input`} className="form__label">
+    <label htmlFor={`${name}-input`} className={`form__label form__label_${form} ${line ? '' : 'form__label_without-line'}`}>
+      {label}
       <input value={value || ''} onChange={onChange} type={type} name={`${name}Input`}
              id={`${name}-input`}
-             className={`form__item form__item_el_${name}`}
+             className={`form__input form__input_${name} form__input_${form}`}
              placeholder={placeholder} maxLength={maxLength} minLength={minLength} autoComplete="on"
              required/>
     </label>);
