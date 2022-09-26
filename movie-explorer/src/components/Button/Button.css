@@ -6,6 +6,8 @@
     font-size: 12px;
     line-height: 11px;
     letter-spacing: 0;
+    justify-self: center;
+    margin: 14px auto;
 }
 .button_default {
     background: #F9F9F9;;

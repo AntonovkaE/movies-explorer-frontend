@@ -8,6 +8,11 @@
     text-decoration: none;
     color: inherit;
 }
+
+.link:hover {
+    opacity: 0.7;
+    transition: opacity 1s;
+}
 .main {
     font-family: inter;
     font-weight: 400;
@@ -29,3 +34,10 @@ body {
 .button {
     border: none;
 }
+
+.button:hover {
+    opacity: 0.7;
+    transition: opacity 1s;
+    box-shadow: 0 0 1px 1px #A0A0A0;
+}
+
