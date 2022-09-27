@@ -17,6 +17,10 @@
     padding: 18px 14px;
 }
 
+.header__nav_center {
+    justify-content: center;
+}
+
 .header__menu {
     display: none;
     color: #000000;
