@@ -6,7 +6,6 @@ import './Header.css';
 
 function Header({ isAuth }) {
   const location = useLocation().pathname;
-  console.log(location);
   const showMenu = () => {
   };
   const isNavigationHidden = (location === '/signup' || location === '/signin');

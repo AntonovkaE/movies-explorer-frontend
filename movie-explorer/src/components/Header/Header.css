@@ -19,6 +19,7 @@
 
 .header__nav_center {
     justify-content: center;
+    padding-top: 56px;
 }
 
 .header__menu {
