@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './Button.css';
 
-function Button({ status, type }) {
-  const [text, setText] = useState('Сохранить');
+function Button({ status, type, text='Сохранить' }) {
+  // const [text, setText] = useState('Сохранить');
   // if (status === 'saved') {
   //   setText('');
   // }

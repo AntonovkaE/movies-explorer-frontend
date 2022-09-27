@@ -6,6 +6,9 @@
     align-items: center;
     letter-spacing: 0;
 }
+.footer_hidden {
+    display: none;
+}
 
 .footer__links {
     display: flex;

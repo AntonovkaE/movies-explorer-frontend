@@ -16,3 +16,23 @@
 .button_success {
     background: #FF4062 url("../../images/checkMark.svg");
 }
+
+.button_black {
+    background-color: #000000;
+    color: white;
+    border-radius: 3px;
+}
+
+.button_edit {
+    background: none;
+}
+
+.button_form-auth {
+    width: 100%;
+    padding: 15px 0;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+
+    text-align: center;
+}

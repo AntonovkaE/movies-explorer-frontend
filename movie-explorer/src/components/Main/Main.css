@@ -43,6 +43,14 @@
     padding: 183px 0 40px;
 }
 
+.section_withForm {
+    display: flex;
+    flex-direction: column;
+    padding: 144px 30px 40px;
+}
+
+
+
 @media screen and (min-width: 768px) {
     .section__title {
         font-size: 22px;
