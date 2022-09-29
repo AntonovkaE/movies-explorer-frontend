@@ -8,12 +8,22 @@ import Movies from '../Movies/Movies';
 import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
+import NavigationPopup from '../NavigationPopup/NavigationPopup';
 
 function App() {
   const [movies, setMovies] = useState([]);
+  const [isNavigationOpen, setIsNavigationOpen] = useState(false);
+
+  const showMenu = () => {
+    setIsNavigationOpen(true);
+  };
+
+  const hideMenu = () => {
+    setIsNavigationOpen(false);
+  };
   return (
     <>
-      <Header isAuth={true}/>
+      <Header isAuth={true} showMenu={showMenu} onClose={hideMenu} isOpen={isNavigationOpen}/>
       <main>
         <Routes>
           <Route path="/" element={<Main/>}></Route>
@@ -24,6 +34,7 @@ function App() {
           <Route path="/signin" element={<Login/>}></Route>
         </Routes>
       </main>
+      <NavigationPopup onClose={hideMenu} isOpen={isNavigationOpen}/>
       <Footer/>
     </>
   );
