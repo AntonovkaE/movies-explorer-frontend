@@ -1,28 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './MoviesCardList.css';
 import MovieCard from '../MoviesCard/MoviesCard';
-import first from '../../images/1.jpg';
-import second from '../../images/2.jpg'
-import third from '../../images/3.jpg'
-import forth from '../../images/4.jpg'
-import Preloader from '../Preloader/Preloader';
+function MovieCardList({ movies }) {
+  const [isMobile, setIsMobile] = useState(false);
+  const [isMiddleScreen, setIsMiddleScreen] = useState(false);
 
-function MovieCardList() {
+  const handleResize = () => {
+    if (window.innerWidth < 768) {
+      setIsMobile(true);
+    } else if (window.innerWidth < 1280) {
+      setIsMobile(false);
+      setIsMiddleScreen(true);
+    } else {
+    setIsMobile(false);
+    setIsMiddleScreen(false)}
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+  }, []);
+  const movieCount = isMobile ? 5 : isMiddleScreen ? 8 : 12;
+  const movieContent = (movieCount, movies) => movies.slice(0, movieCount);
   return (
     <section className="section section_movieCardList" aria-label="Фильмы">
       {/*<Preloader/>*/}
       <ul className="list movies">
-        <MovieCard key="1" srcImage={first}/>
-        <MovieCard key="2" srcImage={second}/>
-        <MovieCard key="3" srcImage={third}/>
-        <MovieCard key="4" srcImage={forth}/>
-
-        {/*{movies.map((movie, i) => (*/}
-        {/*  <MovieCard key={movie._id} movie={movie}/>*/}
-        {/*))}*/}
+        {movies.slice(0, movieCount).map((movie, i) => (
+          <MovieCard key={movie.id} movie={movie}/>
+        ))}
       </ul>
       <button className="button button_showMore">Ещё</button>
-
     </section>
   );
 }

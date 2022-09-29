@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../Header/Header';
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
@@ -9,6 +9,7 @@ import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import NavigationPopup from '../NavigationPopup/NavigationPopup';
+import movieApi from '../../utils/MoviesApi';
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -18,12 +19,24 @@ function App() {
     setIsNavigationOpen(true);
   };
 
-  const hideMenu = () => {
+  const closeMenu = () => {
     setIsNavigationOpen(false);
   };
+
+  const getInitialMovies = () => {
+    movieApi.getMovies()
+      .then((res) => {
+        setMovies(res)
+      })
+  }
+
+  useEffect(() => {
+    getInitialMovies()
+  }, [])
+
   return (
     <>
-      <Header isAuth={false} showMenu={showMenu} onClose={hideMenu} isOpen={isNavigationOpen}/>
+      <Header isAuth={true} showMenu={showMenu} onClose={closeMenu} isOpen={isNavigationOpen}/>
       <main>
         <Routes>
           <Route path="/" element={<Main/>}></Route>
@@ -34,7 +47,7 @@ function App() {
           <Route path="/signin" element={<Login/>}></Route>
         </Routes>
       </main>
-      <NavigationPopup onClose={hideMenu} isOpen={isNavigationOpen}/>
+      <NavigationPopup onClose={closeMenu} isOpen={isNavigationOpen}/>
       <Footer/>
     </>
   );
