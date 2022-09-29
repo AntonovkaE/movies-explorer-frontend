@@ -7,7 +7,7 @@ import Button from '../Button/Button';
 function UserForm({ name, title, spanText, buttonText, linkText, link }) {
   return (
     <form className={`form form_${name}`}>
-      <h2 className="form__heading">{title}</h2>
+      <h2 className={`form__heading form__heading_${name}`}>{title}</h2>
       <Input form={name} name="name" placeholder="" label="Имя" value="Виталий"
              maxLength="30" minLength="2"/>
       <Input form={name} type="email" name="email" placeholder="" label="E-mail"

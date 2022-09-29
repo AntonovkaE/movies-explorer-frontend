@@ -105,5 +105,11 @@
     .section__content_bg {
         width: 1140px;
     }
+
+    .section_withForm {
+        padding: 148px 435px 70px;
+        margin: 0 auto;
+    }
+
 }
 

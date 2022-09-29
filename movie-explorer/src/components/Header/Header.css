@@ -35,6 +35,10 @@
 }
 
 @media screen and (min-width: 768px) {
+    .header__nav {
+        padding: 18px 30px;
+    }
+
     .header__nav_auth {
         width: 396px;
         margin: 0 auto;
@@ -53,6 +57,13 @@
         max-width: 1140px;
         margin: 0 auto;
         padding: 18px 30px;
+    }
+
+    .header__nav_auth {
+        width: 396px;
+        margin: 0 auto;
+        padding: 70px 442px 0;
+        justify-content: left;
     }
 }
 
