@@ -9,7 +9,7 @@ function Header({ isAuth, showMenu }) {
   const isNavigationHidden = (location === '/signup' || location === '/signin');
   return (
     <header className={`header`}>
-      <nav className={`header__nav ${isNavigationHidden ? 'header__nav_center' : ''}`}>
+      <nav className={`header__nav ${isNavigationHidden ? 'header__nav_auth' : ''}`}>
         <img className="header__logo" alt="logo" src={logo}/>
         <div onClick={showMenu}
              className={`header__burger ${(!isAuth || isNavigationHidden) ? 'header__burger_hidden' : ''} burger`}>
@@ -20,10 +20,10 @@ function Header({ isAuth, showMenu }) {
         <ul
           className={`navigation list ${(isAuth || isNavigationHidden) ? 'navigation_hidden' : 'navigation_notAuth'}`}>
           <li className="navigation__item">
-            <NavLink className="navigation__link link" to="/sign-in">Регистрация</NavLink>
+            <NavLink className="navigation__link link" to="/signup">Регистрация</NavLink>
           </li>
           <li className="navigation__item navigation__item_black">
-            <NavLink className="navigation__link link" to="/sign-in">Войти</NavLink>
+            <NavLink className="navigation__link link" to="/signin">Войти</NavLink>
           </li>
         </ul>
         <Navigation isNavigationHidden={!isAuth || isNavigationHidden} isFullScreen={false}/>

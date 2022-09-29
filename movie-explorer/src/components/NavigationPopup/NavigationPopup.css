@@ -38,3 +38,22 @@
 .navigationPopup__close:after {
     transform: rotate(-45deg);
 }
+
+@media screen and (min-width: 768px) {
+    .navigationPopup {
+        padding: 159px 90px 99px;
+    }
+
+    .navigationPopup_open {
+        width: 520px;
+        right: 0;
+        left: auto;
+    }
+
+    .navigationPopup__close {
+        top: 40px;
+        right: 43px;
+    }
+
+
+}
