@@ -22,7 +22,7 @@ function MovieCardList({ movies }) {
   const movieCount = isMobile ? 5 : isMiddleScreen ? 8 : 12;
   const movieContent = (movieCount, movies) => movies.slice(0, movieCount);
   return (
-    <section className="section section_movieCardList" aria-label="Фильмы">
+    <section className="section movieSection" aria-label="Фильмы">
       {/*<Preloader/>*/}
       <ul className="list movies">
         {movies.slice(0, movieCount).map((movie, i) => (

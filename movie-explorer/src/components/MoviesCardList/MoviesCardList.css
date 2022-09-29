@@ -21,7 +21,6 @@
 }
 
 @media screen and (min-width: 768px) {
-
     .movies {
         padding: 70px 30px;
         grid-template-columns: repeat(auto-fit, minmax(342px, 1fr));
@@ -36,5 +35,6 @@
         margin: 0 auto;
         grid-template-columns: repeat(3, minmax(360px, 1fr));
         gap: 32px;
+        padding: 70px 66px 54px;
     }
 }

@@ -68,6 +68,7 @@
     .section__title_aboutProject::after {
         margin-bottom: 70px;
     }
+
     .paragraph__heading {
         font-size: 20px;
         line-height: 24px;
@@ -97,6 +98,7 @@
     .deadlines__item_back {
         width: 140px;
     }
+
     .deadlines__heading {
         font-size: 14px;
         line-height: 17px;
@@ -118,16 +120,24 @@
     .deadlines__item_back {
         width: 228px;
     }
+
     .aboutProject__paragraph {
         width: calc(50% - 20px);
     }
+
+    .aboutProject__paragraph:not(:last-child) {
+        margin: 0 40px 0 0;
+    }
+
     .paragraph__heading {
         margin: 0 0 26px;
     }
+
     .paragraph__text {
         font-size: 14px;
         line-height: 20px;
     }
+
     .aboutProject__paragraphs {
         margin-bottom: 110px;
     }

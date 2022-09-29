@@ -92,7 +92,7 @@
         padding: 8px 20px;
     }
 
-    .navigation:not(:last-child) {
+    .navigation__item:not(:last-child) {
         margin-right: 30px;
     }
 }

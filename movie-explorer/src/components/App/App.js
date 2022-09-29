@@ -36,7 +36,7 @@ function App() {
 
   return (
     <>
-      <Header isAuth={true} showMenu={showMenu} onClose={closeMenu} isOpen={isNavigationOpen}/>
+      <Header isAuth={false} showMenu={showMenu} onClose={closeMenu} isOpen={isNavigationOpen}/>
       <main>
         <Routes>
           <Route path="/" element={<Main/>}></Route>

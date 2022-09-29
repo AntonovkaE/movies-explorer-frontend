@@ -51,6 +51,7 @@
     .movie:not(:last-child) {
         margin: 0 auto;
     }
+
     .movie__img {
         width: 342px;
         height: 190px;
@@ -62,6 +63,28 @@
     .movie__img {
         width: 360px;
         height: 200px;
+    }
+    .movie__header {
+        padding: 18px;
+    }
+
+    .movie__title {
+        width: 80%;
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 18px;
+        margin: 0 auto 0 0;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    .movie__duration {
+        margin: 0;
+        font-weight: 400;
+        font-size: 13px;
+        line-height: 18px;
+        white-space: nowrap;
     }
 
 }
