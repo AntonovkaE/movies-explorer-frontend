@@ -66,7 +66,7 @@
     .form {
         width: 396px;
         margin: 0 auto;
-        min-height: fit-content;
+        min-height: 523px;
     }
 
     .form__heading {
@@ -74,10 +74,10 @@
         margin: 0 auto 40px 0;
     }
 
-    .form__button {
-        margin: 197px auto 16px;
+    /*.form__button {*/
+    /*    margin: 197px auto 16px;*/
 
-    }
+    /*}*/
 
     .form__link-caption {
         font-size: 14px;
