@@ -5,18 +5,25 @@ import accountIcon from '../../images/account-icon.svg';
 
 function Navigation({ isNavigationHidden, isFullScreen, onClose = () => {} }) {
   return (<ul
-    className={`list header__menu  ${isNavigationHidden ? 'header__menu_hidden' : 'header__menu_auth'} ${isFullScreen ? 'header__menu_fullScreen' : ''}`}>
-    <li className={`menu__item ${!isFullScreen ? 'menu__item_hidden' : 'menu__item_fullScreen'}`}><NavLink onClick={onClose}
-      className="menu__link link"
-      to="/">Главная</NavLink></li>
-    <li className={`menu__item ${isFullScreen ? 'menu__item_fullScreen' : ''}`}><NavLink onClick={onClose} className="menu__link link"
-                                        to="/movies">Фильмы</NavLink></li>
-    <li className={`menu__item ${isFullScreen ? 'menu__item_fullScreen' : ''}`}><NavLink onClick={onClose} className="menu__link link" to="/saved-movies">Сохранённые
+    className={`list navigation  ${isNavigationHidden ? 'navigation_hidden' : 'navigation_auth'} ${isFullScreen ? 'navigation_fullScreen' : ''}`}>
+    <li
+      className={`navigation__item ${!isFullScreen ? 'navigation__item_hidden' : 'navigation__item_fullScreen'}`}>
+      <NavLink onClick={onClose}
+               className="navigation__link link"
+               to="/">Главная</NavLink></li>
+    <li className={`navigation__item ${isFullScreen ? 'navigation__item_fullScreen' : ''}`}><NavLink
+      onClick={onClose} className="navigation__link link"
+      to="/movies">Фильмы</NavLink></li>
+    <li className={`navigation__item ${isFullScreen ? 'navigation__item_fullScreen' : ''}`}><NavLink
+      onClick={onClose} className="menu__link link" to="/saved-movies">Сохранённые
       фильмы</NavLink></li>
-    <li className={`menu__item ${isFullScreen ? 'menu__item_fullScreen menu__item_down' : ''}`}><NavLink onClick={onClose}
-      className={`link menu__link ${isFullScreen ? 'menu__link_fullScreen' : ''}`} to="/profile">Аккаунт<img className="menu__accountImg"
-      src={accountIcon} alt="иконка пользователя"/>
-    </NavLink></li>
+    <li
+      className={`navigation__item ${isFullScreen ? 'navigation_fullScreen navigation__item_down' : ''}`}>
+      <NavLink onClick={onClose}
+               className={`link navigation__link ${isFullScreen ? 'navigation__link_fullScreen' : ''}`}
+               to="/profile">Аккаунт<img className="navigation__accountImg"
+                                         src={accountIcon} alt="иконка пользователя"/>
+      </NavLink></li>
   </ul>);
 }
 

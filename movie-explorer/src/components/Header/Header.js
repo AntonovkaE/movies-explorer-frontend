@@ -4,7 +4,7 @@ import logo from '../../images/logo.svg';
 import { NavLink, useLocation } from 'react-router-dom';
 import Navigation from '../Navigation/Navigation';
 
-function Header({ isAuth, showMenu, }) {
+function Header({ isAuth, showMenu }) {
   const location = useLocation().pathname;
   const isNavigationHidden = (location === '/signup' || location === '/signin');
   return (
@@ -18,12 +18,12 @@ function Header({ isAuth, showMenu, }) {
           <div className="burger__line burger__line_third"></div>
         </div>
         <ul
-          className={`header__menu menu list ${(isAuth || isNavigationHidden) ? 'header__menu_hidden' : 'header__menu_notAuth'}`}>
-          <li className="menu__item">
-            <NavLink className="menu__link link" to="/sign-in">Регистрация</NavLink>
+          className={`navigation list ${(isAuth || isNavigationHidden) ? 'navigation_hidden' : 'navigation_notAuth'}`}>
+          <li className="navigation__item">
+            <NavLink className="navigation__link link" to="/sign-in">Регистрация</NavLink>
           </li>
-          <li className="menu__item menu__item_black">
-            <NavLink className="menu__link link" to="/sign-in">Войти</NavLink>
+          <li className="navigation__item navigation__item_black">
+            <NavLink className="navigation__link link" to="/sign-in">Войти</NavLink>
           </li>
         </ul>
         <Navigation isNavigationHidden={!isAuth || isNavigationHidden} isFullScreen={false}/>
