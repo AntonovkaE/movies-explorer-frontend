@@ -10,6 +10,7 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import NavigationPopup from '../NavigationPopup/NavigationPopup';
 import movieApi from '../../utils/MoviesApi';
+import SavedMovies from '../SavedMovies/SavedMovies';
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -36,12 +37,12 @@ function App() {
 
   return (
     <>
-      <Header isAuth={false} showMenu={showMenu} onClose={closeMenu} isOpen={isNavigationOpen}/>
+      <Header isAuth={true} showMenu={showMenu} onClose={closeMenu} isOpen={isNavigationOpen}/>
       <main>
         <Routes>
           <Route path="/" element={<Main/>}></Route>
           <Route path="/movies" element={<Movies movies={movies}/>}></Route>
-          <Route path="/saved-movies" element={<Movies movies={movies}/>}></Route>
+          <Route path="/saved-movies" element={<SavedMovies movies={movies}/>}></Route>
           <Route path="/profile" element={<Profile/>}></Route>
           <Route path="/signup" element={<Register/>}></Route>
           <Route path="/signin" element={<Login/>}></Route>
