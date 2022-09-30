@@ -26,7 +26,7 @@ function Movies({ movies }) {
   return (
     <>
       <SearchForm/>
-      <MoviesCardList cardButton="search" buttonCardText="Сохранить" count={movieCount} movies={movies}/>
+      <MoviesCardList cardButton="success" buttonCardText="" count={movieCount} movies={movies}/>
       <Button text="Ещё" status type="showMore"/>
     </>);
 }

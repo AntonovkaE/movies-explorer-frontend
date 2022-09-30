@@ -1,13 +1,15 @@
 .button_movie {
     border-radius: 30px;
     min-width: 100px;
-    padding: 9px 0;
+    height: 29px;
     font-weight: 400;
     font-size: 12px;
     line-height: 11px;
     letter-spacing: 0;
     justify-self: center;
     margin: 14px auto;
+    background: #F9F9F9;
+
 }
 
 .button_movieSaved {
@@ -15,15 +17,11 @@
     background-repeat: no-repeat;
     background-position: center;
     background-color: #F9F9F9;
-    height: 29px;
-}
 
-.button_default {
-    background: #F9F9F9;;
 }
-
 .button_success {
-    background: #FF4062 url("../../images/checkMark.svg");
+    background: #FF4062 url("../../images/checkMark.svg") no-repeat center;
+    height: 29px;
 }
 
 .button_black {
