@@ -12,7 +12,7 @@ function Header({ showMenu }) {
   return (
     <header className={`header ${headerHidden ? 'header_hidden': ''}`}>
       <nav className={`header__nav ${isNavigationHidden ? 'header__nav_auth' : ''}`}>
-        <img className="header__logo" alt="logo" src={logo}/>
+        <NavLink className="link" to="/"><img className="header__logo" alt="logo" src={logo}/></NavLink>
         <div onClick={showMenu}
              className={`header__burger ${(!isAuth || isNavigationHidden) ? 'header__burger_hidden' : ''} burger`}>
           <div className="burger__line burger__line_first"></div>
