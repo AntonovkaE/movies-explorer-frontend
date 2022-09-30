@@ -9,6 +9,15 @@
     justify-self: center;
     margin: 14px auto;
 }
+
+.button_movieSaved {
+    background-image: url("../../images/icon__COLOR_icon-main-min.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #F9F9F9;
+    height: 29px;
+}
+
 .button_default {
     background: #F9F9F9;;
 }
@@ -25,6 +34,12 @@
 
 .button_edit {
     background: none;
+}
+.button_showMore {
+    padding: 11px 50px 9px;
+    width: 100%;
+    background: #F9F9F9;
+    border-radius: 6px;
 }
 
 .button_form-auth {

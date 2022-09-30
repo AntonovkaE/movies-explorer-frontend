@@ -2,7 +2,7 @@ import React from 'react';
 import './MoviesCard.css';
 import Button from '../Button/Button';
 
-function MovieCard({ movie }) {
+function MovieCard({ movie, buttonText, typeButton }) {
   return (
     <li className="movie">
       <article className="movie__article">
@@ -12,7 +12,7 @@ function MovieCard({ movie }) {
         </div>
         <img className="movie__img" alt="кадр фильма"
              src={`https://api.nomoreparties.co${movie.image.url}`}/>
-        <Button type="movie" status="saved"></Button>
+        <Button type={typeButton} status="movie" text={buttonText}></Button>
       </article>
     </li>
   );

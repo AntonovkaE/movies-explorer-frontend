@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './Movies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import Button from '../Button/Button';
 
 function Movies({ movies }) {
   const [isMobile, setIsMobile] = useState(false);
@@ -25,7 +26,8 @@ function Movies({ movies }) {
   return (
     <>
       <SearchForm/>
-      <MoviesCardList count={movieCount} movies={movies}/>
+      <MoviesCardList cardButton="search" buttonCardText="Сохранить" count={movieCount} movies={movies}/>
+      <Button text="Ещё" status type="showMore"/>
     </>);
 }
 

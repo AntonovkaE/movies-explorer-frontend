@@ -13,12 +13,7 @@
     overflow: hidden;
 }
 
-.button_showMore {
-    padding: 11px 50px 9px;
-    width: 100%;
-    background: #F9F9F9;
-    border-radius: 6px;
-}
+
 
 @media screen and (min-width: 768px) {
     .movies {

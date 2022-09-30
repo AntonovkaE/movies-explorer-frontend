@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import './Button.css';
 
-function Button({ status, type, text='Сохранить' }) {
-  // const [text, setText] = useState('Сохранить');
-  // if (status === 'saved') {
-  //   setText('');
-  // }
+function Button({ status="", type="", text=''}) {
   return (<button className={`button button_${type} button_${status}`}>
     {text}
   </button>);

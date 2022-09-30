@@ -29,9 +29,11 @@
     font-size: 12px;
     line-height: 18px;
     width: fit-content;
+    margin: 0;
 }
 
 .movie__duration {
+    margin: 0;
     font-size: 10px;
     line-height: 18px;
 

@@ -18,12 +18,12 @@ function Navigation({ isNavigationHidden, isFullScreen, onClose = () => {} }) {
       onClick={onClose} className="menu__link link" to="/saved-movies">Сохранённые
       фильмы</NavLink></li>
     <li
-      className={`navigation__item ${isFullScreen ? 'navigation__item_fullScreen navigation__item_down' : ''}`}>
+      className={`navigation__item navigation__item_account ${isFullScreen ? 'navigation__item_fullScreen navigation__item_down' : ''}`}>
       <NavLink onClick={onClose}
                className={`link navigation__link ${isFullScreen ? 'navigation__link_fullScreen' : ''}`}
-               to="/profile">Аккаунт<img className="navigation__accountImg"
-                                         src={accountIcon} alt="иконка пользователя"/>
-      </NavLink></li>
+               to="/profile">Аккаунт
+      </NavLink> <img className="navigation__accountImg"
+                      src={accountIcon} alt="иконка пользователя"/></li>
   </ul>);
 }
 

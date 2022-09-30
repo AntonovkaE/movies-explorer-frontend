@@ -1,5 +1,11 @@
 .navigation__accountImg {
+    object-fit: contain;
+    background: #F9F9F9;
+    width: 26px;
+    height: 30px;
     margin-left: 17px;
+    padding: 8px 7.25px;
+    box-sizing: border-box;
 }
 
 .navigation {
@@ -81,11 +87,16 @@
 @media screen and (min-width: 1280px) {
     .navigation_auth {
         display: flex;
+        align-items: center;
     }
 
     .navigation__item {
-        font-size: 12px;
-        line-height: 16px;
+        font-size: 14px;
+        line-height: 30px;
+    }
+
+    .navigation__link {
+        height: auto;
     }
 
     .navigation__item_black {
@@ -93,7 +104,14 @@
     }
 
     .navigation__item:not(:last-child) {
-        margin-right: 30px;
+        margin-right: 20px;
+    }
+    .navigation__item:last-child {
+        margin-left: 30px;
+    }
+    .navigation__item_account {
+        display: flex;
+        height: 30px;
     }
 }
 

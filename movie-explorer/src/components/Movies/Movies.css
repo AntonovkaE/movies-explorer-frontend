@@ -1,3 +1,9 @@
 .movieSection {
-    padding-bottom: 80px;
+    padding-bottom: 50px;
+}
+
+@media screen and (min-width: 1280px){
+    .movieSection {
+        padding-bottom: 80px;
+    }
 }
