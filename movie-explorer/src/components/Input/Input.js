@@ -14,7 +14,7 @@ function Input({
 }) {
   return (
     <label htmlFor={`${name}-input`}
-           className={`form__label form__label_${form} ${(form === 'edit' && name === "email") ? 'form__label_without-line' : ''} ${form === 'edit' && name === 'password' || form === 'login' && name === 'name' ? 'form__label_hidden' : ''}`}>
+           className={`form__label form__label_${form} ${(form === 'edit' && name === "email") ? 'form__label_without-line' : ''} ${(form === 'edit' && name === 'password') || (form === 'login' && name === 'name') ? 'form__label_hidden' : ''}`}>
       {label}
       <input value={value || ''} onChange={onChange} type={type} name={`${name}Input`}
              id={`${name}-input`}

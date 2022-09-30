@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 
 function Footer() {
   const location = useLocation().pathname;
-  const isLocationHidden = location === '/signin' || location === '/signup' || location === '/profile'
+  const isLocationHidden = location === '/signin' || location === '/signup' || location === '/profile' || location === '/404'
   return (
     <footer className={`footer ${isLocationHidden ? 'footer_hidden' : ''}`}>
       <p className="footer__projectName">Учебный проект Яндекс.Практикум х BeatFilm.</p>

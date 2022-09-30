@@ -4,11 +4,13 @@ import logo from '../../images/logo.svg';
 import { NavLink, useLocation } from 'react-router-dom';
 import Navigation from '../Navigation/Navigation';
 
-function Header({ isAuth, showMenu }) {
+function Header({ showMenu }) {
   const location = useLocation().pathname;
-  const isNavigationHidden = (location === '/signup' || location === '/signin');
+  const isNavigationHidden = (location === '/signup' || location === '/signin' || location === '/404');
+  const isAuth = (location !== '/' )
+  const headerHidden = (location === '/404')
   return (
-    <header className={`header`}>
+    <header className={`header ${headerHidden ? 'header_hidden': ''}`}>
       <nav className={`header__nav ${isNavigationHidden ? 'header__nav_auth' : ''}`}>
         <img className="header__logo" alt="logo" src={logo}/>
         <div onClick={showMenu}

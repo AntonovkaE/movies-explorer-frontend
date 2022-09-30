@@ -5,6 +5,10 @@
     right: 0;
 }
 
+.header_hidden {
+    display: none;
+}
+
 .header__nav {
     display: flex;
     flex-direction: row;
@@ -67,9 +71,11 @@
     }
 
     .header__nav_auth {
-        width: 396px;
+        display: block;
+        min-width: 396px;
+        max-width: 396px;
         margin: 0 auto;
-        padding: 70px 442px 0;
+        padding: 70px 0 0;
         justify-content: left;
     }
 }

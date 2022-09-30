@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../Header/Header';
 import './App.css';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 import Movies from '../Movies/Movies';
@@ -11,6 +11,7 @@ import Login from '../Login/Login';
 import NavigationPopup from '../NavigationPopup/NavigationPopup';
 import movieApi from '../../utils/MoviesApi';
 import SavedMovies from '../SavedMovies/SavedMovies';
+import NotFoundPage from '../NotFoundPage/NotFoundPage';
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -46,6 +47,10 @@ function App() {
           <Route path="/profile" element={<Profile/>}></Route>
           <Route path="/signup" element={<Register/>}></Route>
           <Route path="/signin" element={<Login/>}></Route>
+          <Route path="/404" element={<NotFoundPage/>}></Route>
+          <Route exact path="*"
+                 element={<Navigate replace to="/404"/>}
+          />
         </Routes>
       </main>
       <NavigationPopup onClose={closeMenu} isOpen={isNavigationOpen}/>

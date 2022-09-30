@@ -50,6 +50,14 @@
     text-align: center;
 }
 
+.button_back {
+    background: none;
+    font-size: 12px;
+    line-height: 15px;
+    text-align: center;
+}
+
+
 @media screen and (min-width: 1280px){
     .button_movie {
         margin: 18px auto;
