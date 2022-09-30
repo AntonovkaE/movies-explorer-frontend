@@ -4,7 +4,7 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
 function SavedMovies({ movies }) {
-  const count = 2;
+  const count = 3;
   return (
     <section className="savedMovies">
       <SearchForm/>

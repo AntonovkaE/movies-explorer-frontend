@@ -14,6 +14,7 @@
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
+    padding-bottom: 14px;
 }
 
 .movie__header {
@@ -47,9 +48,16 @@
     height: 168px;
     object-fit: cover;
     object-position: center;
+    margin-bottom: 14px;
 }
 
 @media screen and (min-width: 768px) {
+    .movie__article {
+        padding-bottom: 18px;
+    }
+    .movie__header {
+        padding: 18px;
+    }
     .movie:not(:last-child) {
         margin: 0 auto;
     }
@@ -57,7 +65,7 @@
     .movie__img {
         width: 342px;
         height: 190px;
-
+        margin-bottom: 18px;
     }
 }
 
