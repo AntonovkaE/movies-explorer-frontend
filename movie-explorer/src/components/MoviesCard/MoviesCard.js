@@ -11,7 +11,7 @@ function MovieCard({ movie, buttonText, typeButton }) {
           <p className="movie__duration">{movie.duration} минут</p>
         </div>
         <img className="movie__img" alt="кадр фильма"
-             src={`https://api.nomoreparties.co${movie.image.url}`}/>
+             src={`${movie.image}`}/>
         <Button type="" status="movie" text="Сохранить"></Button>
       </article>
     </li>

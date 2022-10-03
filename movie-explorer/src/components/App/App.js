@@ -27,9 +27,19 @@ function App() {
 
   const getInitialMovies = () => {
     movieApi.getMovies()
-      .then((res) => {
-        setMovies(res)
+      .then(movies => {
+        console.log(movies)
+        setMovies(movies.map(movie => ({
+          name: movie.nameRU,
+          image: `https://api.nomoreparties.co/${movie.image.url}`,
+          trailerLink: movie.trailerLink,
+          duration: movie.duration,
+          id: movie.id,
+        })))
       })
+      // .then((res) => {
+      //   setMovies(res)
+      // })
   }
 
   useEffect(() => {
