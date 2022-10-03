@@ -25,7 +25,7 @@ function Header({ showMenu }) {
             <NavLink className="navigation__link link" to="/signup">Регистрация</NavLink>
           </li>
           <li className="navigation__item navigation__item_black">
-            <NavLink className="navigation__link link" to="/signin">Войти</NavLink>
+            <NavLink className="navigation__link link" to="/signin" >Войти</NavLink>
           </li>
         </ul>
         <Navigation isNavigationHidden={!isAuth || isNavigationHidden} isFullScreen={false}/>

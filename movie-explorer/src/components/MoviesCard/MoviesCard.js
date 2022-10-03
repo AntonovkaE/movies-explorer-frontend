@@ -12,7 +12,7 @@ function MovieCard({ movie, buttonText, typeButton }) {
         </div>
         <img className="movie__img" alt="кадр фильма"
              src={`https://api.nomoreparties.co${movie.image.url}`}/>
-        <Button type={typeButton} status="movie" text={buttonText}></Button>
+        <Button type="" status="movie" text="Сохранить"></Button>
       </article>
     </li>
   );
