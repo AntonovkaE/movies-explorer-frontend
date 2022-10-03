@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../Header/Header';
 import './App.css';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 import Movies from '../Movies/Movies';
@@ -16,7 +16,7 @@ import NotFoundPage from '../NotFoundPage/NotFoundPage';
 function App() {
   const [movies, setMovies] = useState([]);
   const [isNavigationOpen, setIsNavigationOpen] = useState(false);
-
+  let navigate = useNavigate();
   const showMenu = () => {
     setIsNavigationOpen(true);
   };
@@ -28,7 +28,6 @@ function App() {
   const getInitialMovies = () => {
     movieApi.getMovies()
       .then(movies => {
-        console.log(movies)
         setMovies(movies.map(movie => ({
           name: movie.nameRU,
           image: `https://api.nomoreparties.co/${movie.image.url}`,
@@ -37,9 +36,9 @@ function App() {
           id: movie.id,
         })))
       })
-      // .then((res) => {
-      //   setMovies(res)
-      // })
+      .catch((err) => {
+        navigate("/404");
+      })
   }
 
   useEffect(() => {
