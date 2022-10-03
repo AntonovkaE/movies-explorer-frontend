@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../Header/Header';
 import './App.css';
+import Header from '../Header/Header';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
@@ -34,16 +34,16 @@ function App() {
           trailerLink: movie.trailerLink,
           duration: movie.duration,
           id: movie.id,
-        })))
+        })));
       })
       .catch((err) => {
-        navigate("/404");
-      })
-  }
+        navigate('/404');
+      });
+  };
 
   useEffect(() => {
-    getInitialMovies()
-  }, [])
+    getInitialMovies();
+  }, []);
 
   return (
     <>

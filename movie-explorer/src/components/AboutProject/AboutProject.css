@@ -1,147 +1,148 @@
 .aboutProject__paragraph:not(:last-child) {
-    margin: 0 0 56px;
+  margin: 0 0 56px;
 }
 
 .paragraph__heading {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 22px;
-    margin: 0 auto 16px;
-    letter-spacing: -0.04em;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  margin: 0 auto 16px;
+  letter-spacing: -0.04em;
 }
 
 .aboutProject__paragraphs {
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto 60px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto 60px;
 }
 
 .paragraph__text {
-    margin: 0;
+  letter-spacing: 0;
+  margin: 0;
 }
 
 .deadlines {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    text-align: center;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  text-align: center;
 }
 
 .deadlines__item_back {
-    width: 100px;
+  width: 100px;
 }
 
 .deadlines__item_front {
-    flex-grow: 3.5;
-    max-width: inherit;
+  flex-grow: 3.5;
+  max-width: inherit;
 }
 
 .deadlines__heading {
-    padding-bottom: 11px;
-    padding-top: 11px;
-    line-height: 13px;
-    letter-spacing: 0;
+  padding-bottom: 11px;
+  padding-top: 11px;
+  line-height: 13px;
+  letter-spacing: 0;
 }
 
 .deadlines__heading_back {
-    color: #FFFFFF;
-    background-color: #000000;
+  color: #FFFFFF;
+  background-color: #000000;
 }
 
 .deadlines__heading_front {
-    background-color: #F2F2F2;
+  background-color: #F2F2F2;
 }
 
 .deadlines__subheading {
-    color: #A0A0A0;
-    margin: 10px auto 0;
-    line-height: 13px;
-    letter-spacing: 0;
+  color: #A0A0A0;
+  margin: 10px auto 0;
+  line-height: 13px;
+  letter-spacing: 0;
 }
 
 .section__title_aboutProject {
-    margin-bottom: 60px;
+  margin-bottom: 60px;
 }
 
 @media screen and (min-width: 768px) {
-    .section__title_aboutProject::after {
-        margin-bottom: 70px;
-    }
+  .section__title_aboutProject::after {
+    margin-bottom: 70px;
+  }
 
-    .paragraph__heading {
-        font-size: 20px;
-        line-height: 24px;
-        margin: 0 0 22px;
+  .paragraph__heading {
+    font-size: 20px;
+    line-height: 24px;
+    margin: 0 0 22px;
 
-    }
+  }
 
-    .paragraph__text {
-        font-size: 12px;
-        line-height: 18px;
-        letter-spacing: 0;
-    }
+  .paragraph__text {
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0;
+  }
 
-    .aboutProject__paragraphs {
-        flex-direction: row;
-        margin-bottom: 93px;
-    }
+  .aboutProject__paragraphs {
+    flex-direction: row;
+    margin-bottom: 93px;
+  }
 
-    .aboutProject__paragraph {
-        width: calc(50% - 15px);
-    }
+  .aboutProject__paragraph {
+    width: calc(50% - 15px);
+  }
 
-    .aboutProject__paragraph:not(:last-child) {
-        margin: 0 30px 0 0;
-    }
+  .aboutProject__paragraph:not(:last-child) {
+    margin: 0 30px 0 0;
+  }
 
-    .deadlines__item_back {
-        width: 140px;
-    }
+  .deadlines__item_back {
+    width: 140px;
+  }
 
-    .deadlines__heading {
-        font-size: 14px;
-        line-height: 17px;
-        padding: 9px 0;
-    }
+  .deadlines__heading {
+    font-size: 14px;
+    line-height: 17px;
+    padding: 9px 0;
+  }
 
-    .deadlines__subheading {
-        margin: 14px auto 0;
-        font-size: 14px;
-        line-height: 17px;
-    }
+  .deadlines__subheading {
+    margin: 14px auto 0;
+    font-size: 14px;
+    line-height: 17px;
+  }
 }
 
 @media screen and (min-width: 1280px) {
-    .aboutProject {
-        padding: 110px 0;
-    }
+  .aboutProject {
+    padding: 110px 0;
+  }
 
-    .deadlines__item_back {
-        width: 228px;
-    }
+  .deadlines__item_back {
+    width: 228px;
+  }
 
-    .aboutProject__paragraph {
-        width: calc(50% - 20px);
-    }
+  .aboutProject__paragraph {
+    width: calc(50% - 20px);
+  }
 
-    .aboutProject__paragraph:not(:last-child) {
-        margin: 0 40px 0 0;
-    }
+  .aboutProject__paragraph:not(:last-child) {
+    margin: 0 40px 0 0;
+  }
 
-    .paragraph__heading {
-        margin: 0 0 26px;
-    }
+  .paragraph__heading {
+    margin: 0 0 26px;
+  }
 
-    .paragraph__text {
-        font-size: 14px;
-        line-height: 20px;
-    }
+  .paragraph__text {
+    font-size: 14px;
+    line-height: 20px;
+  }
 
-    .aboutProject__paragraphs {
-        margin-bottom: 110px;
-    }
+  .aboutProject__paragraphs {
+    margin-bottom: 110px;
+  }
 }
 
 
