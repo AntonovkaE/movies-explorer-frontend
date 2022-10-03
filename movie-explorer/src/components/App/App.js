@@ -29,7 +29,7 @@ function App() {
     movieApi.getMovies()
       .then(movies => {
         setMovies(movies.map(movie => ({
-          name: movie.nameRU,
+          nameRU: movie.nameRU,
           image: `https://api.nomoreparties.co/${movie.image.url}`,
           trailerLink: movie.trailerLink,
           duration: movie.duration,
