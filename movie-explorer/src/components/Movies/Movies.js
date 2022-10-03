@@ -8,6 +8,8 @@ function Movies({ movies }) {
   const [isMobile, setIsMobile] = useState(false);
   const [isMiddleScreen, setIsMiddleScreen] = useState(false);
 
+  console.log(isMobile, isMiddleScreen)
+
   const handleResize = () => {
     if (window.innerWidth < 768) {
       setIsMobile(true);

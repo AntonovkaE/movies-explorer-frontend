@@ -36,8 +36,9 @@
 }
 
 .button_showMore {
+  margin: 50px 10px 80px;
   padding: 11px 50px 9px;
-  width: 100%;
+  width: calc(100% - 20px);
   background: #F9F9F9;
   border-radius: 6px;
 }
@@ -59,6 +60,12 @@
   text-align: center;
 }
 
+@media screen and (min-width: 768px) {
+  .button_showMore {
+    width: calc(100% - 60px);
+    margin: 50px 30px 80px;
+  }
+}
 
 @media screen and (min-width: 1280px) {
   /*.button_movie {*/
