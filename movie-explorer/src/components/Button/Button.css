@@ -9,7 +9,10 @@
   justify-self: center;
   margin: 0 auto;
   background: #F9F9F9;
+}
 
+.button_hidden {
+  display: none;
 }
 
 .button_movieSaved {

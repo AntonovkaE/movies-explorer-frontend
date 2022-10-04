@@ -8,6 +8,7 @@ import Preloader from '../Preloader/Preloader';
 function Movies({ movies, onSubmitSearch, isPreloaderHidden }) {
   const [movieCount, setMovieCount] = useState(5);
   const [additionalCount, setAdditionalCount] = useState(2);
+  const [isButtonHidden, setIsButtonHidden] = useState(false);
   const handleResize = () => {
     if (window.innerWidth < 768) {
       setMovieCount(5);
@@ -22,8 +23,16 @@ function Movies({ movies, onSubmitSearch, isPreloaderHidden }) {
   };
 
   const showMoreMovies = () => {
-    setMovieCount(movieCount + additionalCount);
+    if ((movieCount + additionalCount) >= movies.length) {
+      setMovieCount(movies.length);
+      setIsButtonHidden(true);
+    } else {
+      setMovieCount(movieCount + additionalCount);
+    }
   };
+
+  console.log(movieCount)
+  console.log(movies.length)
 
   useEffect(() => {
     window.addEventListener('resize', () => setTimeout(handleResize, 10000));
@@ -34,7 +43,8 @@ function Movies({ movies, onSubmitSearch, isPreloaderHidden }) {
       <Preloader isHidden={true}/>
       <SearchForm onSubmit={onSubmitSearch}/>
       <MoviesCardList cardButton="success" buttonCardText="" count={movieCount} movies={movies}/>
-      <Button onclick={showMoreMovies} text="Ещё" status="showMore" type="button"/>
+      <Button isHidden={isButtonHidden} onclick={showMoreMovies} text="Ещё" status="showMore"
+              type="button"/>
     </>);
 }
 
