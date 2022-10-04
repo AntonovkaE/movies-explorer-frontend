@@ -1,6 +1,7 @@
 import React from 'react';
 import './AboutMe.css';
 import avatar from '../../images/IMG_7838.jpeg';
+import Portfolio from '../Portfolio/Portfolio';
 
 function AboutMe() {
   return (<section className="aboutMe section">
@@ -22,41 +23,9 @@ function AboutMe() {
             курс по веб-разработке, начал заниматься фриланс-заказами и ушёл с постоянной
             работы.
           </p>
-          <a href="https://github.com/AntonovkaE" className="link aboutMe__gitHub">GitHub</a>
+          <a target="_blank" href="https://github.com/AntonovkaE" className="link aboutMe__gitHub" rel="noreferrer">GitHub</a>
         </div>
-        <ul aria-label="Портфолио" className="list portfolio-list">
-          <li className="portfolio-list__item">
-            <a
-              className="link portfolio-list__link"
-              href="https://github.com/AntonovkaE/how-to-learn"
-            >
-              Статичный
-              сайт
-              <div className="portfolio-list__icon">↗</div>
-            </a>
-          </li>
-          <li className="portfolio-list__item">
-            <a
-              className="link portfolio-list__link"
-              href="https://antonovkae.github.io/russian-travel/index.html"
-            >
-              Адаптивный
-              сайт
-              <div className="portfolio-list__icon">↗</div>
-            </a>
-
-          </li>
-          <li className="portfolio-list__item">
-            <a
-              className="link portfolio-list__link"
-              href="https://github.com/AntonovkaE/react-mesto-api-full"
-            >
-              Одностраничное
-              приложение
-              <div className="portfolio-list__icon">↗</div>
-            </a>
-          </li>
-        </ul>
+        <Portfolio/>
       </div>
     </div>
   </section>);

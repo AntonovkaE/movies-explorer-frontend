@@ -12,7 +12,7 @@ function MovieCard({ movie, buttonText, typeButton }) {
         </div>
         <img className="movie__img" alt="кадр фильма"
              src={`${movie.image}`}/>
-        <Button type="" status="movie" text="Сохранить"></Button>
+        <Button type="button" status="movie" text="Сохранить"></Button>
       </article>
     </li>
   );

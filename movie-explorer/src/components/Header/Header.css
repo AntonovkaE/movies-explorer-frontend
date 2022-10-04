@@ -14,7 +14,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 18px 23px 18px 14px;
+  padding: 18px 14px 18px 14px;
 }
 
 .header__nav_auth {
@@ -24,6 +24,10 @@
 
 .header__burger_hidden {
   display: none;
+}
+
+.header__burger {
+  padding-right: 9px;
 }
 
 .burger__line {

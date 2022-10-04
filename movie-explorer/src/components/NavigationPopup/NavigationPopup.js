@@ -8,7 +8,7 @@ function NavigationPopup({ onClose, isOpen }) {
       <button onClick={onClose} className="navigationPopup__close"></button>
       <Navigation isNavigationHidden={false} isFullScreen={true} onClose={onClose}/>
     </div>
-  )
+  );
 }
 
 export default NavigationPopup;

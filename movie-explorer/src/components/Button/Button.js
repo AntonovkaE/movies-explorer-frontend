@@ -1,8 +1,8 @@
 import React from 'react';
 import './Button.css';
 
-function Button({ status="", type="", text=''}) {
-  return (<button type="submit" className={`button button_${type} button_${status}`}>
+function Button({ status = '', type = 'button', text = '' }) {
+  return (<button type={`${type}`} className={`button button_${status}`}>
     {text}
   </button>);
 }

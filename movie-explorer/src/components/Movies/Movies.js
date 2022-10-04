@@ -30,7 +30,7 @@ function Movies({ movies, onSubmitSearch, isPreloaderHidden }) {
       <Preloader isHidden={true}/>
       <SearchForm onSubmit={onSubmitSearch}/>
       <MoviesCardList cardButton="success" buttonCardText="" count={movieCount} movies={movies}/>
-      <Button text="Ещё" status type="showMore"/>
+      <Button text="Ещё" status="showMore" type="button"/>
     </>);
 }
 

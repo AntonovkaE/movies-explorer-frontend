@@ -9,24 +9,21 @@ function Navigation({ isNavigationHidden, isFullScreen, onClose = () => {} }) {
     <li
       className={`navigation__item ${!isFullScreen ? 'navigation__item_hidden' : 'navigation__item_fullScreen'}`}>
       <NavLink onClick={onClose}
-               target="_blank"
                className="navigation__link link"
                to="/">Главная</NavLink></li>
     <li className={`navigation__item ${isFullScreen ? 'navigation__item_fullScreen' : ''}`}>
       <NavLink
-        target="_blank"
         onClick={onClose} className="navigation__link link"
         to="/movies">Фильмы
       </NavLink>
     </li>
     <li className={`navigation__item ${isFullScreen ? 'navigation__item_fullScreen' : ''}`}>
-      <NavLink
-        target="_blank" onClick={onClose} className="navigation__link link" to="/saved-movies">Сохранённые
+      <NavLink onClick={onClose} className="navigation__link link" to="/saved-movies">Сохранённые
         фильмы</NavLink>
     </li>
     <li
       className={`navigation__item navigation__item_account ${isFullScreen ? 'navigation__item_fullScreen navigation__item_down' : ''}`}>
-      <NavLink target="_blank"
+      <NavLink
                onClick={onClose}
                className={`link navigation__link ${isFullScreen ? 'navigation__link_fullScreen' : ''}`}
                to="/profile">Аккаунт

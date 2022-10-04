@@ -18,7 +18,6 @@ function SearchForm({onSubmit}) {
       <form onSubmit={handleSubmit} className="searchForm__form" name="searchForm">
         <input onChange={handleChange} value={searchInput} className="searchForm__input" placeholder="Фильм"></input>
         <Button type="submit" status="search" text="Найти"/>
-        {/*<button className="button button_submit button_search" type="submit">Найти</button>*/}
         <FilterCheckbox/>
       </form>
     </section>);
