@@ -16,7 +16,7 @@ function SearchForm({onSubmit}) {
   return (
     <section className="section searchForm">
       <form onSubmit={handleSubmit} className="searchForm__form" name="searchForm">
-        <input onChange={handleChange} value={searchInput} className="searchForm__input" placeholder="Фильм"></input>
+        <input onChange={handleChange} value={searchInput} className="searchForm__input" placeholder="Фильм" required></input>
         <Button type="submit" status="search" text="Найти"/>
         <FilterCheckbox/>
       </form>
