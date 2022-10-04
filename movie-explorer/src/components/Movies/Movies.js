@@ -6,31 +6,44 @@ import Button from '../Button/Button';
 import Preloader from '../Preloader/Preloader';
 
 function Movies({ movies, onSubmitSearch, isPreloaderHidden }) {
-  const [isMobile, setIsMobile] = useState(false);
-  const [isMiddleScreen, setIsMiddleScreen] = useState(false);
+  const [movieCount, setMovieCount] = useState(5);
+  const [additionalCount, setAdditionalCount] = useState(2)
+  // const [isMobile, setIsMobile] = useState(false);
+  // const [isMiddleScreen, setIsMiddleScreen] = useState(false);
   const handleResize = () => {
     if (window.innerWidth < 768) {
-      setIsMobile(true);
+      // setIsMobile(true);
+      setMovieCount(5);
+      setAdditionalCount(2)
     } else if (window.innerWidth < 1280) {
-      setIsMobile(false);
-      setIsMiddleScreen(true);
+      setMovieCount(8)
+      // setIsMobile(false);
+      // setIsMiddleScreen(true);
+      setAdditionalCount(2)
     } else {
-      setIsMobile(false);
-      setIsMiddleScreen(false);
+      setMovieCount(12)
+      // setIsMobile(false);
+      // setIsMiddleScreen(false);
+      setAdditionalCount(3)
     }
+  };
+  console.log(movies.length)
+
+  const showMoreMovies = () => {
+    setMovieCount(movieCount + additionalCount);
   };
 
   useEffect(() => {
     window.addEventListener('resize', handleResize);
   }, []);
-  const movieCount = isMobile ? 5 : isMiddleScreen ? 8 : 12;
+  // setMovieCount(isMobile ? 5 : isMiddleScreen ? 8 : 12);
 
   return (
     <>
       <Preloader isHidden={true}/>
       <SearchForm onSubmit={onSubmitSearch}/>
       <MoviesCardList cardButton="success" buttonCardText="" count={movieCount} movies={movies}/>
-      <Button text="Ещё" status="showMore" type="button"/>
+      <Button onclick={showMoreMovies} text="Ещё" status="showMore" type="button"/>
     </>);
 }
 

@@ -48,26 +48,12 @@ function App() {
   }, []);
 
   const handleSearch = (value) => {
-    movieApi.getMovies()
-      .then(movies => {
-
-        setMovies(movies.map(movie => ({
-          nameRU: movie.nameRU,
-          image: `https://api.nomoreparties.co/${movie.image.url}`,
-          trailerLink: movie.trailerLink,
-          duration: movie.duration,
-          id: movie.id,
-        })));
-      })
-      .catch((err) => {
-        navigate('/404');
-      });
     setFoundMovies(movies.filter((item) => {
-      let re = new RegExp(`${value}`, 'gi');
-      return (item.nameRU.search(re) !== -1);
+      let search = new RegExp(`${value}`, 'gi');
+      return (item.nameRU.search(search) !== -1);
     }));
+    localStorage.setItem('foundMovies', JSON.stringify(foundMovies))
   };
-
   return (
     <>
       <Header isAuth={true} showMenu={showMenu} onClose={closeMenu} isOpen={isNavigationOpen}/>
@@ -75,7 +61,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Main/>}></Route>
           <Route path="/movies"
-                 element={<Movies movies={movies} onSubmitSearch={handleSearch}/>}></Route>
+                 element={<Movies movies={foundMovies} onSubmitSearch={handleSearch}/>}></Route>
           <Route path="/saved-movies" element={<SavedMovies movies={movies}/>}></Route>
           <Route path="/profile" element={<Profile/>}></Route>
           <Route path="/signup" element={<Register/>}></Route>
