@@ -7,36 +7,27 @@ import Preloader from '../Preloader/Preloader';
 
 function Movies({ movies, onSubmitSearch, isPreloaderHidden }) {
   const [movieCount, setMovieCount] = useState(5);
-  const [additionalCount, setAdditionalCount] = useState(2)
-  // const [isMobile, setIsMobile] = useState(false);
-  // const [isMiddleScreen, setIsMiddleScreen] = useState(false);
+  const [additionalCount, setAdditionalCount] = useState(2);
   const handleResize = () => {
     if (window.innerWidth < 768) {
-      // setIsMobile(true);
       setMovieCount(5);
-      setAdditionalCount(2)
+      setAdditionalCount(2);
     } else if (window.innerWidth < 1280) {
-      setMovieCount(8)
-      // setIsMobile(false);
-      // setIsMiddleScreen(true);
-      setAdditionalCount(2)
+      setMovieCount(8);
+      setAdditionalCount(2);
     } else {
-      setMovieCount(12)
-      // setIsMobile(false);
-      // setIsMiddleScreen(false);
-      setAdditionalCount(3)
+      setMovieCount(12);
+      setAdditionalCount(3);
     }
   };
-  console.log(movies.length)
 
   const showMoreMovies = () => {
     setMovieCount(movieCount + additionalCount);
   };
 
   useEffect(() => {
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', () => setTimeout(handleResize, 10000));
   }, []);
-  // setMovieCount(isMobile ? 5 : isMiddleScreen ? 8 : 12);
 
   return (
     <>
