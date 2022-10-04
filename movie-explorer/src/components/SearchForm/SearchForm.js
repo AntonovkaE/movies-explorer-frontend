@@ -4,10 +4,10 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import Button from '../Button/Button';
 
 function SearchForm({onSubmit}) {
-  const [searchInput, setSearchInput] = useState('')
+  const [searchInput, setSearchInput] = useState(localStorage.searchInput || '')
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(searchInput)
+    onSubmit(searchInput);
   }
 
   const handleChange = (e) => {

@@ -45,6 +45,7 @@ function App() {
 
   useEffect(() => {
     getInitialMovies();
+    setFoundMovies(JSON.parse(localStorage.foundMovies))
   }, []);
 
   const handleSearch = (value) => {
@@ -52,7 +53,8 @@ function App() {
       let search = new RegExp(`${value}`, 'gi');
       return (item.nameRU.search(search) !== -1);
     }));
-    localStorage.setItem('foundMovies', JSON.stringify(foundMovies))
+    localStorage.setItem('foundMovies', JSON.stringify(foundMovies));
+    localStorage.setItem('searchInput', value);
   };
   return (
     <>

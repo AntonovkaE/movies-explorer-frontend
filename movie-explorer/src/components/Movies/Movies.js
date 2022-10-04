@@ -31,9 +31,6 @@ function Movies({ movies, onSubmitSearch, isPreloaderHidden }) {
     }
   };
 
-  console.log(movieCount)
-  console.log(movies.length)
-
   useEffect(() => {
     window.addEventListener('resize', () => setTimeout(handleResize, 10000));
   }, []);
