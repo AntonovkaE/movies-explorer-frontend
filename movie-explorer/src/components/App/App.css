@@ -1,0 +1,50 @@
+.list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.link {
+    text-decoration: none;
+    color: inherit;
+    letter-spacing: -0.04em;
+}
+
+.link:hover {
+    opacity: 0.7;
+    transition: opacity 1s;
+}
+
+.link_back {
+    font-size: 12px;
+    line-height: 15px;
+    letter-spacing: 0;
+    text-align: center;
+}
+.main {
+    font-family: inter, Arial, sans-serif;
+    font-weight: 400;
+}
+
+.hidden {
+    display: none;
+}
+
+body {
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 16px;
+    letter-spacing: -0.04em;
+}
+
+.button {
+    border: none;
+}
+
+.button:hover {
+    opacity: 0.7;
+    transition: opacity 1s;
+    box-shadow: 0 0 1px 1px #A0A0A0;
+}

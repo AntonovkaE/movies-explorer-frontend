@@ -1,0 +1,138 @@
+.navigation {
+  color: #000000;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 16px;
+  letter-spacing: 0;
+}
+
+.navigation_hidden {
+  display: none;
+}
+
+.navigation__item:not(:last-child) {
+  margin-right: 14px;
+}
+
+.navigation__item_fullScreen:not(:last-child) {
+  margin: 0;
+}
+
+.navigation__link {
+  position: relative;
+  letter-spacing: 0;
+}
+
+.navigation__link_fullScreen {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.navigation__item_hidden {
+  display: none;
+}
+
+.navigation__item_down {
+  margin: auto auto 0;
+  box-sizing: border-box;
+}
+
+.navigation__accountImg {
+  object-fit: contain;
+  background: #F9F9F9;
+  width: 26px;
+  height: 30px;
+  margin-left: 17px;
+  padding: 8px 7.25px;
+  box-sizing: border-box;
+}
+
+.navigation_fullScreen .active::after {
+  margin-top: 7px;
+  content: '';
+  display: block;
+  width: 100%;
+  border-bottom: 2px solid #000000;
+  position: absolute;
+}
+
+.navigation__item_account {
+  display: flex;
+  height: 30px;
+  align-items: center;
+}
+
+.navigation__item_black {
+  padding: 5px 12px;
+  border-radius: 3px;
+  color: #FFFFFF;
+  background-color: #000000;
+}
+
+.navigation_auth {
+  display: none;
+}
+
+.navigation_notAuth {
+  display: flex;
+}
+
+.navigation_fullScreen {
+  width: 100%;
+  min-height: 75vh;
+  max-height: 780px;
+  display: flex;
+  flex-direction: column;
+  padding: 0 0 48px;
+  gap: 24px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+}
+
+@media screen and (min-width: 1280px) {
+  .navigation_auth {
+    display: flex;
+    align-items: center;
+  }
+
+  .navigation__item {
+    font-size: 14px;
+    line-height: 30px;
+  }
+
+  .navigation__link {
+    height: auto;
+    letter-spacing: 0;
+  }
+
+  .navigation__item_black {
+    padding: 8px 20px;
+  }
+
+  .navigation__item:not(:last-child) {
+    margin-right: 20px;
+  }
+
+  .navigation__item:last-child {
+    margin-left: 10px;
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .navigation__item_account:last-child {
+    font-size: 14px;
+    line-height: 16px;
+    margin-left: 30px;
+    display: flex;
+    height: 30px;
+  }
+}
+
