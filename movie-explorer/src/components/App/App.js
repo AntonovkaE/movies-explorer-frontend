@@ -14,13 +14,17 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import notFoundImage from '../../images/IMG_7838.jpeg';
 import mainApi from '../../utils/MainApi';
+import * as auth from '../utils/auth.js';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function App() {
   const [movies, setMovies] = useState([]);
   const [foundMovies, setFoundMovies] = useState([]);
   const [isNavigationOpen, setIsNavigationOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  let navigate = useNavigate();
+  const [currentUser, setCurrentUser] = useState({})
+
+  const navigate = useNavigate();
   const showMenu = () => {
     setIsNavigationOpen(true);
   };
@@ -59,6 +63,22 @@ function App() {
     }
   }, []);
 
+  const handleSignUpSubmit = (name, password, email) => {
+    auth.register({ name, password, email })
+      .catch(err => console.log(err));
+  };
+  const handleSignInSubmit = (email, password) => {
+    // setUserEmail(email)
+    // setLoggedIn(true)
+    auth.login(password, email)
+      .then(data => {
+        if (data.token) {
+          navigate('/');
+        }
+      })
+      .catch(err => console.log(err));
+  };
+
   const handleSearch = (value) => {
     setFoundMovies(movies.filter((item) => {
       let search = new RegExp(`${value}`, 'gi');
@@ -68,12 +88,12 @@ function App() {
   };
 
   const handleSaveMovie = (movie) => {
-    console.log("сохранит")
+    console.log('сохранит');
     mainApi.saveMovie(movie)
       .catch(err => console.log(err));
   };
   return (
-    <>
+    <CurrentUserContext.Provider value={currentUser}>
       <Header isAuth={true} showMenu={showMenu} onClose={closeMenu} isOpen={isNavigationOpen}/>
       <main>
         <Routes>
@@ -93,7 +113,7 @@ function App() {
       </main>
       <NavigationPopup onClose={closeMenu} isOpen={isNavigationOpen}/>
       <Footer/>
-    </>
+    </CurrentUserContext.Provider>
   );
 }
 
