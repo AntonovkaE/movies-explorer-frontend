@@ -45,7 +45,9 @@ function App() {
 
   useEffect(() => {
     getInitialMovies();
-    setFoundMovies(JSON.parse(localStorage.foundMovies))
+    if (localStorage.foundMovies) {
+      setFoundMovies(JSON.parse(localStorage.foundMovies))
+    }
   }, []);
 
   const handleSearch = (value) => {
