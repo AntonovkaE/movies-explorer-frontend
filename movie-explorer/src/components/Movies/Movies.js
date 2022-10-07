@@ -9,6 +9,17 @@ function Movies({ movies, onSubmitSearch, isPreloaderHidden }) {
   const [movieCount, setMovieCount] = useState(5);
   const [additionalCount, setAdditionalCount] = useState(2);
   const [isButtonHidden, setIsButtonHidden] = useState(false);
+  if (movies.length) {
+    localStorage.setItem('foundMovies', JSON.stringify(movies));
+  }
+
+  // console.log(localStorage.foundMovies)
+  useEffect(() => {
+
+  }, [])
+  // console.log(movies)
+  // console.log(localStorage.foundMovies)
+
   const handleResize = () => {
     if (window.innerWidth < 768) {
       setMovieCount(5);

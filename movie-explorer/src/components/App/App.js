@@ -12,6 +12,7 @@ import NavigationPopup from '../NavigationPopup/NavigationPopup';
 import movieApi from '../../utils/MoviesApi';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
+import notFoundImage from '../../images/IMG_7838.jpeg'
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -31,10 +32,10 @@ function App() {
     movieApi.getMovies()
       .then(movies => {
         setMovies(movies.map(movie => ({
-          nameRU: movie.nameRU,
-          image: `https://api.nomoreparties.co/${movie.image.url}`,
-          trailerLink: movie.trailerLink,
-          duration: movie.duration,
+          nameRU: movie.nameRU || movie.nameEN || '',
+          image: `${movie.image.url ? `https://api.nomoreparties.co/${movie.image.url}` : notFoundImage }`,
+          trailerLink: movie.trailerLink || '',
+          duration: movie.duration || '',
           id: movie.id,
         })));
       })
@@ -46,6 +47,7 @@ function App() {
   useEffect(() => {
     getInitialMovies();
     if (localStorage.foundMovies) {
+      // console.log(localStorage.foundMovies)
       setFoundMovies(JSON.parse(localStorage.foundMovies))
     }
   }, []);
@@ -55,7 +57,6 @@ function App() {
       let search = new RegExp(`${value}`, 'gi');
       return (item.nameRU.search(search) !== -1);
     }));
-    localStorage.setItem('foundMovies', JSON.stringify(foundMovies));
     localStorage.setItem('searchInput', value);
   };
   return (
