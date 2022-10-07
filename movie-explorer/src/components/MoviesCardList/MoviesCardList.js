@@ -3,9 +3,6 @@ import './MoviesCardList.css';
 import MovieCard from '../MoviesCard/MoviesCard';
 
 function MovieCardList({ count, movies, buttonCardText, cardButton }) {
-  // useEffect(() => {
-  // }, [count])
-
   return (
     <section className="section movieSection" aria-label="Фильмы">
       <ul className="list movies">

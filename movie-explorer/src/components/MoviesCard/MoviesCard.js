@@ -3,6 +3,9 @@ import './MoviesCard.css';
 import Button from '../Button/Button';
 
 function MovieCard({ movie, buttonText, typeButton }) {
+  const handleSaveMovie = () => {
+  //  обращение к апи
+  }
   return (
     <li className="movie">
       <article className="movie__article">
@@ -12,7 +15,7 @@ function MovieCard({ movie, buttonText, typeButton }) {
         </div>
         <img className="movie__img" alt="кадр фильма"
              src={`${movie.image}`}/>
-        <Button type="button" status="movie" text="Сохранить"></Button>
+        <Button onclick={handleSaveMovie} type="button" status="movie" text="Сохранить"></Button>
       </article>
     </li>
   );
