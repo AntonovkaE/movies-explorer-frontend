@@ -12,7 +12,8 @@ import NavigationPopup from '../NavigationPopup/NavigationPopup';
 import movieApi from '../../utils/MoviesApi';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
-import notFoundImage from '../../images/IMG_7838.jpeg'
+import notFoundImage from '../../images/IMG_7838.jpeg';
+import mainApi from '../../utils/MainApi';
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -33,10 +34,16 @@ function App() {
       .then(movies => {
         setMovies(movies.map(movie => ({
           nameRU: movie.nameRU || movie.nameEN || '',
-          image: `${movie.image.url ? `https://api.nomoreparties.co/${movie.image.url}` : notFoundImage }`,
+          image: `${movie.image.url ? `https://api.nomoreparties.co/${movie.image.url}` : notFoundImage}`,
           trailerLink: movie.trailerLink || '',
           duration: movie.duration || '',
-          id: movie.id,
+          movieId: movie.id,
+          country: movie.country || '',
+          director: movie.director || '',
+          year: movie.year || '',
+          nameEN: movie.nameEN || '',
+          thumbnail: `${movie.thumbnail ? `https://api.nomoreparties.co/${movie.thumbnail}` : notFoundImage}`,
+          owner: '63405e0295b5c505f118beb0',
         })));
       })
       .catch((err) => {
@@ -48,7 +55,7 @@ function App() {
     getInitialMovies();
     if (localStorage.foundMovies) {
       // console.log(localStorage.foundMovies)
-      setFoundMovies(JSON.parse(localStorage.foundMovies))
+      setFoundMovies(JSON.parse(localStorage.foundMovies));
     }
   }, []);
 
@@ -59,6 +66,12 @@ function App() {
     }));
     localStorage.setItem('searchInput', value);
   };
+
+  const handleSaveMovie = (movie) => {
+    console.log("сохранит")
+    mainApi.saveMovie(movie)
+      .catch(err => console.log(err));
+  };
   return (
     <>
       <Header isAuth={true} showMenu={showMenu} onClose={closeMenu} isOpen={isNavigationOpen}/>
@@ -66,7 +79,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Main/>}></Route>
           <Route path="/movies"
-                 element={<Movies movies={foundMovies} onSubmitSearch={handleSearch}/>}></Route>
+                 element={<Movies movies={foundMovies} onSubmitSearch={handleSearch}
+                                  saveMovie={handleSaveMovie}/>}></Route>
           <Route path="/saved-movies" element={<SavedMovies movies={movies}/>}></Route>
           <Route path="/profile" element={<Profile/>}></Route>
           <Route path="/signup" element={<Register/>}></Route>
