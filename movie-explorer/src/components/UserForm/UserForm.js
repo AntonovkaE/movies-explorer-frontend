@@ -1,12 +1,16 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import { Link } from 'react-router-dom';
 import './UserForm.css';
 import Input from '../Input/Input';
 import Button from '../Button/Button';
-
+import { FormWithValidation } from '../FormWithValidation/FormWithValidation';
+import { validate } from '../FormWithValidation/FormWithValidation';
+import useForm from '../../utils/useForm';
 function UserForm({
   name, title, spanText, buttonText, linkText, link,
 }) {
+  const {values, errors, handleChange, handleSubmit} = useForm(() => {console.log('ok')}, validate)
+
   return (
     <form className={`form form_${name}`}>
       <h2 className={`form__heading form__heading_${name}`}>{title}</h2>

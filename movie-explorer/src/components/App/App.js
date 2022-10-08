@@ -14,7 +14,7 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import notFoundImage from '../../images/IMG_7838.jpeg';
 import mainApi from '../../utils/MainApi';
-import * as auth from '../utils/auth.js';
+import * as auth from '../../utils/auth.js';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function App() {
@@ -22,7 +22,7 @@ function App() {
   const [foundMovies, setFoundMovies] = useState([]);
   const [isNavigationOpen, setIsNavigationOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [currentUser, setCurrentUser] = useState({})
+  const [currentUser, setCurrentUser] = useState({});
 
   const navigate = useNavigate();
   const showMenu = () => {
@@ -36,31 +36,30 @@ function App() {
   const getInitialMovies = () => {
     movieApi.getMovies()
       .then(movies => {
-        setMovies(movies.map(movie => ({
-          nameRU: movie.nameRU || movie.nameEN || '',
-          image: `${movie.image.url ? `https://api.nomoreparties.co/${movie.image.url}` : notFoundImage}`,
-          trailerLink: movie.trailerLink || '',
-          duration: movie.duration || '',
-          movieId: movie.id,
-          country: movie.country || '',
-          director: movie.director || '',
-          year: movie.year || '',
-          nameEN: movie.nameEN || '',
-          thumbnail: `${movie.thumbnail ? `https://api.nomoreparties.co/${movie.thumbnail}` : notFoundImage}`,
-          owner: '63405e0295b5c505f118beb0',
-        })));
-      })
+          setMovies(movies.map(movie => ({
+            nameRU: movie.nameRU || movie.nameEN || '',
+            image: `${movie.image.url ? `https://api.nomoreparties.co/${movie.image.url}` : notFoundImage}`,
+            trailerLink: movie.trailerLink || '',
+            duration: movie.duration || '',
+            movieId: movie.id,
+            country: movie.country || '',
+            director: movie.director || '',
+            year: movie.year || '',
+            nameEN: movie.nameEN || '',
+            thumbnail: `${movie.thumbnail ? `https://api.nomoreparties.co/${movie.thumbnail}` : notFoundImage}`,
+            owner: '63405e0295b5c505f118beb0',
+          })));
+          return movies;
+        },
+      )
       .catch((err) => {
         navigate('/404');
       });
   };
 
   useEffect(() => {
-    getInitialMovies();
-    if (localStorage.foundMovies) {
-      // console.log(localStorage.foundMovies)
-      setFoundMovies(JSON.parse(localStorage.foundMovies));
-    }
+    getInitialMovies()
+    setFoundMovies(JSON.parse(localStorage.foundMovies))
   }, []);
 
   const handleSignUpSubmit = (name, password, email) => {
@@ -68,8 +67,6 @@ function App() {
       .catch(err => console.log(err));
   };
   const handleSignInSubmit = (email, password) => {
-    // setUserEmail(email)
-    // setLoggedIn(true)
     auth.login(password, email)
       .then(data => {
         if (data.token) {
@@ -88,10 +85,10 @@ function App() {
   };
 
   const handleSaveMovie = (movie) => {
-    console.log('сохранит');
     mainApi.saveMovie(movie)
       .catch(err => console.log(err));
   };
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Header isAuth={true} showMenu={showMenu} onClose={closeMenu} isOpen={isNavigationOpen}/>
