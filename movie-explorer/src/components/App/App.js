@@ -23,6 +23,7 @@ function App() {
   const [isNavigationOpen, setIsNavigationOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   const navigate = useNavigate();
   const showMenu = () => {
@@ -32,7 +33,6 @@ function App() {
   const closeMenu = () => {
     setIsNavigationOpen(false);
   };
-
   const getInitialMovies = () => {
     movieApi.getMovies()
       .then(movies => {
@@ -58,13 +58,19 @@ function App() {
   };
 
   useEffect(() => {
-    getInitialMovies()
-    setFoundMovies(JSON.parse(localStorage.foundMovies))
+    getInitialMovies();
+    if (localStorage.foundMovies) {
+      setFoundMovies(JSON.parse(localStorage.foundMovies));
+    }
   }, []);
 
   const handleSignUpSubmit = (name, password, email) => {
+    console.log({ name, password, email })
     auth.register({ name, password, email })
-      .catch(err => console.log(err));
+      .then((res) => {
+        navigate('/signin')
+      })
+      .catch(err => navigate('/404'));
   };
   const handleSignInSubmit = (email, password) => {
     auth.login(password, email)
@@ -99,9 +105,9 @@ function App() {
                  element={<Movies movies={foundMovies} onSubmitSearch={handleSearch}
                                   saveMovie={handleSaveMovie}/>}></Route>
           <Route path="/saved-movies" element={<SavedMovies movies={movies}/>}></Route>
-          <Route path="/profile" element={<Profile/>}></Route>
-          <Route path="/signup" element={<Register/>}></Route>
-          <Route path="/signin" element={<Login/>}></Route>
+          <Route path="/profile" element={<Profile currentUser={currentUser}/>}></Route>
+          <Route path="/signup" element={<Register onRegistration={handleSignUpSubmit} currentUser={currentUser}/>}></Route>
+          <Route path="/signin" element={<Login currentUser={currentUser}/>}></Route>
           <Route path="/404" element={<NotFoundPage/>}></Route>
           <Route exact path="*"
                  element={<Navigate replace to="/404"/>}

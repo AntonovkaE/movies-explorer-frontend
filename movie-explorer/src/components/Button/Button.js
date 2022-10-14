@@ -7,8 +7,9 @@ function Button({
   text = '',
   onclick = () => {},
   isHidden = false,
+  isDisable = false
 }) {
-  return (<button onClick={onclick} type={type}
+  return (<button onClick={onclick} type={type} disabled={isDisable}
                   className={`button button_${status} ${isHidden ? "button_hidden" : ""}`}>
     {text}
   </button>);
