@@ -33,13 +33,14 @@ class MainApi {
       headers: this._headers,
     }).then((res) => this._checkPromise(res));
   }
-  getUser() {
+  getUserData() {
+    console.log(this._headers)
     return fetch(`${this._baseUrl}users/me`, {
       method: 'GET',
       headers: this._headers,
     }).then((res) => this._checkPromise(res));
   }
-  updateUser() {
+  updateUserData() {
     return fetch(`${this._baseUrl}users/me`, {
       method: 'GET',
       headers: this._headers,
@@ -51,6 +52,7 @@ const mainApi = new MainApi({
   baseUrl: 'https://api.movie.antonovskaya.nomoredomains.sbs/',
   headers: {
     'Content-Type': 'application/json',
+    "Authorization": `Bearer ${localStorage.jwt}`
   },
 });
 

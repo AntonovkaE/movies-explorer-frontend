@@ -12,11 +12,9 @@ function Register({ currentUser, onRegistration }) {
     formState: { errors, isValid },
   } = useForm({ mode: 'onBlur' });
 
-  const handleRegistration = (e) => {
-    e.preventDefault()
-    console.log(values.name, values.email, values.password)
+  const handleRegistration = () => {
     onRegistration(values.name, values.email, values.password);
-    // reset();
+    reset();
   };
 
   const handleChangeInput = (event) => {
@@ -24,7 +22,7 @@ function Register({ currentUser, onRegistration }) {
   };
 
   return (<section className="section section_withForm register">
-    <UserForm handleSubmit={handleSubmit(handleRegistration)} formName="register"
+    <UserForm onSubmit={handleSubmit(handleRegistration)} formName="register"
               title="Добро пожаловать!"
               spanText="Уже зарегистрированы?" link="/signin" linkText="Войти"
               buttonText="Зарегистрироваться"

@@ -64,11 +64,11 @@ function App() {
     }
   }, []);
 
-  const handleSignUpSubmit = (name, password, email) => {
+  const handleSignUpSubmit = (name, email, password) => {
     console.log({ name, password, email })
     auth.register({ name, password, email })
       .then((res) => {
-        navigate('/signin')
+        handleSignInSubmit(email, password)
       })
       .catch(err => navigate('/404'));
   };
@@ -76,7 +76,8 @@ function App() {
     auth.login(password, email)
       .then(data => {
         if (data.token) {
-          navigate('/');
+          setCurrentUser()
+          navigate('/movies');
         }
       })
       .catch(err => console.log(err));
@@ -95,6 +96,39 @@ function App() {
       .catch(err => console.log(err));
   };
 
+  const handleUpdateUserData = (name, email) => {
+    mainApi.updateUserData({ name, email })
+      .then((res) => {
+        setCurrentUser(res)
+      }).catch((res) => {
+        console.log(res)
+    })
+  };
+
+  const handleTokenCheck = () => {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      auth.getContent(jwt)
+        .then(res => {
+          if (res) {
+            setIsLoggedIn(true)
+            navigate('/movies')
+          }
+        })
+        .catch(res => console.log(res))
+    }
+  }
+
+  useEffect(() => {
+    handleTokenCheck()
+    mainApi.getUserData()
+      .then(res => {
+        setCurrentUser(res)
+      })
+      .catch(res => console.log(res));
+  }, [])
+
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Header isAuth={true} showMenu={showMenu} onClose={closeMenu} isOpen={isNavigationOpen}/>
@@ -105,9 +139,9 @@ function App() {
                  element={<Movies movies={foundMovies} onSubmitSearch={handleSearch}
                                   saveMovie={handleSaveMovie}/>}></Route>
           <Route path="/saved-movies" element={<SavedMovies movies={movies}/>}></Route>
-          <Route path="/profile" element={<Profile currentUser={currentUser}/>}></Route>
+          <Route path="/profile" element={<Profile currentUser={currentUser} onSubmit={handleUpdateUserData}/>}></Route>
           <Route path="/signup" element={<Register onRegistration={handleSignUpSubmit} currentUser={currentUser}/>}></Route>
-          <Route path="/signin" element={<Login currentUser={currentUser}/>}></Route>
+          <Route path="/signin" element={<Login onSubmit={handleSignInSubmit} currentUser={currentUser}/>}></Route>
           <Route path="/404" element={<NotFoundPage/>}></Route>
           <Route exact path="*"
                  element={<Navigate replace to="/404"/>}

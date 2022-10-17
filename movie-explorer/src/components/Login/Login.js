@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import './Login.css';
 import UserForm from '../UserForm/UserForm';
-import { FormWithValidation, validate } from '../FormWithValidation/FormWithValidation';
 import { useForm } from 'react-hook-form';
-// import useForm from '../../utils/useForm';
 
-function Login({currentUser}) {
+function Login({currentUser, onSubmit}) {
   const {
     register,
     handleSubmit,
+    reset,
     formState: {errors, isValid},
   } = useForm({
     mode: 'onChange',
@@ -17,7 +16,7 @@ function Login({currentUser}) {
       email: currentUser.email,
     },
   });
-  // const { register } = useForm();
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const handleEmailChange = (event) => {
@@ -28,9 +27,13 @@ function Login({currentUser}) {
     setPassword(event.target.value)
   }
 
-  // const { values, errors, handleChange, onSubmit } = FormWithValidation(validate);
+  const onLogin = (email, password) => {
+    onSubmit(email, password)
+    reset();
+  }
+
   return (<section className="section section_withForm">
-    <UserForm name="formName" title="Рады видеть!"
+    <UserForm onSubmit={handleSubmit(onLogin)} name="formName" title="Рады видеть!"
               spanText="Ещё не зарегистрированы?" link="/signup" linkText="Регистрация"
               buttonText="Войти">
       <label htmlFor={`email-input`}
@@ -47,6 +50,7 @@ function Login({currentUser}) {
                className={`form__input form__input_email form__input_login`}
                maxLength='30'  minLength='2'
                autoComplete="on"
+               value={email || ''}
                required/>
         <span className={`form__item-error email-input-error`}>{errors.name?.message}</span>
       </label>
@@ -63,6 +67,7 @@ function Login({currentUser}) {
                className={`form__input form__input_password form__input_login`}
                minLength='8'
                autoComplete="on"
+               value={password || ''}
                required/>
         <span className={`form__item-error password-input-error`}>{errors.name?.message}</span>
       </label>
