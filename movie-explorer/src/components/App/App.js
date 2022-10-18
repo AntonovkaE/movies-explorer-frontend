@@ -23,6 +23,7 @@ function App() {
   const [isNavigationOpen, setIsNavigationOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
+  const [resultForm, setResultForm] = useState({})
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   const navigate = useNavigate();
@@ -65,22 +66,31 @@ function App() {
   }, []);
 
   const handleSignUpSubmit = (name, email, password) => {
-    console.log({ name, password, email })
-    auth.register({ name, password, email })
+    auth.register({ name, email, password })
       .then((res) => {
         handleSignInSubmit(email, password)
+        navigate('/movies')
       })
-      .catch(err => navigate('/404'));
+      .catch(err => {
+        if (err === 409) {
+          setResultForm({message: 'Пользователь с таким email уже существует.', error: true  })
+          return
+        }
+        setResultForm({message: 'При регистрации пользователя произошла ошибка.', error: true  })
+      });
   };
   const handleSignInSubmit = (email, password) => {
-    auth.login(password, email)
+    console.log(email, password)
+    auth.login({ password, email })
       .then(data => {
-        if (data.token) {
-          setCurrentUser()
-          navigate('/movies');
-        }
+        console.log()
+        handleTokenCheck()
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        if (err === 401) {
+          setResultForm({message: 'Вы ввели неправильный логин или пароль.', error: true  })
+        }
+      });
   };
 
   const handleSearch = (value) => {
@@ -97,12 +107,20 @@ function App() {
   };
 
   const handleUpdateUserData = (name, email) => {
-    mainApi.updateUserData({ name, email })
+    console.log('sn')
+    mainApi.updateUserData(name, email)
       .then((res) => {
+        setResultForm({ message: 'Данные успешно обновлены', error: false })
         setCurrentUser(res)
-      }).catch((res) => {
         console.log(res)
+      }).catch((err) => {
+        console.log(err)
+      if (err === 409) {
+        console.log(err)
+        setResultForm({message: 'Пользователь с таким email уже существует.', error: true  })
+      }
     })
+    console.log(resultForm)
   };
 
   const handleTokenCheck = () => {
@@ -115,18 +133,20 @@ function App() {
             navigate('/movies')
           }
         })
-        .catch(res => console.log(res))
+        .catch(res => setResultForm({message: 'При авторизации произошла ошибка. Токен не передан или передан не в том формате.', error: true  }))
     }
   }
 
   useEffect(() => {
     handleTokenCheck()
-    mainApi.getUserData()
-      .then(res => {
-        setCurrentUser(res)
-      })
-      .catch(res => console.log(res));
-  }, [])
+    if (isLoggedIn) {
+      mainApi.getUserData()
+        .then(res => {
+          setCurrentUser(res)
+        })
+        .catch(res => console.log(res));
+    }
+  }, [isLoggedIn])
 
 
   return (
@@ -139,9 +159,9 @@ function App() {
                  element={<Movies movies={foundMovies} onSubmitSearch={handleSearch}
                                   saveMovie={handleSaveMovie}/>}></Route>
           <Route path="/saved-movies" element={<SavedMovies movies={movies}/>}></Route>
-          <Route path="/profile" element={<Profile currentUser={currentUser} onSubmit={handleUpdateUserData}/>}></Route>
-          <Route path="/signup" element={<Register onRegistration={handleSignUpSubmit} currentUser={currentUser}/>}></Route>
-          <Route path="/signin" element={<Login onSubmit={handleSignInSubmit} currentUser={currentUser}/>}></Route>
+          <Route path="/profile" element={<Profile formResult={resultForm} currentUser={currentUser} onSubmit={handleUpdateUserData}/>}></Route>
+          <Route path="/signup" element={<Register onRegistration={handleSignUpSubmit} currentUser={currentUser} formResult={resultForm} />}></Route>
+          <Route path="/signin" element={<Login onSubmit={handleSignInSubmit} currentUser={currentUser} formResult={resultForm}/>}></Route>
           <Route path="/404" element={<NotFoundPage/>}></Route>
           <Route exact path="*"
                  element={<Navigate replace to="/404"/>}

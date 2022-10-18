@@ -3,7 +3,7 @@ import './Register.css';
 import UserForm from '../UserForm/UserForm';
 import { useForm } from 'react-hook-form';
 
-function Register({ currentUser, onRegistration }) {
+function Register({ currentUser, onRegistration, formResult }) {
   const [values, setValues] = useState({});
   const {
     register,
@@ -26,7 +26,7 @@ function Register({ currentUser, onRegistration }) {
               title="Добро пожаловать!"
               spanText="Уже зарегистрированы?" link="/signin" linkText="Войти"
               buttonText="Зарегистрироваться"
-              buttonDisabled={!isValid}>
+              buttonDisabled={!isValid} formResult={formResult}>
       <label htmlFor={`name-input`}
              className={`form__label form__label_register`}>
         Имя
@@ -67,7 +67,6 @@ function Register({ currentUser, onRegistration }) {
             value: /^[-\w.]+@([A-z\d][-A-z\d]+\.)+[A-z]{2,4}$/,
             message: 'Please Enter A Valid Email!',
           },
-
         })} onChange={handleChangeInput} name="email"
                id="email-input"
                className={`form__input form__input_email form__input_register`}
@@ -87,9 +86,8 @@ function Register({ currentUser, onRegistration }) {
         })} onChange={handleChangeInput} type="password" name="password"
                id={`password-input`}
                className={`form__input form__input_password form__input_register`}
-               minLength="8"
                autoComplete="on"
-               required/>
+               />
         <span className={`form__item-error password-input-error`}>{errors.password?.message}</span>
       </label>
     </UserForm>

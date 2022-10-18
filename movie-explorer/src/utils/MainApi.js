@@ -8,7 +8,7 @@ class MainApi {
     if (res.ok) {
       return res.json();
     }
-    return Promise.reject(`Ошибка: ${res.status}`);
+    return Promise.reject(res.status);
   }
 
   saveMovie() {
@@ -34,16 +34,20 @@ class MainApi {
     }).then((res) => this._checkPromise(res));
   }
   getUserData() {
-    console.log(this._headers)
     return fetch(`${this._baseUrl}users/me`, {
       method: 'GET',
       headers: this._headers,
     }).then((res) => this._checkPromise(res));
   }
-  updateUserData() {
+
+  updateUserData(name, email) {
     return fetch(`${this._baseUrl}users/me`, {
-      method: 'GET',
+      method: 'PATCH',
       headers: this._headers,
+      body: JSON.stringify({
+        name: name,
+        email: email
+      })
     }).then((res) => this._checkPromise(res));
   }
 }

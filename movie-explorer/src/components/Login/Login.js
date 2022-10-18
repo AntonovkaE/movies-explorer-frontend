@@ -3,14 +3,14 @@ import './Login.css';
 import UserForm from '../UserForm/UserForm';
 import { useForm } from 'react-hook-form';
 
-function Login({currentUser, onSubmit}) {
+function Login({currentUser, onSubmit, formResult}) {
   const {
     register,
     handleSubmit,
     reset,
     formState: {errors, isValid},
   } = useForm({
-    mode: 'onChange',
+    mode: 'onBlur',
     defaultValues: {
       name: currentUser.name,
       email: currentUser.email,
@@ -27,15 +27,15 @@ function Login({currentUser, onSubmit}) {
     setPassword(event.target.value)
   }
 
-  const onLogin = (email, password) => {
+  const onLogin = () => {
     onSubmit(email, password)
     reset();
   }
 
   return (<section className="section section_withForm">
-    <UserForm onSubmit={handleSubmit(onLogin)} name="formName" title="Рады видеть!"
+    <UserForm onSubmit={handleSubmit(onLogin)} formName="auth" buttonDisabled={!isValid} title="Рады видеть!"
               spanText="Ещё не зарегистрированы?" link="/signup" linkText="Регистрация"
-              buttonText="Войти">
+              buttonText="Войти" formResult={formResult}>
       <label htmlFor={`email-input`}
              className='form__label form__label_login'>
         Email
@@ -45,31 +45,37 @@ function Login({currentUser, onSubmit}) {
             value: /^[-\w.]+@([A-z\d][-A-z\d]+\.)+[A-z]{2,4}$/,
             message: 'Please Enter A Valid Email!',
           },
-        })} onChange={handleEmailChange} type='email' name='email'
+          minLength: {
+            value: 2,
+            message: 'Минимум 2 символа',
+          },
+          maxLength: {
+            value: 30,
+            message: 'Максимальная длина не больше 30 символов',
+          },
+        })} onChange={handleEmailChange} name='email'
                id='email-input'
                className={`form__input form__input_email form__input_login`}
-               maxLength='30'  minLength='2'
-               autoComplete="on"
-               value={email || ''}
-               required/>
-        <span className={`form__item-error email-input-error`}>{errors.name?.message}</span>
+               // value={email || ''}
+          />
+        <span className={`form__item-error email-input-error`}>{errors.email?.message}</span>
       </label>
       <label htmlFor={`password-input`}
              className={`form__label form__label_login`}>
         Пароль
         <input {...register('password', {
           required: 'Обязательное поле',
-          pattern: {
-            message: 'Password must be 8 or more characters',
+          minLength: {
+            value: 8,
+            message: 'Минимум 8 символа',
           },
         })} onChange={handlePasswordChange} type='password' name='password'
                id={`password-input`}
                className={`form__input form__input_password form__input_login`}
-               minLength='8'
                autoComplete="on"
                value={password || ''}
-               required/>
-        <span className={`form__item-error password-input-error`}>{errors.name?.message}</span>
+               />
+        <span className={`form__item-error password-input-error`}>{errors.password?.message}</span>
       </label>
     </UserForm>
   </section>);
