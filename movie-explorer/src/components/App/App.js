@@ -91,6 +91,11 @@ function App() {
       });
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('jwt')
+    // setIsLoggedIn(false)
+  }
+
   const handleSearch = (value) => {
     setFoundMovies(movies.filter((item) => {
       let search = new RegExp(`${value}`, 'gi');
@@ -110,6 +115,7 @@ function App() {
         setResultForm({ message: 'Данные успешно обновлены', error: false })
         setCurrentUser(res)
       }).catch((err) => {
+        console.log(err)
       if (err === 409) {
         setResultForm({message: 'Пользователь с таким email уже существует.', error: true  })
       }
@@ -117,29 +123,29 @@ function App() {
   };
 
   const handleTokenCheck = () => {
-    const jwt = localStorage.getItem('jwt');
-    if (jwt) {
-      auth.getContent(jwt)
+      auth.getContent()
         .then(res => {
-          if (res) {
             setIsLoggedIn(true)
             navigate('/movies')
-          }
+            setCurrentUser(res)
         })
         .catch(res => setResultForm({message: 'При авторизации произошла ошибка. Токен не передан или передан не в том формате.', error: true  }))
     }
-  }
 
   useEffect(() => {
-    handleTokenCheck()
-    if (isLoggedIn) {
-      mainApi.getUserData()
-        .then(res => {
-          setCurrentUser(res)
-        })
-        .catch(res => console.log(res));
-    }
-  }, [isLoggedIn])
+
+    if (localStorage.getItem('jwt')) {
+      handleTokenCheck()
+    } else setIsLoggedIn(false)
+    //   const jwt = localStorage.getItem('jwt');
+    //   console.log(jwt)
+    //   mainApi.getUserData(jwt)
+    //     .then((res) => {
+    //       setCurrentUser(res)
+    //     })
+    // }
+
+  }, [])
 
 
   return (
@@ -152,7 +158,7 @@ function App() {
                  element={<Movies movies={foundMovies} onSubmitSearch={handleSearch}
                                   saveMovie={handleSaveMovie}/>}></Route>
           <Route path="/saved-movies" element={<SavedMovies movies={movies}/>}></Route>
-          <Route path="/profile" element={<Profile formResult={resultForm} currentUser={currentUser} onSubmit={handleUpdateUserData}/>}></Route>
+          <Route path="/profile" element={<Profile formResult={resultForm} currentUser={currentUser} onSubmit={handleUpdateUserData} onLogout={handleLogout}/>}></Route>
           <Route path="/signup" element={<Register onRegistration={handleSignUpSubmit} currentUser={currentUser} formResult={resultForm} />}></Route>
           <Route path="/signin" element={<Login onSubmit={handleSignInSubmit} currentUser={currentUser} formResult={resultForm}/>}></Route>
           <Route path="/404" element={<NotFoundPage/>}></Route>

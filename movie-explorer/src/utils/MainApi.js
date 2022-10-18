@@ -8,13 +8,17 @@ class MainApi {
     if (res.ok) {
       return res.json();
     }
+    // console.log(res)
     return Promise.reject(res.status);
   }
 
   saveMovie() {
     return fetch(`${this._baseUrl}movies`, {
       method: 'POST',
-      headers: this._headers,
+      headers: {
+        'Content-Type': 'application/json',
+        "Authorization": `Bearer ${localStorage.jwt}`
+      },
     }).then((res) => {
       this._checkPromise(res);
     });
@@ -23,30 +27,45 @@ class MainApi {
   getSavedMovies() {
     return fetch(`${this._baseUrl}movies`, {
       method: 'GET',
-      headers: this._headers,
+      headers: {
+        'Content-Type': 'application/json',
+        "Authorization": `Bearer ${localStorage.jwt}`
+      },
     }).then((res) => this._checkPromise(res));
   }
 
   deleteSavedMovie(id) {
     return fetch(`${this._baseUrl}movies/:${id}`, {
       method: 'DELETE',
-      headers: this._headers,
+      headers: {
+        'Content-Type': 'application/json',
+        "Authorization": `Bearer ${localStorage.jwt}`
+      },
     }).then((res) => this._checkPromise(res));
   }
-  getUserData() {
+  getUserData(bearer) {
     return fetch(`${this._baseUrl}users/me`, {
       method: 'GET',
-      headers: this._headers,
-    }).then((res) => this._checkPromise(res));
+      headers: {
+        'Content-Type': 'application/json',
+        "Authorization": `Bearer ${bearer}`
+      },
+    }).then((res) => {
+      console.log(res, bearer)
+      return this._checkPromise(res);});
   }
 
   updateUserData(name, email) {
+    const token = localStorage.getItem('jwt');
     return fetch(`${this._baseUrl}users/me`, {
       method: 'PATCH',
-      headers: this._headers,
+      headers: {
+        'Content-Type': 'application/json',
+        "Authorization": `Bearer ${token}`
+      },
       body: JSON.stringify({
-        name: name,
-        email: email
+        "name": name,
+        "email": email
       })
     }).then((res) => this._checkPromise(res));
   }
@@ -54,10 +73,6 @@ class MainApi {
 
 const mainApi = new MainApi({
   baseUrl: 'https://api.movie.antonovskaya.nomoredomains.sbs/',
-  headers: {
-    'Content-Type': 'application/json',
-    "Authorization": `Bearer ${localStorage.jwt}`
-  },
 });
 
 export default mainApi;

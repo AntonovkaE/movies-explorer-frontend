@@ -7,17 +7,17 @@ function _checkPromise(res) {
   return Promise.reject(res.status);
 }
 
-export const register = ({ name, email, password}) => {
+export const register = ({ name, email, password }) => {
   return fetch(`${BASE_URL}signup`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify({name, email, password })
+    body: JSON.stringify({ name, email, password }),
   }).then(res => {
     return _checkPromise(res);
-  })
+  });
 };
 
 export const login = ({ password, email }) => {
@@ -25,9 +25,9 @@ export const login = ({ password, email }) => {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify({password, email})
+    body: JSON.stringify({ password, email }),
   }).then(res => {
     return _checkPromise(res);
   }).then((data) => {
@@ -35,19 +35,20 @@ export const login = ({ password, email }) => {
       localStorage.setItem('jwt', data.token);
       return data;
     }
-  })
+  });
 };
 
-export const getContent = (token) => {
+export const getContent = () => {
+  const token = localStorage.getItem('jwt');
   return fetch(`${BASE_URL}users/me`, {
     method: 'GET',
     headers: {
       'Accept': 'application/json',
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`
-    }
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
   })
     .then(res => {
       return _checkPromise(res);
-    })
-}
+    });
+};
