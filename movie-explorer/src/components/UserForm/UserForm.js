@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
 import './UserForm.css';
 import Button from '../Button/Button';
-// import Input from '../Input/Input';
 
 function UserForm({
   formName, onSubmit, title, spanText, buttonText, linkText, link, children, buttonDisabled, formResult

@@ -24,7 +24,6 @@ function Profile({ currentUser, onSubmit, formResult }) {
     setUserName(event.target.value);
   };
   const onUpdateUserData = () => {
-    console.log('kc')
     if (isDataNotChanged) {
       setResult({ message: 'Данные не изменены', error: true });
       return;
@@ -40,7 +39,7 @@ function Profile({ currentUser, onSubmit, formResult }) {
 
   return (<section className="section section_withForm profile">
     <UserForm onSubmit={handleSubmit(onUpdateUserData)} formName="edit" title={`Привет, ${currentUser.name}!`} buttonText="Редактировать"
-              linkText="Выйти из аккаунта" link="/logout" formResult={result} buttonDisabled={isDataNotChanged}>
+              linkText="Выйти из аккаунта" link="/logout" formResult={result} buttonDisabled={isButtonDisabled}>
       <label htmlFor={`name-input`}
              className={`form__label form__label_profile`}>
         Имя

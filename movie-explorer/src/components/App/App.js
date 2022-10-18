@@ -80,10 +80,8 @@ function App() {
       });
   };
   const handleSignInSubmit = (email, password) => {
-    console.log(email, password)
     auth.login({ password, email })
       .then(data => {
-        console.log()
         handleTokenCheck()
       })
       .catch(err => {
@@ -107,20 +105,15 @@ function App() {
   };
 
   const handleUpdateUserData = (name, email) => {
-    console.log('sn')
     mainApi.updateUserData(name, email)
       .then((res) => {
         setResultForm({ message: 'Данные успешно обновлены', error: false })
         setCurrentUser(res)
-        console.log(res)
       }).catch((err) => {
-        console.log(err)
       if (err === 409) {
-        console.log(err)
         setResultForm({message: 'Пользователь с таким email уже существует.', error: true  })
       }
     })
-    console.log(resultForm)
   };
 
   const handleTokenCheck = () => {
