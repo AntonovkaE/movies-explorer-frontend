@@ -8,17 +8,18 @@ class MainApi {
     if (res.ok) {
       return res.json();
     }
-    // console.log(res)
     return Promise.reject(res.status);
   }
 
-  saveMovie() {
+  saveMovie(movie) {
+    const token = localStorage.jwt
     return fetch(`${this._baseUrl}movies`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        "Authorization": `Bearer ${localStorage.jwt}`
+        "Authorization": `Bearer ${token}`
       },
+      body: JSON.stringify(movie)
     }).then((res) => {
       this._checkPromise(res);
     });

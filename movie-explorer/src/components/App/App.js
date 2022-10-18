@@ -13,7 +13,7 @@ import NavigationPopup from '../NavigationPopup/NavigationPopup';
 import movieApi from '../../utils/MoviesApi';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
-import notFoundImage from '../../images/IMG_7838.jpeg';
+import notFoundImage from '../../images/backgrond-about.svg';
 import mainApi from '../../utils/MainApi';
 import * as auth from '../../utils/auth.js';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
@@ -37,19 +37,21 @@ function App() {
   };
   const getInitialMovies = () => {
     movieApi.getMovies()
-      .then(movies => {
-          setMovies(movies.map(movie => ({
+      .then(res => {
+        console.log(res)
+          setMovies(res.map(movie => ({
             nameRU: movie.nameRU || movie.nameEN || '',
-            image: `${movie.image.url ? `https://api.nomoreparties.co/${movie.image.url}` : notFoundImage}`,
+            image: `${movie.image.url ? `https://api.nomoreparties.co${movie.image.url}` : notFoundImage}`,
             trailerLink: movie.trailerLink || '',
             duration: movie.duration || '',
             movieId: movie.id,
             country: movie.country || '',
+            description: movie.description || '',
             director: movie.director || '',
             year: movie.year || '',
             nameEN: movie.nameEN || '',
-            thumbnail: `${movie.thumbnail ? `https://api.nomoreparties.co/${movie.thumbnail}` : notFoundImage}`,
-            owner: '63405e0295b5c505f118beb0',
+            thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
+            owner: currentUser._id,
           })));
           return movies;
         },
@@ -98,10 +100,13 @@ function App() {
     console.log('выход');
     setResultForm({});
     localStorage.removeItem('jwt');
+    localStorage.removeItem('foundMovies')
+    localStorage.removeItem('searchInput')
     setIsLoggedIn(false);
   };
 
   const handleSearch = (value) => {
+    console.log(movies)
     setFoundMovies(movies.filter((item) => {
       let search = new RegExp(`${value}`, 'gi');
       return (item.nameRU.search(search) !== -1);
@@ -141,7 +146,6 @@ function App() {
   };
 
   useEffect(() => {
-    console.log(isLoggedIn);
     if (localStorage.getItem('jwt')) {
       handleTokenCheck();
     } else setIsLoggedIn(false);

@@ -8,7 +8,6 @@ function MovieCard({ movie, saveMovie, buttonText, typeButton }) {
     director,
     duration,
     year,
-    description,
     image,
     trailerLink,
     nameRU,
@@ -18,19 +17,7 @@ function MovieCard({ movie, saveMovie, buttonText, typeButton }) {
   } = movie;
   const handleSaveMovie = (e) => {
     e.preventDefault();
-    saveMovie({
-      country,
-      director,
-      duration,
-      year,
-      description,
-      image,
-      trailerLink,
-      nameRU,
-      nameEN,
-      thumbnail,
-      movieId,
-    });
+    saveMovie(movie);
   };
 
   return (
@@ -41,7 +28,7 @@ function MovieCard({ movie, saveMovie, buttonText, typeButton }) {
           <p className="movie__duration">{duration} минут</p>
         </div>
         <img className="movie__img" alt="кадр фильма"
-             src={`${image}`}/>
+             src={image}/>
         <Button onclick={handleSaveMovie} type="button" status="movie" text="Сохранить"></Button>
       </article>
     </li>
