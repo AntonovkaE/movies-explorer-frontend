@@ -20,6 +20,11 @@ function Register({ currentUser, onRegistration, formResult }) {
   const handleChangeInput = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
   };
+  const buttonSetting = {
+    buttonText: 'Зарегистрироваться',
+    buttonDisabled: !isValid,
+    onclick: handleSubmit(handleRegistration),
+  };
 
   return (<section className="section section_withForm register">
     <UserForm onSubmit={handleSubmit(handleRegistration)} formName="register"
@@ -87,7 +92,7 @@ function Register({ currentUser, onRegistration, formResult }) {
                id={`password-input`}
                className={`form__input form__input_password form__input_register`}
                autoComplete="on"
-               />
+        />
         <span className={`form__item-error password-input-error`}>{errors.password?.message}</span>
       </label>
     </UserForm>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import Header from '../Header/Header';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
+import PrivateRoute from '../ProtectedRoute';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 import Movies from '../Movies/Movies';
@@ -23,8 +24,8 @@ function App() {
   const [isNavigationOpen, setIsNavigationOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
-  const [resultForm, setResultForm] = useState({})
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [resultForm, setResultForm] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const navigate = useNavigate();
   const showMenu = () => {
@@ -68,33 +69,37 @@ function App() {
   const handleSignUpSubmit = (name, email, password) => {
     auth.register({ name, email, password })
       .then((res) => {
-        handleSignInSubmit(email, password)
-        navigate('/movies')
+        handleSignInSubmit(email, password);
+        setResultForm({});
+        navigate('/movies');
       })
       .catch(err => {
         if (err === 409) {
-          setResultForm({message: 'Пользователь с таким email уже существует.', error: true  })
-          return
+          setResultForm({ message: 'Пользователь с таким email уже существует.', error: true });
+          return;
         }
-        setResultForm({message: 'При регистрации пользователя произошла ошибка.', error: true  })
+        setResultForm({ message: 'При регистрации пользователя произошла ошибка.', error: true });
       });
   };
   const handleSignInSubmit = (email, password) => {
     auth.login({ password, email })
       .then(data => {
-        handleTokenCheck()
+        handleTokenCheck();
+        setResultForm({});
       })
       .catch(err => {
         if (err === 401) {
-          setResultForm({message: 'Вы ввели неправильный логин или пароль.', error: true  })
+          setResultForm({ message: 'Вы ввели неправильный логин или пароль.', error: true });
         }
       });
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('jwt')
-    // setIsLoggedIn(false)
-  }
+    console.log('выход');
+    setResultForm({});
+    localStorage.removeItem('jwt');
+    setIsLoggedIn(false);
+  };
 
   const handleSearch = (value) => {
     setFoundMovies(movies.filter((item) => {
@@ -112,41 +117,35 @@ function App() {
   const handleUpdateUserData = (name, email) => {
     mainApi.updateUserData(name, email)
       .then((res) => {
-        setResultForm({ message: 'Данные успешно обновлены', error: false })
-        setCurrentUser(res)
+        setResultForm({ message: 'Данные успешно обновлены', error: false });
+        setCurrentUser(res);
       }).catch((err) => {
-        console.log(err)
+      console.log(err);
       if (err === 409) {
-        setResultForm({message: 'Пользователь с таким email уже существует.', error: true  })
+        setResultForm({ message: 'Пользователь с таким email уже существует.', error: true });
       }
-    })
+    });
   };
 
   const handleTokenCheck = () => {
-      auth.getContent()
-        .then(res => {
-            setIsLoggedIn(true)
-            navigate('/movies')
-            setCurrentUser(res)
-        })
-        .catch(res => setResultForm({message: 'При авторизации произошла ошибка. Токен не передан или передан не в том формате.', error: true  }))
-    }
+    auth.getContent()
+      .then(res => {
+        setIsLoggedIn(true);
+        navigate('/movies');
+        setCurrentUser(res);
+      })
+      .catch(res => setResultForm({
+        message: 'При авторизации произошла ошибка. Токен не передан или передан не в том формате.',
+        error: true,
+      }));
+  };
 
   useEffect(() => {
-
+    console.log(isLoggedIn);
     if (localStorage.getItem('jwt')) {
-      handleTokenCheck()
-    } else setIsLoggedIn(false)
-    //   const jwt = localStorage.getItem('jwt');
-    //   console.log(jwt)
-    //   mainApi.getUserData(jwt)
-    //     .then((res) => {
-    //       setCurrentUser(res)
-    //     })
-    // }
-
-  }, [])
-
+      handleTokenCheck();
+    } else setIsLoggedIn(false);
+  }, []);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -155,15 +154,25 @@ function App() {
         <Routes>
           <Route path="/" element={<Main/>}></Route>
           <Route path="/movies"
-                 element={<Movies movies={foundMovies} onSubmitSearch={handleSearch}
-                                  saveMovie={handleSaveMovie}/>}></Route>
-          <Route path="/saved-movies" element={<SavedMovies movies={movies}/>}></Route>
-          <Route path="/profile" element={<Profile formResult={resultForm} currentUser={currentUser} onSubmit={handleUpdateUserData} onLogout={handleLogout}/>}></Route>
-          <Route path="/signup" element={<Register onRegistration={handleSignUpSubmit} currentUser={currentUser} formResult={resultForm} />}></Route>
-          <Route path="/signin" element={<Login onSubmit={handleSignInSubmit} currentUser={currentUser} formResult={resultForm}/>}></Route>
+                 element={<PrivateRoute loggedIn={isLoggedIn}><Movies movies={foundMovies}
+                                                                      onSubmitSearch={handleSearch}
+                                                                      saveMovie={handleSaveMovie}/></PrivateRoute>}></Route>
+          <Route path="/saved-movies" element={<PrivateRoute loggedIn={isLoggedIn}><SavedMovies
+            movies={movies}/></PrivateRoute>}></Route>
+          <Route path="/profile"
+                 element={<PrivateRoute loggedIn={isLoggedIn}><Profile formResult={resultForm}
+                                                                       currentUser={currentUser}
+                                                                       onSubmit={handleUpdateUserData}
+                                                                       onLogout={handleLogout}/></PrivateRoute>}></Route>
+          <Route path="/signup"
+                 element={<Register onRegistration={handleSignUpSubmit} currentUser={currentUser}
+                                    formResult={resultForm}/>}></Route>
+          <Route path="/signin"
+                 element={<Login onSubmit={handleSignInSubmit} currentUser={currentUser}
+                                 formResult={resultForm}/>}></Route>
           <Route path="/404" element={<NotFoundPage/>}></Route>
           <Route exact path="*"
-                 element={<Navigate replace to="/404"/>}
+                 element={isLoggedIn ? <Navigate replace to="/404"/> : <Navigate replace to="/"/>}
           />
         </Routes>
       </main>

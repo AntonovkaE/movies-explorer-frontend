@@ -4,7 +4,7 @@ import './UserForm.css';
 import Button from '../Button/Button';
 
 function UserForm({
-  formName, onSubmit, title, spanText, buttonSetting, buttonText, onButtonClick = () => {}, linkText, link, children, buttonDisabled, formResult
+  formName, onSubmit, title, spanText, buttonSetting, buttonText, onButtonClick = () => {}, onLinkClick=()=>{}, linkText, link, children, buttonDisabled, formResult
 }) {
   return (
     <form onSubmit={onSubmit} className={`form form_${formName}`}>
@@ -19,7 +19,7 @@ function UserForm({
         />
         <div className="form__caption">
           <span className="form__link-caption">{spanText}</span>
-          <Link className={`link form__link form__link_${formName}`} to={link}>{linkText}</Link>
+          <Link onClick={onLinkClick} className={`link form__link form__link_${formName}`} to={link}>{linkText}</Link>
         </div>
       </div>
     </form>

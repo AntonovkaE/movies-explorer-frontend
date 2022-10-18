@@ -36,17 +36,12 @@ function Profile({ currentUser, onSubmit, formResult, onLogout }) {
   const isDataNotChanged = currentUser.name === userName && currentUser.email === email;
 
   const isButtonDisabled = !isValid || isDataNotChanged;
-  const buttonSetting = {
-    buttonText: 'Редактировать',
-    buttonDisabled: isButtonDisabled,
-    onclick: onLogout,
-  };
 
   return (<section className="section section_withForm profile">
     <UserForm onSubmit={handleSubmit(onUpdateUserData)} formName="edit"
               title={`Привет, ${currentUser.name}!`} buttonText="Редактировать"
               linkText="Выйти из аккаунта" link="/" formResult={result}
-              buttonDisabled={isButtonDisabled} buttonSetting={buttonSetting}>
+              buttonDisabled={isButtonDisabled} onLinkClick={onLogout}>
       <label htmlFor={`name-input`}
              className={`form__label form__label_profile`}>
         Имя
