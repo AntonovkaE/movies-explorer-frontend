@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './Profile.css';
 import UserForm from '../UserForm/UserForm';
 import { useForm } from 'react-hook-form';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-function Profile({ currentUser, onSubmit, formResult, onLogout }) {
+function Profile({ onSubmit, formResult, onLogout }) {
+
+  const currentUser = useContext(CurrentUserContext);
   const {
     register,
     handleSubmit,
@@ -23,6 +26,8 @@ function Profile({ currentUser, onSubmit, formResult, onLogout }) {
   const handleUserNameChange = (event) => {
     setUserName(event.target.value);
   };
+  const isDataNotChanged = currentUser.name === userName && currentUser.email === email;
+
   const onUpdateUserData = () => {
     if (isDataNotChanged) {
       setResult({ message: 'Данные не изменены', error: true });
@@ -32,10 +37,9 @@ function Profile({ currentUser, onSubmit, formResult, onLogout }) {
     setResult(formResult);
     reset();
   };
-
-  const isDataNotChanged = currentUser.name === userName && currentUser.email === email;
-
   const isButtonDisabled = !isValid || isDataNotChanged;
+
+
 
   return (<section className="section section_withForm profile">
     <UserForm onSubmit={handleSubmit(onUpdateUserData)} formName="edit"

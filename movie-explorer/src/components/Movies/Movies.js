@@ -5,7 +5,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Button from '../Button/Button';
 import Preloader from '../Preloader/Preloader';
 
-function Movies({ movies, onSubmitSearch, isPreloaderHidden, saveMovie }) {
+function Movies({ movies, onSubmitSearch, isPreloaderHidden, saveMovie, savedMovies }) {
   const [movieCount, setMovieCount] = useState(5);
   const [additionalCount, setAdditionalCount] = useState(2);
   const [isButtonHidden, setIsButtonHidden] = useState(false);
@@ -43,7 +43,7 @@ function Movies({ movies, onSubmitSearch, isPreloaderHidden, saveMovie }) {
     <>
       <Preloader isHidden={true}/>
       <SearchForm onSubmit={onSubmitSearch}/>
-      <MoviesCardList saveMovie={saveMovie} cardButton="success" buttonCardText="" count={movieCount} movies={movies}/>
+      <MoviesCardList savedMovies={savedMovies} saveMovie={saveMovie} cardButton="success" buttonCardText="" count={movieCount} movies={movies}/>
       <Button isHidden={isButtonHidden} onclick={showMoreMovies} text="Ещё" status="showMore"
               type="button"/>
     </>);

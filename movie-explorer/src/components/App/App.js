@@ -21,11 +21,13 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 function App() {
   const [movies, setMovies] = useState([]);
   const [foundMovies, setFoundMovies] = useState([]);
+  const [savedMovies, setSavedMovies] = useState([]);
   const [isNavigationOpen, setIsNavigationOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [resultForm, setResultForm] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
 
   const navigate = useNavigate();
   const showMenu = () => {
@@ -38,7 +40,6 @@ function App() {
   const getInitialMovies = () => {
     movieApi.getMovies()
       .then(res => {
-        console.log(res)
           setMovies(res.map(movie => ({
             nameRU: movie.nameRU || movie.nameEN || '',
             image: `${movie.image.url ? `https://api.nomoreparties.co${movie.image.url}` : notFoundImage}`,
@@ -50,8 +51,7 @@ function App() {
             director: movie.director || '',
             year: movie.year || '',
             nameEN: movie.nameEN || '',
-            thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
-            owner: currentUser._id,
+            thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`
           })));
           return movies;
         },
@@ -100,13 +100,13 @@ function App() {
     console.log('выход');
     setResultForm({});
     localStorage.removeItem('jwt');
-    localStorage.removeItem('foundMovies')
-    localStorage.removeItem('searchInput')
+    localStorage.removeItem('foundMovies');
+    localStorage.removeItem('searchInput');
     setIsLoggedIn(false);
   };
 
   const handleSearch = (value) => {
-    console.log(movies)
+    console.log(movies);
     setFoundMovies(movies.filter((item) => {
       let search = new RegExp(`${value}`, 'gi');
       return (item.nameRU.search(search) !== -1);
@@ -116,7 +116,16 @@ function App() {
 
   const handleSaveMovie = (movie) => {
     mainApi.saveMovie(movie)
+      .then((res) => {
+        setSavedMovies([res, ...savedMovies])})
       .catch(err => console.log(err));
+  };
+
+  const getSavedMovies = () => {
+    mainApi.getSavedMovies()
+      .then((res) => {
+        setSavedMovies(res)
+      });
   };
 
   const handleUpdateUserData = (name, email) => {
@@ -147,9 +156,11 @@ function App() {
 
   useEffect(() => {
     if (localStorage.getItem('jwt')) {
+      console.log('dc')
       handleTokenCheck();
+      getSavedMovies();
     } else setIsLoggedIn(false);
-  }, []);
+  }, [isLoggedIn]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -159,10 +170,11 @@ function App() {
           <Route path="/" element={<Main/>}></Route>
           <Route path="/movies"
                  element={<PrivateRoute loggedIn={isLoggedIn}><Movies movies={foundMovies}
+                                                                      savedMovies={savedMovies}
                                                                       onSubmitSearch={handleSearch}
                                                                       saveMovie={handleSaveMovie}/></PrivateRoute>}></Route>
           <Route path="/saved-movies" element={<PrivateRoute loggedIn={isLoggedIn}><SavedMovies
-            movies={movies}/></PrivateRoute>}></Route>
+            savedMovies={savedMovies}/></PrivateRoute>}></Route>
           <Route path="/profile"
                  element={<PrivateRoute loggedIn={isLoggedIn}><Profile formResult={resultForm}
                                                                        currentUser={currentUser}

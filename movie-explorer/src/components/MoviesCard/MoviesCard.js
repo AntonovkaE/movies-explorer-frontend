@@ -2,7 +2,7 @@ import React from 'react';
 import './MoviesCard.css';
 import Button from '../Button/Button';
 
-function MovieCard({ movie, saveMovie, buttonText, typeButton }) {
+function MovieCard({ movie, saveMovie, savedMovies}) {
   const {
     country,
     director,
@@ -17,9 +17,14 @@ function MovieCard({ movie, saveMovie, buttonText, typeButton }) {
   } = movie;
   const handleSaveMovie = (e) => {
     e.preventDefault();
-    saveMovie(movie);
+    if (!isMovieSaved) {
+      saveMovie(movie);
+    }
   };
-
+  console.log(savedMovies, movie)
+  const isMovieSaved = savedMovies.some(item => item.movieId === movie.movieId);
+  const buttonText = isMovieSaved ? '' : 'Сохранить';
+  const buttonClass = isMovieSaved ? 'success' : 'movie';
   return (
     <li className="movie">
       <article className="movie__article">
@@ -29,7 +34,7 @@ function MovieCard({ movie, saveMovie, buttonText, typeButton }) {
         </div>
         <img className="movie__img" alt="кадр фильма"
              src={image}/>
-        <Button onclick={handleSaveMovie} type="button" status="movie" text="Сохранить"></Button>
+        <Button onclick={handleSaveMovie} type="button" status={buttonClass} text={buttonText}></Button>
       </article>
     </li>
   );

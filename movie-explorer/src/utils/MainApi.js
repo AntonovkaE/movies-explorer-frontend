@@ -20,9 +20,7 @@ class MainApi {
         "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify(movie)
-    }).then((res) => {
-      this._checkPromise(res);
-    });
+    }).then((res) => this._checkPromise(res));
   }
 
   getSavedMovies() {
