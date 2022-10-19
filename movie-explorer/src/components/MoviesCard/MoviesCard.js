@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './MoviesCard.css';
 import Button from '../Button/Button';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-function MovieCard({ movie, saveMovie, savedMovies, cardSection}) {
+function MovieCard({ movie, onButtonClick, savedMovies, cardSection }) {
   const {
     country,
     director,
@@ -11,22 +12,19 @@ function MovieCard({ movie, saveMovie, savedMovies, cardSection}) {
     image,
     trailerLink,
     nameRU,
-    nameEN,
-    thumbnail,
-    movieId,
+    owner,
   } = movie;
+  const currentUser = useContext(CurrentUserContext);
 
   const isMovieSaved = savedMovies.some(item => item.movieId === movie.movieId);
   const buttonText = isMovieSaved ? '' : 'Сохранить';
-  const buttonClass = (cardSection === "savedMovie") ? 'savedMovie' : isMovieSaved ? 'success' : '';
-
-  const handleSaveMovie = (e) => {
+  const buttonClass = (cardSection === 'savedMovie') ? 'savedMovie' : isMovieSaved ? 'success' : '';
+  const isDisabledButton = (cardSection !== 'savedMovie' || owner === currentUser._id) ? false : true;
+  const handleButtonClick = (e) => {
     e.preventDefault();
-    if (!isMovieSaved) {
-      saveMovie(movie);
-    }
+    onButtonClick(movie);
   };
-  console.log(savedMovies, movie)
+
   return (
     <li className="movie">
       <article className="movie__article">
@@ -36,7 +34,9 @@ function MovieCard({ movie, saveMovie, savedMovies, cardSection}) {
         </div>
         <img className="movie__img" alt="кадр фильма"
              src={image}/>
-        <Button onclick={handleSaveMovie} type="button" status={`${buttonClass} button_movie`} text={buttonText}></Button>
+        <Button isDisable={isDisabledButton}
+                onclick={handleButtonClick} type="button" status={`${buttonClass} button_movie`}
+                text={buttonText}></Button>
       </article>
     </li>
   );

@@ -12,7 +12,6 @@ function Movies({ movies, onSubmitSearch, isPreloaderHidden, saveMovie, savedMov
   if (movies.length) {
     localStorage.setItem('foundMovies', JSON.stringify(movies));
   }
-
   const handleResize = () => {
     if (window.innerWidth < 768) {
       setMovieCount(5);
@@ -43,7 +42,7 @@ function Movies({ movies, onSubmitSearch, isPreloaderHidden, saveMovie, savedMov
     <>
       <Preloader isHidden={true}/>
       <SearchForm onSubmit={onSubmitSearch}/>
-      <MoviesCardList savedMovies={savedMovies} saveMovie={saveMovie} count={movieCount} movies={movies} section='movie'/>
+      <MoviesCardList savedMovies={savedMovies} handleButtonClick={saveMovie} count={movieCount} movies={movies} section='movie'/>
       <Button isHidden={isButtonHidden} onclick={showMoreMovies} text="Ещё" status="showMore"
               type="button"/>
     </>);

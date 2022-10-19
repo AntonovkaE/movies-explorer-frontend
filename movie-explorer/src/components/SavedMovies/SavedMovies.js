@@ -3,12 +3,13 @@ import './SavedMovies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function SavedMovies({ savedMovies }) {
-  const count = 3;
+function SavedMovies({ savedMovies, deleteMovie }) {
+  const count = savedMovies.length;
+
   return (
     <section className="savedMovies">
       <SearchForm/>
-      <MoviesCardList cardButton="movieSaved" buttonCardText="" count={count} movies={savedMovies} savedMovies={savedMovies} section="savedMovie"/>
+      <MoviesCardList handleButtonClick={deleteMovie} cardButton="movieSaved" buttonCardText="" count={count} movies={savedMovies} savedMovies={savedMovies} section="savedMovie"/>
     </section>);
 }
 

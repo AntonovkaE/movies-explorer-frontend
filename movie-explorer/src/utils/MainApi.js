@@ -34,13 +34,14 @@ class MainApi {
   }
 
   deleteSavedMovie(id) {
-    return fetch(`${this._baseUrl}movies/:${id}`, {
+    return fetch(`${this._baseUrl}movies/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
         "Authorization": `Bearer ${localStorage.jwt}`
       },
-    }).then((res) => this._checkPromise(res));
+    }).then((res) => {
+      return this._checkPromise(res);});
   }
   getUserData(bearer) {
     return fetch(`${this._baseUrl}users/me`, {

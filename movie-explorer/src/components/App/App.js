@@ -121,17 +121,22 @@ function App() {
   };
 
   const handleDeleteMovie = (movie) => {
-    mainApi.deleteSavedMovie(movie.movieId)
+    mainApi.deleteSavedMovie(movie._id)
       .then((res) => {
         setSavedMovies((state) => state.filter(c => c.movieId !== movie.movieId));
       })
-      .catch(res => navigate('/404'));
+      .catch(err => {
+        if (err === 403) {
+          console.log("нельзя удалять чужую карточку")
+        }
+      });
 
   };
 
   const getSavedMovies = () => {
     mainApi.getSavedMovies()
       .then((res) => {
+        console.log(res)
         setSavedMovies(res);
       });
   };
@@ -182,7 +187,7 @@ function App() {
                                                                       onSubmitSearch={handleSearch}
                                                                       saveMovie={handleSaveMovie}/></PrivateRoute>}></Route>
           <Route path="/saved-movies" element={<PrivateRoute loggedIn={isLoggedIn}><SavedMovies
-            savedMovies={savedMovies}/></PrivateRoute>}></Route>
+            savedMovies={savedMovies} deleteMovie={handleDeleteMovie}/></PrivateRoute>}></Route>
           <Route path="/profile"
                  element={<PrivateRoute loggedIn={isLoggedIn}><Profile formResult={resultForm}
                                                                        currentUser={currentUser}
