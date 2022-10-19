@@ -8,7 +8,7 @@ function SavedMovies({ savedMovies }) {
   return (
     <section className="savedMovies">
       <SearchForm/>
-      <MoviesCardList cardButton="movieSaved" buttonCardText="" count={count} movies={[]} savedMovies={savedMovies}/>
+      <MoviesCardList cardButton="movieSaved" buttonCardText="" count={count} movies={savedMovies} savedMovies={savedMovies} section="savedMovie"/>
     </section>);
 }
 

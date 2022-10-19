@@ -27,8 +27,6 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [resultForm, setResultForm] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-
   const navigate = useNavigate();
   const showMenu = () => {
     setIsNavigationOpen(true);
@@ -51,7 +49,7 @@ function App() {
             director: movie.director || '',
             year: movie.year || '',
             nameEN: movie.nameEN || '',
-            thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`
+            thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
           })));
           return movies;
         },
@@ -117,14 +115,24 @@ function App() {
   const handleSaveMovie = (movie) => {
     mainApi.saveMovie(movie)
       .then((res) => {
-        setSavedMovies([res, ...savedMovies])})
+        setSavedMovies([res, ...savedMovies]);
+      })
       .catch(err => console.log(err));
+  };
+
+  const handleDeleteMovie = (movie) => {
+    mainApi.deleteSavedMovie(movie.movieId)
+      .then((res) => {
+        setSavedMovies((state) => state.filter(c => c.movieId !== movie.movieId));
+      })
+      .catch(res => navigate('/404'));
+
   };
 
   const getSavedMovies = () => {
     mainApi.getSavedMovies()
       .then((res) => {
-        setSavedMovies(res)
+        setSavedMovies(res);
       });
   };
 
@@ -156,7 +164,7 @@ function App() {
 
   useEffect(() => {
     if (localStorage.getItem('jwt')) {
-      console.log('dc')
+      console.log('dc');
       handleTokenCheck();
       getSavedMovies();
     } else setIsLoggedIn(false);

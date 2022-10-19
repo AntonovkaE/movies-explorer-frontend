@@ -15,25 +15,16 @@
   display: none;
 }
 
-.button_movieSaved {
+.button_savedMovie {
   background-image: url("../../images/icon__COLOR_icon-main-min.svg");
   background-repeat: no-repeat;
   background-position: center;
   background-color: #F9F9F9;
-
 }
 
 .button_success {
-  border-radius: 30px;
-  min-width: 100px;
   background: #FF4062 url("../../images/checkMark.svg") no-repeat center;
   height: 29px;
-  content: '';
-  font-size: 12px;
-  line-height: 11px;
-  letter-spacing: 0;
-  justify-self: center;
-  margin: 0 auto;
 }
 
 .button_black {
@@ -70,6 +61,7 @@
   line-height: 15px;
   text-align: center;
 }
+
 .button:disabled {
   color: #a0a0a0;
 }
@@ -86,6 +78,7 @@
     width: calc(100% - 60px);
     margin: 50px 30px 80px;
   }
+
   .button_form-auth {
     font-weight: 500;
     font-size: 14px;
@@ -106,6 +99,7 @@
   box-shadow: none;
   margin: 0 0 auto;
 }
+
 @media screen and (min-width: 1280px) {
   /*.button_movie {*/
   /*    margin: 18px auto;*/

@@ -2,7 +2,7 @@ import React from 'react';
 import './MoviesCard.css';
 import Button from '../Button/Button';
 
-function MovieCard({ movie, saveMovie, savedMovies}) {
+function MovieCard({ movie, saveMovie, savedMovies, cardSection}) {
   const {
     country,
     director,
@@ -15,6 +15,11 @@ function MovieCard({ movie, saveMovie, savedMovies}) {
     thumbnail,
     movieId,
   } = movie;
+
+  const isMovieSaved = savedMovies.some(item => item.movieId === movie.movieId);
+  const buttonText = isMovieSaved ? '' : 'Сохранить';
+  const buttonClass = (cardSection === "savedMovie") ? 'savedMovie' : isMovieSaved ? 'success' : '';
+
   const handleSaveMovie = (e) => {
     e.preventDefault();
     if (!isMovieSaved) {
@@ -22,9 +27,6 @@ function MovieCard({ movie, saveMovie, savedMovies}) {
     }
   };
   console.log(savedMovies, movie)
-  const isMovieSaved = savedMovies.some(item => item.movieId === movie.movieId);
-  const buttonText = isMovieSaved ? '' : 'Сохранить';
-  const buttonClass = isMovieSaved ? 'success' : 'movie';
   return (
     <li className="movie">
       <article className="movie__article">
@@ -34,7 +36,7 @@ function MovieCard({ movie, saveMovie, savedMovies}) {
         </div>
         <img className="movie__img" alt="кадр фильма"
              src={image}/>
-        <Button onclick={handleSaveMovie} type="button" status={buttonClass} text={buttonText}></Button>
+        <Button onclick={handleSaveMovie} type="button" status={`${buttonClass} button_movie`} text={buttonText}></Button>
       </article>
     </li>
   );
