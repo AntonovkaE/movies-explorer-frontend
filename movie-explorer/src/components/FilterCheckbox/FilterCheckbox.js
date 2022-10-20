@@ -11,8 +11,6 @@ function FilterCheckbox({onToggle, sectionSearchInput}) {
   };
 
   useEffect( () => {
-      // setIsChecked({[sectionSearchInput]: JSON.parse(localStorage.isChecked)});
-    console.log(JSON.parse(localStorage.isChecked)[sectionSearchInput])
     if (localStorage.isChecked[sectionSearchInput] !== undefined) {
       setIsChecked({[sectionSearchInput]: JSON.parse(localStorage.isChecked)});
     }

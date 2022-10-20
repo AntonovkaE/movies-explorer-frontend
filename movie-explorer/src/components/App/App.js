@@ -21,13 +21,9 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 function App() {
   const [movies, setMovies] = useState([]);
   const [foundMovies, setFoundMovies] = useState([]);
-  const [filteredMovies, setFilteredMovies] = useState([]);
-  const [displayedMovies, setDisplayedMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
   const [foundSavedMovies, setFoundSavedMovies] = useState([]);
   const [isSearchInSavedMovies, setIsSearchInSavedMovies] = useState(false);
-  const [filteredSavedMovies, setFilteredSavedMovies] = useState([]);
-  const [displayedSavedMovies, setDisplayedSavedMovies] = useState([]);
   const [isNavigationOpen, setIsNavigationOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
@@ -67,6 +63,7 @@ function App() {
 
   useEffect(() => {
     getInitialMovies();
+    console.log(localStorage.foundMovies)
     if (localStorage.foundMovies) {
       setFoundMovies(JSON.parse(localStorage.foundMovies));
     }
@@ -109,46 +106,28 @@ function App() {
     setIsLoggedIn(false);
   };
 
-  const handleSearch = (value, isShort) => {
-    setFoundMovies(movies.filter((item) => {
+  const filterMovies = (movies, value, isShort) => {
+    const filteredMovies = movies.filter((item) => {
       let search = new RegExp(`${value}`, 'gi');
       if (isShort) {
         return (item.nameRU.search(search) !== -1 && item.duration < 40 );
       }
       return (item.nameRU.search(search) !== -1);
-    }));
+    })
+    return filteredMovies;
+  }
+
+  const handleSearch = (value, isShort) => {
+    setFoundMovies(filterMovies(movies, value, isShort));
     localStorage.setItem('moviesSearchInput', value);
   };
 
   const handleSavedMoviesSearch = (value, isShort) => {
-    setFoundSavedMovies(savedMovies.filter((item) => {
-      let search = new RegExp(`${value}`, 'gi');
-      if (isShort) {
-        return (item.nameRU.search(search) !== -1 && item.duration < 40);
-      }
-      return (item.nameRU.search(search) !== -1);
-    }));
+    setFoundSavedMovies(filterMovies(savedMovies, value, isShort));
     setIsSearchInSavedMovies(true);
     localStorage.setItem('savedMoviesSearchInput', value);
   };
 
-  // const handleMovieToggleFilter = (isChecked) => {
-  //   if (isChecked) {
-  //     setDisplayedMovies(foundMovies.filter(item => item.duration < 40));
-  //   }
-  // };
-  // const handleSavedMovieToggleFilter = (isChecked) => {
-  //   if (isChecked) {
-  //     setFilteredSavedMovies(displayedMovies.filter(item => item.duration < 40));
-  //     setDisplayedMovies(filteredSavedMovies)
-  //   } else {
-  //     if (isSearchInSavedMovies) {
-  //       setDisplayedSavedMovies(savedMovies)
-  //     } else {
-  //       setDisplayedSavedMovies(foundSavedMovies)
-  //     }
-  //   }
-  // };
   const handleSaveMovie = (movie) => {
     mainApi.saveMovie(movie)
       .then((res) => {
@@ -182,7 +161,6 @@ function App() {
     mainApi.getSavedMovies()
       .then((res) => {
         setSavedMovies(res);
-        // setDisplayedMovies(savedMovies);
       });
   };
 
