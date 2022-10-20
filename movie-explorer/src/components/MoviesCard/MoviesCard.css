@@ -9,6 +9,11 @@
   margin: 0 auto 16px;
 }
 
+.movie__link {
+  text-decoration: none;
+  color: initial;
+}
+
 .movie__article {
   display: flex;
   flex-direction: column;

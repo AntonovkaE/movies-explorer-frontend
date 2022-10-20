@@ -5,10 +5,10 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Button from '../Button/Button';
 import Preloader from '../Preloader/Preloader';
 
-function Movies({ movies, onSubmitSearch, isPreloaderHidden, saveMovie, savedMovies }) {
+function Movies({ movies, onSubmitSearch, isPreloaderHidden, saveMovie, savedMovies, onToggleFilter }) {
   const [movieCount, setMovieCount] = useState(5);
   const [additionalCount, setAdditionalCount] = useState(2);
-  const [isButtonHidden, setIsButtonHidden] = useState(false);
+  const [isButtonHidden, setIsButtonHidden] = useState(!Boolean(movies.length));
   if (movies.length) {
     localStorage.setItem('foundMovies', JSON.stringify(movies));
   }
@@ -25,6 +25,10 @@ function Movies({ movies, onSubmitSearch, isPreloaderHidden, saveMovie, savedMov
     }
   };
 
+  useEffect(() => {
+    setIsButtonHidden(!Boolean(movies.length));
+  }, [movies.length]);
+
   const showMoreMovies = () => {
     if ((movieCount + additionalCount) >= movies.length) {
       setMovieCount(movies.length);
@@ -38,11 +42,16 @@ function Movies({ movies, onSubmitSearch, isPreloaderHidden, saveMovie, savedMov
     window.addEventListener('resize', () => setTimeout(handleResize, 10000));
   }, []);
 
+  // const handleSearchSubmit = () => {
+  //   onSubmitSearch()
+  // }
+
   return (
     <>
       <Preloader isHidden={true}/>
-      <SearchForm onSubmit={onSubmitSearch}/>
-      <MoviesCardList savedMovies={savedMovies} handleButtonClick={saveMovie} count={movieCount} movies={movies} section='movie'/>
+      <SearchForm onSubmit={onSubmitSearch} movies={movies}/>
+      <MoviesCardList savedMovies={savedMovies} handleButtonClick={saveMovie} count={movieCount}
+                      movies={movies} section="movie"/>
       <Button isHidden={isButtonHidden} onclick={showMoreMovies} text="Ещё" status="showMore"
               type="button"/>
     </>);

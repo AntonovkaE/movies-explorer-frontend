@@ -21,7 +21,13 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 function App() {
   const [movies, setMovies] = useState([]);
   const [foundMovies, setFoundMovies] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState([]);
+  const [displayedMovies, setDisplayedMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
+  const [foundSavedMovies, setFoundSavedMovies] = useState([]);
+  const [isSearchInSavedMovies, setIsSearchInSavedMovies] = useState(false);
+  const [filteredSavedMovies, setFilteredSavedMovies] = useState([]);
+  const [displayedSavedMovies, setDisplayedSavedMovies] = useState([]);
   const [isNavigationOpen, setIsNavigationOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
@@ -103,15 +109,46 @@ function App() {
     setIsLoggedIn(false);
   };
 
-  const handleSearch = (value) => {
-    console.log(movies);
+  const handleSearch = (value, isShort) => {
     setFoundMovies(movies.filter((item) => {
       let search = new RegExp(`${value}`, 'gi');
+      if (isShort) {
+        return (item.nameRU.search(search) !== -1 && item.duration < 40 );
+      }
       return (item.nameRU.search(search) !== -1);
     }));
     localStorage.setItem('searchInput', value);
   };
 
+  const handleSavedMoviesSearch = (value, isShort) => {
+    setFoundSavedMovies(savedMovies.filter((item) => {
+      let search = new RegExp(`${value}`, 'gi');
+      if (isShort) {
+        return (item.nameRU.search(search) !== -1 && item.duration < 40);
+      }
+      return (item.nameRU.search(search) !== -1);
+    }));
+    setIsSearchInSavedMovies(true);
+    localStorage.setItem('searchInput', value);
+  };
+
+  // const handleMovieToggleFilter = (isChecked) => {
+  //   if (isChecked) {
+  //     setDisplayedMovies(foundMovies.filter(item => item.duration < 40));
+  //   }
+  // };
+  // const handleSavedMovieToggleFilter = (isChecked) => {
+  //   if (isChecked) {
+  //     setFilteredSavedMovies(displayedMovies.filter(item => item.duration < 40));
+  //     setDisplayedMovies(filteredSavedMovies)
+  //   } else {
+  //     if (isSearchInSavedMovies) {
+  //       setDisplayedSavedMovies(savedMovies)
+  //     } else {
+  //       setDisplayedSavedMovies(foundSavedMovies)
+  //     }
+  //   }
+  // };
   const handleSaveMovie = (movie) => {
     mainApi.saveMovie(movie)
       .then((res) => {
@@ -121,23 +158,31 @@ function App() {
   };
 
   const handleDeleteMovie = (movie) => {
-    mainApi.deleteSavedMovie(movie._id)
+    const savedMovie = !movie._id ? savedMovies.find((item) => item.movieId === movie.movieId) : movie;
+    mainApi.deleteSavedMovie(savedMovie._id)
       .then((res) => {
         setSavedMovies((state) => state.filter(c => c.movieId !== movie.movieId));
       })
       .catch(err => {
         if (err === 403) {
-          console.log("нельзя удалять чужую карточку")
+          console.log('нельзя удалять чужую карточку');
         }
       });
+  };
 
+  const onCardClick = (movie, isSaved) => {
+    if (isSaved) {
+      handleDeleteMovie(movie);
+    } else {
+      handleSaveMovie(movie);
+    }
   };
 
   const getSavedMovies = () => {
     mainApi.getSavedMovies()
       .then((res) => {
-        console.log(res)
         setSavedMovies(res);
+        // setDisplayedMovies(savedMovies);
       });
   };
 
@@ -169,7 +214,6 @@ function App() {
 
   useEffect(() => {
     if (localStorage.getItem('jwt')) {
-      console.log('dc');
       handleTokenCheck();
       getSavedMovies();
     } else setIsLoggedIn(false);
@@ -181,18 +225,21 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<Main/>}></Route>
-          <Route path="/movies"
-                 element={<PrivateRoute loggedIn={isLoggedIn}><Movies movies={foundMovies}
-                                                                      savedMovies={savedMovies}
-                                                                      onSubmitSearch={handleSearch}
-                                                                      saveMovie={handleSaveMovie}/></PrivateRoute>}></Route>
-          <Route path="/saved-movies" element={<PrivateRoute loggedIn={isLoggedIn}><SavedMovies
-            savedMovies={savedMovies} deleteMovie={handleDeleteMovie}/></PrivateRoute>}></Route>
-          <Route path="/profile"
-                 element={<PrivateRoute loggedIn={isLoggedIn}><Profile formResult={resultForm}
-                                                                       currentUser={currentUser}
-                                                                       onSubmit={handleUpdateUserData}
-                                                                       onLogout={handleLogout}/></PrivateRoute>}></Route>
+          <Route path="/movies" element={<PrivateRoute loggedIn={isLoggedIn}>
+            <Movies movies={foundMovies}
+                    savedMovies={savedMovies}
+                    onSubmitSearch={handleSearch}
+                    saveMovie={onCardClick}/></PrivateRoute>}></Route>
+          <Route path="/saved-movies" element={<PrivateRoute loggedIn={isLoggedIn}>
+            <SavedMovies
+              savedMovies={isSearchInSavedMovies ? foundSavedMovies : savedMovies}
+              deleteMovie={onCardClick}
+              onSubmitSearch={handleSavedMoviesSearch}/></PrivateRoute>}></Route>
+          <Route path="/profile" element={<PrivateRoute loggedIn={isLoggedIn}>
+            <Profile formResult={resultForm}
+                     currentUser={currentUser}
+                     onSubmit={handleUpdateUserData}
+                     onLogout={handleLogout}/></PrivateRoute>}></Route>
           <Route path="/signup"
                  element={<Register onRegistration={handleSignUpSubmit} currentUser={currentUser}
                                     formResult={resultForm}/>}></Route>

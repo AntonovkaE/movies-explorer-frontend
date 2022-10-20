@@ -39,8 +39,6 @@ function Profile({ onSubmit, formResult, onLogout }) {
   };
   const isButtonDisabled = !isValid || isDataNotChanged;
 
-
-
   return (<section className="section section_withForm profile">
     <UserForm onSubmit={handleSubmit(onUpdateUserData)} formName="edit"
               title={`Привет, ${currentUser.name}!`} buttonText="Редактировать"
