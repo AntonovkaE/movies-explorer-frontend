@@ -56,7 +56,7 @@ function Login({currentUser, onSubmit, formResult}) {
         })} onChange={handleEmailChange} name='email'
                id='email-input'
                className={`form__input form__input_email form__input_login`}
-               // value={email || ''}
+               value={email || ''}
           />
         <span className={`form__item-error email-input-error`}>{errors.email?.message}</span>
       </label>

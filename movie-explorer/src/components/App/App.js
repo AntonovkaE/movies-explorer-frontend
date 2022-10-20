@@ -63,7 +63,7 @@ function App() {
 
   useEffect(() => {
     getInitialMovies();
-    setFoundMovies(JSON.parse(localStorage.foundMovies || []));
+    setFoundMovies(localStorage.foundMovies ? JSON.parse(localStorage.foundMovies) : '');
   }, []);
 
   const handleSignUpSubmit = (name, email, password) => {
@@ -95,7 +95,6 @@ function App() {
   };
 
   const handleLogout = () => {
-    console.log('выход');
     setResultForm({});
     localStorage.removeItem('jwt');
     localStorage.removeItem('foundMovies');
