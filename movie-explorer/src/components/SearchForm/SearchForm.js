@@ -3,30 +3,39 @@ import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import Button from '../Button/Button';
 
-function SearchForm({onSubmit}) {
+function SearchForm({ onSubmit, sectionSearchInput = '' }) {
 
-  const [searchInput, setSearchInput] = useState(localStorage.searchInput || '')
-  const [isShort, setIsShort] = useState(localStorage.isChecked || false)
+  const [searchInput, setSearchInput] = useState({
+    [sectionSearchInput]: localStorage.sectionSearchInput,
+  } || {
+    [sectionSearchInput]: '',
+  });
+  const [isShort, setIsShort] = useState(localStorage.isChecked || false);
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(searchInput, isShort);
-  }
+    console.log(searchInput)
+    onSubmit(searchInput[sectionSearchInput], isShort);
+  };
   const handleChange = (e) => {
-    setSearchInput(e.target.value)
-  }
+    setSearchInput({
+      [sectionSearchInput]: e.target.value,
+    });
+  };
   const isChecked = (isChecked) => {
-    setIsShort(isChecked)
-  }
+    setIsShort(isChecked);
+  };
   useEffect(() => {
-    onSubmit(searchInput, isShort)
-  }, [isShort])
+    onSubmit(searchInput[sectionSearchInput], isShort);
+  }, [isShort]);
 
   return (
     <section className="section searchForm">
       <form onSubmit={handleSubmit} className="searchForm__form" name="searchForm">
-        <input onChange={handleChange} value={searchInput} className="searchForm__input" placeholder="Фильм" required></input>
+        <input onChange={handleChange} value={searchInput[sectionSearchInput]}
+               className="searchForm__input"
+               placeholder="Фильм" required></input>
         <Button type="submit" status="search" text="Найти"/>
-        <FilterCheckbox onToggle={isChecked}/>
+        <FilterCheckbox onToggle={isChecked} sectionSearchInput={sectionSearchInput}/>
       </form>
     </section>);
 }

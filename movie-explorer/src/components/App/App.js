@@ -117,7 +117,7 @@ function App() {
       }
       return (item.nameRU.search(search) !== -1);
     }));
-    localStorage.setItem('searchInput', value);
+    localStorage.setItem('moviesSearchInput', value);
   };
 
   const handleSavedMoviesSearch = (value, isShort) => {
@@ -129,7 +129,7 @@ function App() {
       return (item.nameRU.search(search) !== -1);
     }));
     setIsSearchInSavedMovies(true);
-    localStorage.setItem('searchInput', value);
+    localStorage.setItem('savedMoviesSearchInput', value);
   };
 
   // const handleMovieToggleFilter = (isChecked) => {
