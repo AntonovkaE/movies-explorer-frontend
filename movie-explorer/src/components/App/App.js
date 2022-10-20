@@ -63,10 +63,7 @@ function App() {
 
   useEffect(() => {
     getInitialMovies();
-    console.log(localStorage.foundMovies)
-    if (localStorage.foundMovies) {
-      setFoundMovies(JSON.parse(localStorage.foundMovies));
-    }
+    setFoundMovies(JSON.parse(localStorage.foundMovies || []));
   }, []);
 
   const handleSignUpSubmit = (name, email, password) => {
@@ -140,7 +137,10 @@ function App() {
     const savedMovie = !movie._id ? savedMovies.find((item) => item.movieId === movie.movieId) : movie;
     mainApi.deleteSavedMovie(savedMovie._id)
       .then((res) => {
-        setSavedMovies((state) => state.filter(c => c.movieId !== movie.movieId));
+        setSavedMovies((state) => state.filter(c => c.movieId !== movie.movieId))
+        if (isSearchInSavedMovies) {
+          setFoundSavedMovies((state) => state.filter(c => c.movieId !== movie.movieId))
+        }
       })
       .catch(err => {
         if (err === 403) {
