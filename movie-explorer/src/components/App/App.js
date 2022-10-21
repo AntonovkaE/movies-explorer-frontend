@@ -209,7 +209,7 @@ function App() {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <Header isAuth={true} showMenu={showMenu} onClose={closeMenu} isOpen={isNavigationOpen}/>
+      <Header isAuth={isLoggedIn} showMenu={showMenu} onClose={closeMenu} isOpen={isNavigationOpen}/>
       <main>
         <Routes>
           <Route path="/" element={<Main/>}></Route>
@@ -221,7 +221,7 @@ function App() {
                     saveMovie={onCardClick}/></PrivateRoute>}></Route>
           <Route path="/saved-movies" element={<PrivateRoute loggedIn={isLoggedIn}>
             <SavedMovies
-              savedMovies={isSearchInSavedMovies ? foundSavedMovies : savedMovies}
+              savedMovies={savedMovies}
               deleteMovie={onCardClick}
               onSubmitSearch={handleSavedMoviesSearch}/></PrivateRoute>}></Route>
           <Route path="/profile" element={<PrivateRoute loggedIn={isLoggedIn}>

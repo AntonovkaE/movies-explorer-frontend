@@ -24,6 +24,7 @@ function Profile({ onSubmit, formResult, onLogout }) {
     setEmail(event.target.value);
   };
   const handleUserNameChange = (event) => {
+    console.log(isValid)
     setUserName(event.target.value);
   };
   const isDataNotChanged = currentUser.name === userName && currentUser.email === email;

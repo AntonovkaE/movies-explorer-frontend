@@ -15,6 +15,7 @@ function MovieCard({ movie, onButtonClick, savedMovies, cardSection }) {
 
   const isMovieSaved = savedMovies.some(item => item.movieId === movie.movieId);
   const buttonText = isMovieSaved ? '' : 'Сохранить';
+
   const buttonClass = (cardSection === 'savedMovie') ? 'savedMovie' : isMovieSaved ? 'success' : '';
   const isDisabledButton = (cardSection !== 'savedMovie' || owner === currentUser._id) ? false : true;
   const handleButtonClick = (e) => {
