@@ -22,7 +22,7 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [foundMovies, setFoundMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
-  const [foundSavedMovies, setFoundSavedMovies] = useState([]);
+  // const [foundSavedMovies, setFoundSavedMovies] = useState([]);
   const [isSearchInSavedMovies, setIsSearchInSavedMovies] = useState(false);
   const [isNavigationOpen, setIsNavigationOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -71,11 +71,11 @@ function App() {
 
   const handleLogout = () => {
     setResultForm({});
-    localStorage.removeItem('jwt');
-    localStorage.removeItem('foundMovies');
-    localStorage.removeItem('searchInput');
-    localStorage.removeItem('moviesSearchInput');
-    localStorage.removeItem('savedMoviesSearchInput')
+    localStorage.clear();
+    setMovies([]);
+    setFoundMovies([]);
+    setSavedMovies([]);
+    setCurrentUser({})
     setIsLoggedIn(false);
   };
 
@@ -130,7 +130,7 @@ function App() {
   };
 
   const handleSavedMoviesSearch = (value, isShort) => {
-    setFoundSavedMovies(filterMovies(savedMovies, value, isShort));
+    // setFoundSavedMovies(filterMovies(savedMovies, value, isShort));
     setIsSearchInSavedMovies(true);
     localStorage.setItem('savedMoviesSearchInput', value);
   };

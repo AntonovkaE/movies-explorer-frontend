@@ -29,6 +29,8 @@ function Login({ currentUser, onSubmit, formResult }) {
 
   const onLogin = () => {
     onSubmit(email, password);
+    setEmail('')
+    setPassword('')
     reset();
   };
 

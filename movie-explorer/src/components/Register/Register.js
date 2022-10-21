@@ -14,6 +14,7 @@ function Register({ onRegistration, formResult }) {
 
   const handleRegistration = () => {
     onRegistration(values.name, values.email, values.password);
+    setValues({});
     reset();
   };
 
