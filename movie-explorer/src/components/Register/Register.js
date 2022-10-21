@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Register.css';
 import UserForm from '../UserForm/UserForm';
 import { useForm } from 'react-hook-form';
+import isEmail from 'validator/lib/isEmail';
 
 function Register({ onRegistration, formResult }) {
   const [values, setValues] = useState({});
@@ -65,8 +66,12 @@ function Register({ onRegistration, formResult }) {
             message: 'Минимум 2 символа',
           },
           pattern: {
-            value: /^[-\w.]+@([A-z\d][-A-z\d]+\.)+[A-z]{2,4}$/,
-            message: 'Please Enter A Valid Email!',
+            value: /^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/,
+            message: 'Введите корректный e-mail'
+          },
+          type: 'email',
+          validate: {
+            isEmail: (v) => isEmail(v),
           },
         })} onChange={handleChangeInput} name="email"
                id="email-input"
