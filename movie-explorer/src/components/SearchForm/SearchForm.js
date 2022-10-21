@@ -8,7 +8,7 @@ function SearchForm({ onSubmit, sectionSearchInput = '' }) {
   const [searchInput, setSearchInput] = useState({
     [sectionSearchInput]: localStorage.sectionSearchInput || '',
   });
-  const [isShort, setIsShort] = useState(JSON.parse(localStorage.isChecked)[sectionSearchInput] || false);
+  const [isShort, setIsShort] = useState(localStorage.isChecked ? Boolean(JSON.parse(localStorage.isChecked)[sectionSearchInput]) : false);
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit(searchInput[sectionSearchInput], isShort);
@@ -19,10 +19,14 @@ function SearchForm({ onSubmit, sectionSearchInput = '' }) {
     });
   };
   const isChecked = (isChecked) => {
+    console.log(isChecked)
     setIsShort(isChecked);
   };
   useEffect(() => {
-    onSubmit(searchInput[sectionSearchInput], isShort);
+    if (searchInput[sectionSearchInput] !== '') {
+      console.log(searchInput)
+      onSubmit(searchInput[sectionSearchInput], isShort);
+    }
   }, [isShort]);
 
   return (

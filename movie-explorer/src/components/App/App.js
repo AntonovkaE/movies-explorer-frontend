@@ -37,35 +37,34 @@ function App() {
   const closeMenu = () => {
     setIsNavigationOpen(false);
   };
-  const getInitialMovies = () => {
-    movieApi.getMovies()
-      .then(res => {
-          setMovies(res.map(movie => ({
-            nameRU: movie.nameRU || movie.nameEN || '',
-            image: `${movie.image.url ? `https://api.nomoreparties.co${movie.image.url}` : notFoundImage}`,
-            trailerLink: movie.trailerLink || '',
-            duration: movie.duration || '',
-            movieId: movie.id,
-            country: movie.country || '',
-            description: movie.description || '',
-            director: movie.director || '',
-            year: movie.year || '',
-            nameEN: movie.nameEN || '',
-            thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
-          })));
-          return movies;
-        },
-      )
-      .catch((err) => {
-        navigate('/404');
-      });
-  };
+  // const getInitialMovies = () => {
+  //   movieApi.getMovies()
+  //     .then(res => {
+  //         setMovies(res.map(movie => ({
+  //           nameRU: movie.nameRU || movie.nameEN || '',
+  //           image: `${movie.image.url ? `https://api.nomoreparties.co${movie.image.url}` : notFoundImage}`,
+  //           trailerLink: movie.trailerLink || '',
+  //           duration: movie.duration || '',
+  //           movieId: movie.id,
+  //           country: movie.country || '',
+  //           description: movie.description || '',
+  //           director: movie.director || '',
+  //           year: movie.year || '',
+  //           nameEN: movie.nameEN || '',
+  //           thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
+  //         })));
+  //         return movies;
+  //       },
+  //     )
+  //     .catch((err) => {
+  //       navigate('/404');
+  //     });
+  //   return movies;
+  // };
 
   useEffect(() => {
-    getInitialMovies();
-    setFoundMovies(localStorage.foundMovies ? JSON.parse(localStorage.foundMovies) : '');
+    setFoundMovies(localStorage.foundMovies ? JSON.parse(localStorage.foundMovies) : []);
   }, []);
-
   const handleSignUpSubmit = (name, email, password) => {
     auth.register({ name, email, password })
       .then((res) => {
@@ -99,6 +98,7 @@ function App() {
     localStorage.removeItem('jwt');
     localStorage.removeItem('foundMovies');
     localStorage.removeItem('searchInput');
+    localStorage.removeItem('moviesSearchInput');
     setIsLoggedIn(false);
   };
 
@@ -106,17 +106,68 @@ function App() {
     const filteredMovies = movies.filter((item) => {
       let search = new RegExp(`${value}`, 'gi');
       if (isShort) {
-        return (item.nameRU.search(search) !== -1 && item.duration < 40 );
+        return (item.nameRU.search(search) !== -1 && item.duration < 40);
       }
       return (item.nameRU.search(search) !== -1);
-    })
+    });
     return filteredMovies;
-  }
+  };
 
   const handleSearch = (value, isShort) => {
-    setFoundMovies(filterMovies(movies, value, isShort));
-    localStorage.setItem('moviesSearchInput', value);
+    setIsLoading(true);
+    let receivedMovies
+    if (!movies.length) {
+      movieApi.getMovies()
+        .then(res => {
+          receivedMovies = res.map(movie => ({
+            nameRU: movie.nameRU || movie.nameEN || '',
+            image: `${movie.image.url ? `https://api.nomoreparties.co${movie.image.url}` : notFoundImage}`,
+            trailerLink: movie.trailerLink || '',
+            duration: movie.duration || '',
+            movieId: movie.id,
+            country: movie.country || '',
+            description: movie.description || '',
+            director: movie.director || '',
+            year: movie.year || '',
+            nameEN: movie.nameEN || '',
+            thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
+          }))
+            setMovies(receivedMovies);
+            localStorage.setItem('moviesSearchInput', value);
+            return movies;
+          },
+        ).then(res => {
+          console.log(movies)
+        setFoundMovies(filterMovies(receivedMovies, value, isShort));
+      })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    } else {
+      setFoundMovies(filterMovies(movies, value, isShort));
+      console.log(foundMovies);
+      setIsLoading(false);
+    }
   };
+  //   setIsLoading(true);
+  //   try {
+  //     if (!movies.length) {
+  //       await getInitialMovies();
+  //     }
+  //     setFoundMovies(filterMovies(movies, value, isShort));
+  //     localStorage.setItem('moviesSearchInput', value);
+  // setTimeout(() => {
+  //   console.log('sj')
+  // }, 10000)
+  //   } catch (err) {
+  //     console.log(err);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   const handleSavedMoviesSearch = (value, isShort) => {
     setFoundSavedMovies(filterMovies(savedMovies, value, isShort));
@@ -136,9 +187,9 @@ function App() {
     const savedMovie = !movie._id ? savedMovies.find((item) => item.movieId === movie.movieId) : movie;
     mainApi.deleteSavedMovie(savedMovie._id)
       .then((res) => {
-        setSavedMovies((state) => state.filter(c => c.movieId !== movie.movieId))
+        setSavedMovies((state) => state.filter(c => c.movieId !== movie.movieId));
         if (isSearchInSavedMovies) {
-          setFoundSavedMovies((state) => state.filter(c => c.movieId !== movie.movieId))
+          setFoundSavedMovies((state) => state.filter(c => c.movieId !== movie.movieId));
         }
       })
       .catch(err => {
@@ -204,6 +255,7 @@ function App() {
           <Route path="/" element={<Main/>}></Route>
           <Route path="/movies" element={<PrivateRoute loggedIn={isLoggedIn}>
             <Movies movies={foundMovies}
+                    isLoading={isLoading}
                     savedMovies={savedMovies}
                     onSubmitSearch={handleSearch}
                     saveMovie={onCardClick}/></PrivateRoute>}></Route>

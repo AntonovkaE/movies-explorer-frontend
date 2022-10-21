@@ -2,10 +2,11 @@ import React from 'react';
 import './MoviesCardList.css';
 import MovieCard from '../MoviesCard/MoviesCard';
 
-function MovieCardList({ count, movies, handleButtonClick, savedMovies, section }) {
+function MovieCardList({ count, movies, handleButtonClick, savedMovies, section, children }) {
   const isNotFound = movies.length === 0;
   return (
     <section className="section movieSection" aria-label="Фильмы">
+      {children}
       {isNotFound ? <h2 className="movieSection__title">Ничего не найдено</h2> :
         <ul
           className="list movies">

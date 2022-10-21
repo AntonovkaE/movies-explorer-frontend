@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './FilterCheckbox.css';
 
 function FilterCheckbox({onToggle, sectionSearchInput}) {
-  const [isChecked, setIsChecked] = useState({[sectionSearchInput]: Boolean(JSON.parse(localStorage.isChecked)[sectionSearchInput])});
+  const [isChecked, setIsChecked] = useState({[sectionSearchInput]: localStorage.isChecked ? Boolean(JSON.parse(localStorage.isChecked)[sectionSearchInput]) : false});
 
   const handleInputChange = (e) => {
     setIsChecked({[sectionSearchInput]: e.target.checked });
@@ -10,11 +10,11 @@ function FilterCheckbox({onToggle, sectionSearchInput}) {
     onToggle(JSON.parse(localStorage.isChecked)[sectionSearchInput]);
   };
 
-  useEffect( () => {
-    if (localStorage.isChecked[sectionSearchInput] !== undefined) {
-      setIsChecked({[sectionSearchInput]: JSON.parse(localStorage.isChecked)});
-    }
-  }, [isChecked[sectionSearchInput]])
+  // useEffect( () => {
+  //   if (localStorage.isChecked !== undefined) {
+  //     setIsChecked({[sectionSearchInput]: JSON.parse(localStorage.isChecked)});
+  //   }
+  // }, [isChecked[sectionSearchInput]])
 
   return (<label className="filter" htmlFor="switch">
       <input className="filter__input" type="checkbox" id="switch" checked={isChecked[sectionSearchInput]}

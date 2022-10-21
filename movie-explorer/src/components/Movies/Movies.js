@@ -5,13 +5,14 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Button from '../Button/Button';
 import Preloader from '../Preloader/Preloader';
 
-function Movies({ movies, onSubmitSearch, isPreloaderHidden, saveMovie, savedMovies }) {
+function Movies({ movies, onSubmitSearch, isLoading, saveMovie, savedMovies }) {
   const [movieCount, setMovieCount] = useState(5);
   const [additionalCount, setAdditionalCount] = useState(2);
   const [isButtonHidden, setIsButtonHidden] = useState(!Boolean(movies.length));
   if (movies.length) {
     localStorage.setItem('foundMovies', JSON.stringify(movies));
   }
+  console.log(movies);
   const handleResize = () => {
     if (window.innerWidth < 768) {
       setMovieCount(5);
@@ -42,13 +43,13 @@ function Movies({ movies, onSubmitSearch, isPreloaderHidden, saveMovie, savedMov
     window.addEventListener('resize', () => setTimeout(handleResize, 10000));
   }, []);
 
-
   return (
     <>
-      <Preloader isHidden={true}/>
       <SearchForm onSubmit={onSubmitSearch} sectionSearchInput="moviesSearchInput"/>
       <MoviesCardList savedMovies={savedMovies} handleButtonClick={saveMovie} count={movieCount}
-                      movies={movies} section="movie"/>
+                      movies={movies} section="movie">
+        <Preloader isHidden={!isLoading}/>
+      </MoviesCardList>
       <Button isHidden={isButtonHidden} onclick={showMoreMovies} text="Ещё" status="showMore"
               type="button"/>
     </>);
