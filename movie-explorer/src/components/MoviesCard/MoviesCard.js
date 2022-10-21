@@ -5,10 +5,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function MovieCard({ movie, onButtonClick, savedMovies, cardSection }) {
   const {
-    country,
-    director,
     duration,
-    year,
     image,
     trailerLink,
     nameRU,
