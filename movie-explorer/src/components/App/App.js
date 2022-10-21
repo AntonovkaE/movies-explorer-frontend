@@ -137,7 +137,6 @@ function App() {
             return movies;
           },
         ).then(res => {
-          console.log(movies)
         setFoundMovies(filterMovies(receivedMovies, value, isShort));
       })
         .catch((err) => {
@@ -148,26 +147,9 @@ function App() {
         });
     } else {
       setFoundMovies(filterMovies(movies, value, isShort));
-      console.log(foundMovies);
       setIsLoading(false);
     }
   };
-  //   setIsLoading(true);
-  //   try {
-  //     if (!movies.length) {
-  //       await getInitialMovies();
-  //     }
-  //     setFoundMovies(filterMovies(movies, value, isShort));
-  //     localStorage.setItem('moviesSearchInput', value);
-  // setTimeout(() => {
-  //   console.log('sj')
-  // }, 10000)
-  //   } catch (err) {
-  //     console.log(err);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
 
   const handleSavedMoviesSearch = (value, isShort) => {
     setFoundSavedMovies(filterMovies(savedMovies, value, isShort));

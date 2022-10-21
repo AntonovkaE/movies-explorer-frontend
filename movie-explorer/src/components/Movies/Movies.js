@@ -12,7 +12,6 @@ function Movies({ movies, onSubmitSearch, isLoading, saveMovie, savedMovies }) {
   if (movies.length) {
     localStorage.setItem('foundMovies', JSON.stringify(movies));
   }
-  console.log(movies);
   const handleResize = () => {
     if (window.innerWidth < 768) {
       setMovieCount(5);
