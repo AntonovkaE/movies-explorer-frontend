@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Login.css';
 import UserForm from '../UserForm/UserForm';
 import { useForm } from 'react-hook-form';
+import isEmail from 'validator/lib/isEmail';
 
 function Login({ currentUser, onSubmit, formResult }) {
   const {
@@ -47,6 +48,10 @@ function Login({ currentUser, onSubmit, formResult }) {
           pattern: {
             value: /^[-\w.]+@([A-z\d][-A-z\d]+\.)+[A-z]{2,4}$/,
             message: 'Please Enter A Valid Email!',
+          },
+          type: 'email',
+          validate: {
+            isEmail: (v) => isEmail(v),
           },
           minLength: {
             value: 2,
