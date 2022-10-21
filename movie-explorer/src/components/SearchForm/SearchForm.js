@@ -6,7 +6,7 @@ import Button from '../Button/Button';
 function SearchForm({ onSubmit, sectionSearchInput = '' }) {
 
   const [searchInput, setSearchInput] = useState({
-    [sectionSearchInput]: localStorage.sectionSearchInput || '',
+    [sectionSearchInput]: localStorage[sectionSearchInput] || '',
   });
   const [isShort, setIsShort] = useState(localStorage.isChecked ? Boolean(JSON.parse(localStorage.isChecked)[sectionSearchInput]) : false);
   const handleSubmit = (e) => {
@@ -19,12 +19,10 @@ function SearchForm({ onSubmit, sectionSearchInput = '' }) {
     });
   };
   const isChecked = (isChecked) => {
-    console.log(isChecked)
     setIsShort(isChecked);
   };
   useEffect(() => {
     if (searchInput[sectionSearchInput] !== '') {
-      console.log(searchInput)
       onSubmit(searchInput[sectionSearchInput], isShort);
     }
   }, [isShort]);

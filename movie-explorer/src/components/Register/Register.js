@@ -3,7 +3,7 @@ import './Register.css';
 import UserForm from '../UserForm/UserForm';
 import { useForm } from 'react-hook-form';
 
-function Register({ currentUser, onRegistration, formResult }) {
+function Register({ onRegistration, formResult }) {
   const [values, setValues] = useState({});
   const {
     register,
@@ -19,11 +19,6 @@ function Register({ currentUser, onRegistration, formResult }) {
 
   const handleChangeInput = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
-  };
-  const buttonSetting = {
-    buttonText: 'Зарегистрироваться',
-    buttonDisabled: !isValid,
-    onclick: handleSubmit(handleRegistration),
   };
 
   return (<section className="section section_withForm register">

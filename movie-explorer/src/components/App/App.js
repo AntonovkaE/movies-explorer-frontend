@@ -37,30 +37,6 @@ function App() {
   const closeMenu = () => {
     setIsNavigationOpen(false);
   };
-  // const getInitialMovies = () => {
-  //   movieApi.getMovies()
-  //     .then(res => {
-  //         setMovies(res.map(movie => ({
-  //           nameRU: movie.nameRU || movie.nameEN || '',
-  //           image: `${movie.image.url ? `https://api.nomoreparties.co${movie.image.url}` : notFoundImage}`,
-  //           trailerLink: movie.trailerLink || '',
-  //           duration: movie.duration || '',
-  //           movieId: movie.id,
-  //           country: movie.country || '',
-  //           description: movie.description || '',
-  //           director: movie.director || '',
-  //           year: movie.year || '',
-  //           nameEN: movie.nameEN || '',
-  //           thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
-  //         })));
-  //         return movies;
-  //       },
-  //     )
-  //     .catch((err) => {
-  //       navigate('/404');
-  //     });
-  //   return movies;
-  // };
 
   useEffect(() => {
     setFoundMovies(localStorage.foundMovies ? JSON.parse(localStorage.foundMovies) : []);
@@ -99,6 +75,7 @@ function App() {
     localStorage.removeItem('foundMovies');
     localStorage.removeItem('searchInput');
     localStorage.removeItem('moviesSearchInput');
+    localStorage.removeItem('savedMoviesSearchInput')
     setIsLoggedIn(false);
   };
 
@@ -115,25 +92,25 @@ function App() {
 
   const handleSearch = (value, isShort) => {
     setIsLoading(true);
-    let receivedMovies
+    let receivedMovies;
     if (!movies.length) {
       movieApi.getMovies()
         .then(res => {
-          receivedMovies = res.map(movie => ({
-            nameRU: movie.nameRU || movie.nameEN || '',
-            image: `${movie.image.url ? `https://api.nomoreparties.co${movie.image.url}` : notFoundImage}`,
-            trailerLink: movie.trailerLink || '',
-            duration: movie.duration || '',
-            movieId: movie.id,
-            country: movie.country || '',
-            description: movie.description || '',
-            director: movie.director || '',
-            year: movie.year || '',
-            nameEN: movie.nameEN || '',
-            thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
-          }))
+            receivedMovies = res.map(movie => ({
+              nameRU: movie.nameRU || movie.nameEN || '',
+              image: `${movie.image.url ? `https://api.nomoreparties.co${movie.image.url}` : notFoundImage}`,
+              trailerLink: movie.trailerLink || '',
+              duration: movie.duration || '',
+              movieId: movie.id,
+              country: movie.country || '',
+              description: movie.description || '',
+              director: movie.director || '',
+              year: movie.year || '',
+              nameEN: movie.nameEN || '',
+              thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
+            }));
             setMovies(receivedMovies);
-            localStorage.setItem('moviesSearchInput', value);
+
             return movies;
           },
         ).then(res => {
@@ -147,6 +124,7 @@ function App() {
         });
     } else {
       setFoundMovies(filterMovies(movies, value, isShort));
+      localStorage.setItem('moviesSearchInput', value);
       setIsLoading(false);
     }
   };
