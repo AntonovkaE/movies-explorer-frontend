@@ -2,21 +2,21 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import Header from '../Header/Header';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
-import PrivateRoute from '../ProtectedRoute';
+import { AuthRoute, PrivateRoute } from '../ProtectedRoute';
 import Main from '../Main/Main';
-import Footer from '../Footer/Footer';
 import Movies from '../Movies/Movies';
 import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
-import NavigationPopup from '../NavigationPopup/NavigationPopup';
+import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import movieApi from '../../utils/MoviesApi';
 import SavedMovies from '../SavedMovies/SavedMovies';
-import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import notFoundImage from '../../images/backgrond-about.svg';
 import mainApi from '../../utils/MainApi';
 import * as auth from '../../utils/auth.js';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import NavigationPopup from '../NavigationPopup/NavigationPopup';
+import Footer from '../Footer/Footer';
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -58,16 +58,20 @@ function App() {
       });
   };
   const handleSignInSubmit = (email, password) => {
+    console.log(email);
     auth.login({ password, email })
       .then(data => {
-        handleTokenCheck();
+        console.log(data);
+        setIsLoggedIn(true);
+        navigate('/movies');
+        // handleTokenCheck();
         setResultForm({});
       })
       .catch(err => {
         if (err === 401) {
           setResultForm({ message: 'Вы ввели неправильный логин или пароль.', error: true });
         }
-      })
+      });
   };
 
   const handleLogout = () => {
@@ -76,7 +80,7 @@ function App() {
     setMovies([]);
     setFoundMovies([]);
     setSavedMovies([]);
-    setCurrentUser({})
+    setCurrentUser({});
     setIsLoggedIn(false);
   };
 
@@ -118,6 +122,7 @@ function App() {
         setFoundMovies(filterMovies(receivedMovies, value, isShort));
       })
         .catch((err) => {
+          handleTokenCheck();
           console.log(err);
         })
         .finally(() => {
@@ -141,7 +146,7 @@ function App() {
       .then((res) => {
         setSavedMovies([res, ...savedMovies]);
       })
-      .catch(err => console.log(err));
+      .catch(err => handleTokenCheck());
   };
 
   const handleDeleteMovie = (movie) => {
@@ -154,6 +159,7 @@ function App() {
         }
       })
       .catch(err => {
+        handleTokenCheck();
         if (err === 403) {
           console.log('нельзя удалять чужую карточку');
         }
@@ -169,10 +175,13 @@ function App() {
   };
 
   const getSavedMovies = () => {
-    console.log(currentUser)
     mainApi.getSavedMovies()
       .then((res) => {
-        setSavedMovies(res.filter(c => c.owner ===  currentUser._id))
+        setSavedMovies(res.filter(c => c.owner === currentUser._id));
+      })
+      .catch((err) => {
+        console.log(err);
+        handleTokenCheck();
       });
   };
 
@@ -182,36 +191,48 @@ function App() {
         setResultForm({ message: 'Данные успешно обновлены', error: false });
         setCurrentUser(res);
       }).catch((err) => {
+      handleTokenCheck();
       console.log(err);
       if (err === 409) {
         setResultForm({ message: 'Пользователь с таким email уже существует.', error: true });
       }
-    })
+    });
   };
 
   const handleTokenCheck = () => {
     auth.getContent()
       .then(res => {
+        console.log(isLoggedIn)
         setIsLoggedIn(true);
-        navigate('/movies');
         setCurrentUser(res);
       })
-      .catch(res => setResultForm({
-        message: 'При авторизации произошла ошибка. Токен не передан или передан не в том формате.',
-        error: true,
-      }));
+      .catch(res => {
+        handleLogout();
+        setResultForm({
+          message: 'При авторизации произошла ошибка. Токен не передан или передан не в том формате.',
+          error: true,
+        });
+      });
   };
 
   useEffect(() => {
-    if (localStorage.getItem('jwt')) {
-      handleTokenCheck();
+    if (isLoggedIn) {
+      // handleTokenCheck();
       getSavedMovies();
     } else setIsLoggedIn(false);
   }, [isLoggedIn]);
 
+  useEffect(() => {
+    if (localStorage.jwt) {
+      handleTokenCheck();
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <Header isAuth={isLoggedIn} showMenu={showMenu} onClose={closeMenu} isOpen={isNavigationOpen}/>
+      <Header isAuth={isLoggedIn} showMenu={showMenu} onClose={closeMenu}
+              isOpen={isNavigationOpen}/>
       <main>
         <Routes>
           <Route path="/" element={<Main/>}></Route>
@@ -233,11 +254,14 @@ function App() {
                      onSubmit={handleUpdateUserData}
                      onLogout={handleLogout}/></PrivateRoute>}></Route>
           <Route path="/signup"
-                 element={<Register onRegistration={handleSignUpSubmit} currentUser={currentUser}
-                                    formResult={resultForm}/>}></Route>
+                 element={<AuthRoute loggedIn={isLoggedIn}><Register
+                   onRegistration={handleSignUpSubmit} currentUser={currentUser}
+                   formResult={resultForm}/></AuthRoute>}></Route>
           <Route path="/signin"
-                 element={<Login onSubmit={handleSignInSubmit} currentUser={currentUser}
-                                 formResult={resultForm}/>}></Route>
+                 element={<AuthRoute loggedIn={isLoggedIn}>
+                   <Login onSubmit={handleSignInSubmit} currentUser={currentUser}
+                          formResult={resultForm}/>}>
+                 </AuthRoute>}></Route>
           <Route path="/404" element={<NotFoundPage/>}></Route>
           <Route exact path="*"
                  element={isLoggedIn ? <Navigate replace to="/404"/> : <Navigate replace to="/"/>}
