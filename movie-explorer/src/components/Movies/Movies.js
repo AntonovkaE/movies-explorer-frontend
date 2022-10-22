@@ -31,9 +31,6 @@ function Movies({ movies, onSubmitSearch, isLoading, saveMovie, savedMovies }) {
   };
   useEffect(() => {
     setIsButtonHidden(movieCount > movies.length);
-    // if (movieCount > movies.length) {
-    //   setIsButtonHidden(true)
-    // }
   }, [movies, movieCount]);
 
   useEffect(() => {

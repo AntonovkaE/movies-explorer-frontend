@@ -4,13 +4,12 @@ import UserForm from '../UserForm/UserForm';
 import { useForm } from 'react-hook-form';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-function Profile({ onSubmit, formResult, onLogout }) {
+function Profile({ onSubmit, resultForm, setResultForm, onLogout }) {
 
   const currentUser = useContext(CurrentUserContext);
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors, isValid },
   } = useForm({
     mode: 'onBlur',
@@ -18,7 +17,6 @@ function Profile({ onSubmit, formResult, onLogout }) {
 
   const [email, setEmail] = useState(currentUser.email);
   const [userName, setUserName] = useState(currentUser.name);
-  const [result, setResult] = useState({});
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -30,18 +28,17 @@ function Profile({ onSubmit, formResult, onLogout }) {
 
   const onUpdateUserData = () => {
     if (isDataNotChanged) {
-      setResult({ message: 'Данные не изменены', error: true });
+      setResultForm({ message: 'Данные не изменены', error: true });
       return;
     }
     onSubmit(userName, email);
-    setResult(formResult);
   };
   const isButtonDisabled = !isValid || isDataNotChanged;
 
   return (<section className="section section_withForm profile">
     <UserForm onSubmit={handleSubmit(onUpdateUserData)} formName="edit"
               title={`Привет, ${currentUser.name}!`} buttonText="Редактировать"
-              linkText="Выйти из аккаунта" link="/" formResult={result}
+              linkText="Выйти из аккаунта" link="/" formResult={resultForm}
               buttonDisabled={isButtonDisabled} onLinkClick={onLogout}>
       <label htmlFor={`name-input`}
              className={`form__label form__label_profile`}>

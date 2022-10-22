@@ -17,13 +17,15 @@ function UserForm({
   buttonDisabled,
   formResult,
 }) {
+  const resultError = formResult.error || '';
+  const resultMessage = formResult.message || '';
   return (
     <form onSubmit={onSubmit} className={`form form_${formName}`}>
       <h2 className={`form__heading form__heading_${formName}`}>{title}</h2>
       {children}
       <div className="form__buttons">
         <span
-          className={`form__message form__message_${formResult.error ? 'error' : 'success'}`}>{formResult.message}</span>
+          className={`form__message form__message_${resultError ? 'error' : 'success'}`}>{resultMessage}</span>
         <Button
           type="submit" onclick={onButtonClick}
           status={`${formName !== 'edit' ? 'black button_form-auth' : ''} form__button  button_${formName}`}

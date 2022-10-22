@@ -185,7 +185,7 @@ function App() {
       if (err === 409) {
         setResultForm({ message: 'Пользователь с таким email уже существует.', error: true });
       }
-    });
+    })
   };
 
   const handleTokenCheck = () => {
@@ -226,7 +226,8 @@ function App() {
               deleteMovie={onCardClick}
               onSubmitSearch={handleSavedMoviesSearch}/></PrivateRoute>}></Route>
           <Route path="/profile" element={<PrivateRoute loggedIn={isLoggedIn}>
-            <Profile formResult={resultForm}
+            <Profile resultForm={resultForm}
+                     setResultForm={setResultForm}
                      currentUser={currentUser}
                      onSubmit={handleUpdateUserData}
                      onLogout={handleLogout}/></PrivateRoute>}></Route>
