@@ -16,7 +16,7 @@ function Movies({ movies, onSubmitSearch, isLoading, saveMovie, savedMovies }) {
     if (window.innerWidth < 768) {
       setMovieCount(5);
       setAdditionalCount(2);
-    } else if (window.innerWidth < 1280) {
+    } else if (window.innerWidth < 1134) {
       setMovieCount(8);
       setAdditionalCount(2);
     } else {
