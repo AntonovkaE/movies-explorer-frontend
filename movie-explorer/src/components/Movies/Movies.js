@@ -13,22 +13,32 @@ function Movies({ movies, onSubmitSearch, isLoading, saveMovie, savedMovies }) {
     localStorage.setItem('foundMovies', JSON.stringify(movies));
   }
   const handleResize = () => {
-    console.log("размер")
-    if (window.innerWidth < 768) {
-      setMovieCount(5);
-      setAdditionalCount(2);
-    } else if (window.innerWidth < 1134) {
-      setMovieCount(8);
-      setAdditionalCount(2);
-    } else {
-      setMovieCount(12);
-      setAdditionalCount(3);
-    }
+    setMovieCount(window.innerWidth < 768 ? 5 : window.innerWidth < 1134 ? 8 : 12);
+    setAdditionalCount(window.innerWidth < 768 ? 2 : window.innerWidth < 1134 ? 2 : 3);
+    // if (window.innerWidth < 768) {
+    //   console.log('s')
+    //   setMovieCount(5);
+    //   setAdditionalCount(2);
+    // } else if (window.innerWidth < 1134) {
+    //   console.log('m')
+    //   setMovieCount(8);
+    //   setAdditionalCount(2);
+    // } else {
+    //   console.log('l')
+    //   setMovieCount(12);
+    //   setAdditionalCount(3);
+    // }
   };
+  useEffect(() => {
+    setIsButtonHidden(movieCount > movies.length);
+    // if (movieCount > movies.length) {
+    //   setIsButtonHidden(true)
+    // }
+  }, [movies, movieCount]);
 
   useEffect(() => {
-    setIsButtonHidden(!Boolean(movies.length));
-  }, [movies.length]);
+    handleResize();
+  }, [window.innerWidth]);
 
   const showMoreMovies = () => {
     if ((movieCount + additionalCount) >= movies.length) {
@@ -46,7 +56,8 @@ function Movies({ movies, onSubmitSearch, isLoading, saveMovie, savedMovies }) {
   return (
     <>
       <SearchForm onSubmit={onSubmitSearch} sectionSearchInput="moviesSearchInput"/>
-      <MoviesCardList sectionSearchInput="moviesSearchInput" savedMovies={savedMovies} handleButtonClick={saveMovie} count={movieCount}
+      <MoviesCardList sectionSearchInput="moviesSearchInput" savedMovies={savedMovies}
+                      handleButtonClick={saveMovie} count={movieCount}
                       movies={movies} section="movie">
         <Preloader isHidden={!isLoading}/>
       </MoviesCardList>
