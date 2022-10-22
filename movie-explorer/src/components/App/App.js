@@ -28,7 +28,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [resultForm, setResultForm] = useState({});
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.jwt || false);
   // const [isButtonDisabled, setIsButtonDisabled] = useState(false)
   const navigate = useNavigate();
   const showMenu = () => {
@@ -130,7 +130,6 @@ function App() {
         });
     } else {
       setFoundMovies(filterMovies(movies, value, isShort));
-      localStorage.setItem('moviesSearchInput', value);
       setIsLoading(false);
     }
   };
@@ -138,7 +137,7 @@ function App() {
   const handleSavedMoviesSearch = (value, isShort) => {
     setFoundSavedMovies(filterMovies(savedMovies, value, isShort));
     setIsSearchInSavedMovies(true);
-    localStorage.setItem('savedMoviesSearchInput', value);
+    // localStorage.setItem('savedMoviesSearchInput', value);
   };
 
   const handleSaveMovie = (movie) => {
