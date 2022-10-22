@@ -32,7 +32,6 @@ function Login({ currentUser, onSubmit, formResult }) {
     onSubmit(email, password);
     setEmail('')
     setPassword('')
-    reset();
   };
 
   return (<section className="section section_withForm">

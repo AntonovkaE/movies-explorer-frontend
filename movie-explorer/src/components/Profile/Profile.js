@@ -24,7 +24,6 @@ function Profile({ onSubmit, formResult, onLogout }) {
     setEmail(event.target.value);
   };
   const handleUserNameChange = (event) => {
-    console.log(isValid)
     setUserName(event.target.value);
   };
   const isDataNotChanged = currentUser.name === userName && currentUser.email === email;
@@ -36,7 +35,6 @@ function Profile({ onSubmit, formResult, onLogout }) {
     }
     onSubmit(userName, email);
     setResult(formResult);
-    reset();
   };
   const isButtonDisabled = !isValid || isDataNotChanged;
 

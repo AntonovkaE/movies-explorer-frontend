@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Register.css';
 import UserForm from '../UserForm/UserForm';
 import { useForm } from 'react-hook-form';
@@ -9,14 +9,14 @@ function Register({ onRegistration, formResult }) {
   const {
     register,
     handleSubmit,
-    reset,
+    clearErrors,
     formState: { errors, isValid },
   } = useForm({ mode: 'onBlur' });
 
   const handleRegistration = () => {
     onRegistration(values.name, values.email, values.password);
-    setValues({});
-    reset();
+    setValues({name: '', email: '', password: ''});
+    clearErrors(['name', 'email', 'password'])
   };
 
   const handleChangeInput = (event) => {
@@ -28,7 +28,8 @@ function Register({ onRegistration, formResult }) {
               title="Добро пожаловать!"
               spanText="Уже зарегистрированы?" link="/signin" linkText="Войти"
               buttonText="Зарегистрироваться"
-              buttonDisabled={!isValid} formResult={formResult}>
+              buttonDisabled={!isValid}
+              formResult={formResult}>
       <label htmlFor={`name-input`}
              className={`form__label form__label_register`}>
         Имя
@@ -49,9 +50,6 @@ function Register({ onRegistration, formResult }) {
         })} onChange={handleChangeInput} type="text" name="name"
                id={`name-input`}
                className={`form__input form__input_name form__input_register`}
-          // maxLength="30" minLength="2"
-               autoComplete="on"
-               required
                value={values.name || ''}
         />
         <span className={`form__item-error password-input-error`}>{errors.name?.message}</span>
@@ -77,6 +75,7 @@ function Register({ onRegistration, formResult }) {
                id="email-input"
                className={`form__input form__input_email form__input_register`}
                maxLength="30"
+               value={values.email || ''}
                required/>
         <span className={`form__item-error password-input-error`}>{errors.email?.message}</span>
       </label>
@@ -93,6 +92,7 @@ function Register({ onRegistration, formResult }) {
                id={`password-input`}
                className={`form__input form__input_password form__input_register`}
                autoComplete="on"
+               value={values.password || ''}
         />
         <span className={`form__item-error password-input-error`}>{errors.password?.message}</span>
       </label>

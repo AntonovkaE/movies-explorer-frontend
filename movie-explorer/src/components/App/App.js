@@ -29,6 +29,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [resultForm, setResultForm] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false)
   const navigate = useNavigate();
   const showMenu = () => {
     setIsNavigationOpen(true);
@@ -66,7 +67,7 @@ function App() {
         if (err === 401) {
           setResultForm({ message: 'Вы ввели неправильный логин или пароль.', error: true });
         }
-      });
+      })
   };
 
   const handleLogout = () => {
