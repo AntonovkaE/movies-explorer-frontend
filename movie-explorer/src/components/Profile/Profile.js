@@ -19,9 +19,11 @@ function Profile({ onSubmit, resultForm, setResultForm, onLogout }) {
   const [userName, setUserName] = useState(currentUser.name);
 
   const handleEmailChange = (event) => {
+    setResultForm({})
     setEmail(event.target.value);
   };
   const handleUserNameChange = (event) => {
+    setResultForm({})
     setUserName(event.target.value);
   };
   const isDataNotChanged = currentUser.name === userName && currentUser.email === email;
