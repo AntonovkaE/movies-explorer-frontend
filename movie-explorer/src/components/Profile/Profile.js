@@ -3,6 +3,7 @@ import './Profile.css';
 import UserForm from '../UserForm/UserForm';
 import { useForm } from 'react-hook-form';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import isEmail from 'validator/lib/isEmail';
 
 function Profile({ onSubmit, resultForm, setResultForm, onLogout }) {
 
@@ -13,17 +14,21 @@ function Profile({ onSubmit, resultForm, setResultForm, onLogout }) {
     formState: { errors, isValid },
   } = useForm({
     mode: 'onBlur',
+    defaultValues: {
+      name: currentUser.name,
+      email: currentUser.email
+    }
   });
 
   const [email, setEmail] = useState(currentUser.email);
   const [userName, setUserName] = useState(currentUser.name);
 
   const handleEmailChange = (event) => {
-    setResultForm({})
+    setResultForm({});
     setEmail(event.target.value);
   };
   const handleUserNameChange = (event) => {
-    setResultForm({})
+    setResultForm({});
     setUserName(event.target.value);
   };
   const isDataNotChanged = currentUser.name === userName && currentUser.email === email;
@@ -82,6 +87,10 @@ function Profile({ onSubmit, resultForm, setResultForm, onLogout }) {
           pattern: {
             value: /^[-\w.]+@([A-z\d][-A-z\d]+\.)+[A-z]{2,4}$/,
             message: 'Please Enter A Valid Email!',
+          },
+          type: 'email',
+          validate: {
+            isEmail: (v) => isEmail(v),
           },
         })} onChange={handleEmailChange} type="email" name="email"
                id="email-input"

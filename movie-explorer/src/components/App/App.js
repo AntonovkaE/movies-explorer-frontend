@@ -58,10 +58,8 @@ function App() {
       });
   };
   const handleSignInSubmit = (email, password) => {
-    console.log(email);
     auth.login({ password, email })
       .then(data => {
-        console.log(data);
         setIsLoggedIn(true);
         navigate('/movies');
         // handleTokenCheck();
@@ -85,8 +83,11 @@ function App() {
   };
 
   const filterMovies = (movies, value, isShort) => {
+    let search = new RegExp(`${value}`, 'gi');
+    if (!value && !isShort) {
+      return movies;
+    }
     const filteredMovies = movies.filter((item) => {
-      let search = new RegExp(`${value}`, 'gi');
       if (isShort) {
         return (item.nameRU.search(search) !== -1 && item.duration < 40);
       }
@@ -137,7 +138,6 @@ function App() {
   const handleSavedMoviesSearch = (value, isShort) => {
     setFoundSavedMovies(filterMovies(savedMovies, value, isShort));
     setIsSearchInSavedMovies(true);
-    // localStorage.setItem('savedMoviesSearchInput', value);
   };
 
   const handleSaveMovie = (movie) => {
@@ -176,7 +176,9 @@ function App() {
   const getSavedMovies = () => {
     mainApi.getSavedMovies()
       .then((res) => {
-        setSavedMovies(res.filter(c => c.owner === currentUser._id));
+        const savedMoviesList = res.filter(c => c.owner === currentUser._id)
+        setSavedMovies(savedMoviesList);
+        localStorage.setItem('savedMovies', savedMoviesList)
       })
       .catch((err) => {
         console.log(err);
@@ -201,7 +203,6 @@ function App() {
   const handleTokenCheck = () => {
     auth.getContent()
       .then(res => {
-        console.log(isLoggedIn)
         setIsLoggedIn(true);
         setCurrentUser(res);
       })
@@ -243,7 +244,9 @@ function App() {
                     saveMovie={onCardClick}/></PrivateRoute>}></Route>
           <Route path="/saved-movies" element={<PrivateRoute loggedIn={isLoggedIn}>
             <SavedMovies
-              savedMovies={savedMovies}
+              isSearchResult={isSearchInSavedMovies}
+              setIsSearchResult={setIsSearchInSavedMovies}
+              savedMovies={isSearchInSavedMovies ? foundSavedMovies : savedMovies}
               deleteMovie={onCardClick}
               onSubmitSearch={handleSavedMoviesSearch}/></PrivateRoute>}></Route>
           <Route path="/profile" element={<PrivateRoute loggedIn={isLoggedIn}>
@@ -259,7 +262,7 @@ function App() {
           <Route path="/signin"
                  element={<AuthRoute loggedIn={isLoggedIn}>
                    <Login onSubmit={handleSignInSubmit} currentUser={currentUser}
-                          formResult={resultForm}/>}>
+                          formResult={resultForm}/>
                  </AuthRoute>}></Route>
           <Route path="/404" element={<NotFoundPage/>}></Route>
           <Route exact path="*"

@@ -4,6 +4,14 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Button from '../Button/Button';
 import Preloader from '../Preloader/Preloader';
+import {
+  largeScreenAdditionalMovieCount,
+  largeScreenMovieCount,
+  middleScreen,
+  middleScreenMovieCount,
+  smallScreenAdditionalMovieCount,
+  smallScreenMovieCount,
+} from '../../utils/variables';
 
 function Movies({ movies, onSubmitSearch, isLoading, saveMovie, savedMovies }) {
   const [movieCount, setMovieCount] = useState(5);
@@ -13,21 +21,8 @@ function Movies({ movies, onSubmitSearch, isLoading, saveMovie, savedMovies }) {
     localStorage.setItem('foundMovies', JSON.stringify(movies));
   }
   const handleResize = () => {
-    setMovieCount(window.innerWidth < 768 ? 5 : window.innerWidth < 1134 ? 8 : 12);
-    setAdditionalCount(window.innerWidth < 768 ? 2 : window.innerWidth < 1134 ? 2 : 3);
-    // if (window.innerWidth < 768) {
-    //   console.log('s')
-    //   setMovieCount(5);
-    //   setAdditionalCount(2);
-    // } else if (window.innerWidth < 1134) {
-    //   console.log('m')
-    //   setMovieCount(8);
-    //   setAdditionalCount(2);
-    // } else {
-    //   console.log('l')
-    //   setMovieCount(12);
-    //   setAdditionalCount(3);
-    // }
+    setMovieCount(window.innerWidth < middleScreen ? smallScreenMovieCount : window.innerWidth < middleScreen ? middleScreenMovieCount : largeScreenMovieCount);
+    setAdditionalCount(window.innerWidth < middleScreen ? smallScreenAdditionalMovieCount : largeScreenAdditionalMovieCount);
   };
   useEffect(() => {
     setIsButtonHidden(movieCount > movies.length);
