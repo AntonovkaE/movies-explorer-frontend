@@ -2,8 +2,8 @@ import React from 'react';
 import './MoviesCardList.css';
 import MovieCard from '../MoviesCard/MoviesCard';
 
-function MovieCardList({ count, movies, handleButtonClick, savedMovies, section, children }) {
-  const isNotFound = movies.length === 0;
+function MovieCardList({ count, movies, handleButtonClick, savedMovies, section, sectionSearchInput, children }) {
+  const isNotFound = Boolean(localStorage[sectionSearchInput]) && movies.length === 0
   return (
     <section className="section movieSection" aria-label="Фильмы">
       {children}

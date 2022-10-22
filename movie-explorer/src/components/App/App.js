@@ -29,7 +29,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [resultForm, setResultForm] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false)
+  // const [isButtonDisabled, setIsButtonDisabled] = useState(false)
   const navigate = useNavigate();
   const showMenu = () => {
     setIsNavigationOpen(true);

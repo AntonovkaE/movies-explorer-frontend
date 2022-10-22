@@ -9,7 +9,7 @@ function SavedMovies({ savedMovies, deleteMovie, onSubmitSearch, onToggleFilter 
   return (
     <section className="savedMovies">
       <SearchForm onSubmit={onSubmitSearch} sectionSearchInput='savedMoviesSearchInput'/>
-      <MoviesCardList handleButtonClick={deleteMovie} cardButton="movieSaved" buttonCardText="" count={count} movies={savedMovies} savedMovies={savedMovies} section="savedMovie"/>
+      <MoviesCardList sectionSearchInput='savedMoviesSearchInput' handleButtonClick={deleteMovie} cardButton="movieSaved" buttonCardText="" count={count} movies={savedMovies} savedMovies={savedMovies} section="savedMovie"/>
     </section>);
 }
 
