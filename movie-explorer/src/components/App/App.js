@@ -217,7 +217,7 @@ function App() {
 
   useEffect(() => {
     if (isLoggedIn) {
-      // handleTokenCheck();
+      handleTokenCheck();
       getSavedMovies();
     } else setIsLoggedIn(false);
   }, [isLoggedIn]);
