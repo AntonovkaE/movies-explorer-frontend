@@ -131,7 +131,7 @@ function App() {
   };
 
   const handleSavedMoviesSearch = (value, isShort) => {
-    // setFoundSavedMovies(filterMovies(savedMovies, value, isShort));
+    setFoundSavedMovies(filterMovies(savedMovies, value, isShort));
     setIsSearchInSavedMovies(true);
     localStorage.setItem('savedMoviesSearchInput', value);
   };
@@ -169,9 +169,10 @@ function App() {
   };
 
   const getSavedMovies = () => {
+    console.log(currentUser)
     mainApi.getSavedMovies()
       .then((res) => {
-        setSavedMovies(res);
+        setSavedMovies(res.filter(c => c.owner ===  currentUser._id))
       });
   };
 
