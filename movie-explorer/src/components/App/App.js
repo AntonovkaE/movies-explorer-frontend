@@ -30,7 +30,6 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [resultForm, setResultForm] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.jwt || false);
-  // const [isButtonDisabled, setIsButtonDisabled] = useState(false)
   const navigate = useNavigate();
   const showMenu = () => {
     setIsNavigationOpen(true);
@@ -183,7 +182,7 @@ function App() {
       .then((res) => {
         const savedMoviesList = res.filter(c => c.owner === currentUser._id)
         setSavedMovies(savedMoviesList);
-        localStorage.setItem('savedMovies', savedMoviesList)
+        localStorage.setItem('savedMovies', JSON.stringify(savedMoviesList))
       })
       .catch((err) => {
         console.log(err);
@@ -223,7 +222,6 @@ function App() {
   useEffect(() => {
     if (isLoggedIn) {
       handleTokenCheck();
-      getSavedMovies();
     } else setIsLoggedIn(false);
   }, [isLoggedIn]);
 
@@ -249,6 +247,7 @@ function App() {
                     saveMovie={onCardClick}/></PrivateRoute>}></Route>
           <Route path="/saved-movies" element={<PrivateRoute loggedIn={isLoggedIn}>
             <SavedMovies
+              getMovies={getSavedMovies}
               isSearchResult={isSearchInSavedMovies}
               setIsSearchResult={setIsSearchInSavedMovies}
               savedMovies={isSearchInSavedMovies ? foundSavedMovies : savedMovies}

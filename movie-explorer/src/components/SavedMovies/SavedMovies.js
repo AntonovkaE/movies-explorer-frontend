@@ -4,9 +4,12 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import { useLocation } from 'react-router-dom';
 
-function SavedMovies({ savedMovies, deleteMovie, onSubmitSearch, isSearchResult, setIsSearchResult }) {
+function SavedMovies({ savedMovies, deleteMovie, onSubmitSearch, isSearchResult, setIsSearchResult, getMovies }) {
   const count = savedMovies.length;
   const location = useLocation()
+  useEffect(() => {
+    getMovies()
+  }, [])
 
   useEffect(()=> {
     setIsSearchResult(false)
