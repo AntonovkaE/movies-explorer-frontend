@@ -120,7 +120,6 @@ function App() {
               thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
             }));
             setMovies(receivedMovies);
-
             return movies;
           },
         ).then(res => {

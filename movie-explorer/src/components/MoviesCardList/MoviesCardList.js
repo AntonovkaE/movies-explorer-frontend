@@ -3,7 +3,7 @@ import './MoviesCardList.css';
 import MovieCard from '../MoviesCard/MoviesCard';
 
 function MovieCardList({ count, movies, handleButtonClick, savedMovies, section, sectionSearchInput, children }) {
-  const isNotFound = Boolean(localStorage[sectionSearchInput]) && movies.length === 0
+  const isNotFound = (Boolean(localStorage[sectionSearchInput]) || sectionSearchInput === 'savedMoviesSearchInput') && movies.length === 0;
   return (
     <section className="section movieSection" aria-label="Фильмы">
       {children}
