@@ -17,6 +17,7 @@ import * as auth from '../../utils/auth.js';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import NavigationPopup from '../NavigationPopup/NavigationPopup';
 import Footer from '../Footer/Footer';
+import isURL from 'validator/lib/isURL';
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -62,7 +63,6 @@ function App() {
       .then(data => {
         setIsLoggedIn(true);
         navigate('/movies');
-        // handleTokenCheck();
         setResultForm({});
       })
       .catch(err => {
@@ -96,6 +96,11 @@ function App() {
     return filteredMovies;
   };
 
+  const checkTrailerLink = (link) => {
+    const resultLink =  isURL(link) ? link : 'https://youtube.com/';
+    return resultLink
+  }
+
   const handleSearch = (value, isShort) => {
     setIsLoading(true);
     let receivedMovies;
@@ -105,7 +110,7 @@ function App() {
             receivedMovies = res.map(movie => ({
               nameRU: movie.nameRU || movie.nameEN || '',
               image: `${movie.image.url ? `https://api.nomoreparties.co${movie.image.url}` : notFoundImage}`,
-              trailerLink: movie.trailerLink || '',
+              trailerLink: checkTrailerLink(movie.trailerLink),
               duration: movie.duration || '',
               movieId: movie.id,
               country: movie.country || '',
