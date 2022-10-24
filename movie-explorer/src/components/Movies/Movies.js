@@ -35,12 +35,14 @@ function Movies({ movies, onSubmitSearch, isLoading, saveMovie, savedMovies }) {
   const showMoreMovies = () => {
     if ((movieCount + additionalCount) >= movies.length) {
       setMovieCount(movies.length);
-      setIsButtonHidden(true);
     } else {
       setMovieCount(movieCount + additionalCount);
     }
   };
 
+  useEffect(() => {
+    setIsButtonHidden(movieCount >= movies.length)
+  }, [movieCount])
   useEffect(() => {
     window.addEventListener('resize', () => setTimeout(handleResize, 10000));
   }, []);
