@@ -18,6 +18,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import NavigationPopup from '../NavigationPopup/NavigationPopup';
 import Footer from '../Footer/Footer';
 import isURL from 'validator/lib/isURL';
+import { shortMovieDuration } from '../../utils/variables';
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -88,7 +89,7 @@ function App() {
     }
     const filteredMovies = movies.filter((item) => {
       if (isShort) {
-        return (item.nameRU.search(search) !== -1 && item.duration < 40);
+        return (item.nameRU.search(search) !== -1 && item.duration < shortMovieDuration);
       }
       return (item.nameRU.search(search) !== -1);
     });
