@@ -56,20 +56,20 @@
 }
 
 .preloader__round {
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
     position: absolute;
     top: 0;
     left: 0;
-    background: #FF6838;
+    background: #f3c1f8;
     border-radius: 50px;
 }
 
 .preloader__round::after,
 .preloader__round::before {
     content: '';
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
     position: absolute;
     top: 0;
     left: 0;

@@ -9,15 +9,17 @@
   justify-self: center;
   margin: 0 auto;
   background: #F9F9F9;
-
 }
 
-.button_movieSaved {
+.button_hidden {
+  display: none;
+}
+
+.button_savedMovie {
   background-image: url("../../images/icon__COLOR_icon-main-min.svg");
   background-repeat: no-repeat;
   background-position: center;
   background-color: #F9F9F9;
-
 }
 
 .button_success {
@@ -60,11 +62,23 @@
   text-align: center;
 }
 
+.button:disabled {
+  color: #a0a0a0;
+}
+
+.button:disabled:hover {
+  color: #a0a0a0;
+  opacity: 1;
+  transition: opacity 1s;
+  box-shadow: none;
+}
+
 @media screen and (min-width: 768px) {
   .button_showMore {
     width: calc(100% - 60px);
     margin: 50px 30px 80px;
   }
+
   .button_form-auth {
     font-weight: 500;
     font-size: 14px;
@@ -85,6 +99,7 @@
   box-shadow: none;
   margin: 0 0 auto;
 }
+
 @media screen and (min-width: 1280px) {
   /*.button_movie {*/
   /*    margin: 18px auto;*/

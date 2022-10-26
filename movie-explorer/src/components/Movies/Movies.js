@@ -4,33 +4,59 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Button from '../Button/Button';
 import Preloader from '../Preloader/Preloader';
+import {
+  largeScreenAdditionalMovieCount,
+  largeScreenMovieCount,
+  middleScreen,
+  middleScreenMovieCount,
+  smallScreenAdditionalMovieCount,
+  smallScreenMovieCount,
+} from '../../utils/variables';
 
-function Movies({ movies, onSubmitSearch, isPreloaderHidden }) {
-  const [isMobile, setIsMobile] = useState(false);
-  const [isMiddleScreen, setIsMiddleScreen] = useState(false);
+function Movies({ movies, onSubmitSearch, isLoading, saveMovie, savedMovies }) {
+  const [movieCount, setMovieCount] = useState(5);
+  const [additionalCount, setAdditionalCount] = useState(2);
+  const [isButtonHidden, setIsButtonHidden] = useState(!Boolean(movies.length));
+  if (movies.length) {
+    localStorage.setItem('foundMovies', JSON.stringify(movies));
+  }
   const handleResize = () => {
-    if (window.innerWidth < 768) {
-      setIsMobile(true);
-    } else if (window.innerWidth < 1280) {
-      setIsMobile(false);
-      setIsMiddleScreen(true);
+    setMovieCount(window.innerWidth < middleScreen ? smallScreenMovieCount : window.innerWidth < middleScreen ? middleScreenMovieCount : largeScreenMovieCount);
+    setAdditionalCount(window.innerWidth < middleScreen ? smallScreenAdditionalMovieCount : largeScreenAdditionalMovieCount);
+  };
+  useEffect(() => {
+    setIsButtonHidden(movieCount > movies.length);
+  }, [movies, movieCount]);
+
+  useEffect(() => {
+    handleResize();
+  }, [window.innerWidth]);
+
+  const showMoreMovies = () => {
+    if ((movieCount + additionalCount) >= movies.length) {
+      setMovieCount(movies.length);
     } else {
-      setIsMobile(false);
-      setIsMiddleScreen(false);
+      setMovieCount(movieCount + additionalCount);
     }
   };
 
   useEffect(() => {
-    window.addEventListener('resize', handleResize);
+    setIsButtonHidden(movieCount >= movies.length)
+  }, [movieCount])
+  useEffect(() => {
+    window.addEventListener('resize', () => setTimeout(handleResize, 10000));
   }, []);
-  const movieCount = isMobile ? 5 : isMiddleScreen ? 8 : 12;
 
   return (
     <>
-      <Preloader isHidden={true}/>
-      <SearchForm onSubmit={onSubmitSearch}/>
-      <MoviesCardList cardButton="success" buttonCardText="" count={movieCount} movies={movies}/>
-      <Button text="Ещё" status="showMore" type="button"/>
+      <SearchForm onSubmit={onSubmitSearch} sectionSearchInput="moviesSearchInput"/>
+      <MoviesCardList sectionSearchInput="moviesSearchInput" savedMovies={savedMovies}
+                      handleButtonClick={saveMovie} count={movieCount}
+                      movies={movies} section="movie">
+        <Preloader isHidden={!isLoading}/>
+      </MoviesCardList>
+      <Button isHidden={isButtonHidden} onclick={showMoreMovies} text="Ещё" status="showMore"
+              type="button"/>
     </>);
 }
 

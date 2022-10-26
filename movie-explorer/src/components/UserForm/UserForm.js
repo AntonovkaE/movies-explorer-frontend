@@ -1,53 +1,40 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './UserForm.css';
-import Input from '../Input/Input';
 import Button from '../Button/Button';
 
 function UserForm({
-  name, title, spanText, buttonText, linkText, link,
+  formName,
+  onSubmit,
+  title,
+  spanText,
+  buttonText,
+  onButtonClick = () => {},
+  onLinkClick = () => {},
+  linkText,
+  link,
+  children,
+  buttonDisabled,
+  formResult,
 }) {
+  const resultError = formResult.error || '';
+  const resultMessage = formResult.message || '';
   return (
-    <form className={`form form_${name}`}>
-      <h2 className={`form__heading form__heading_${name}`}>{title}</h2>
-      <Input
-        form={name}
-        name="name"
-        placeholder=""
-        label="Имя"
-        value="Виталий"
-        maxLength="30"
-        minLength="2"
-      />
-      <Input
-        form={name}
-        type="email"
-        name="email"
-        placeholder=""
-        label="E-mail"
-        value="pochta@yandex.ru"
-        maxLength="30"
-        minLength="2"
-      />
-      <Input
-        form={name}
-        type="password"
-        name="password"
-        placeholder=""
-        label="Пароль"
-        value=""
-        maxLength=""
-        minLength="2"
-      />
+    <form onSubmit={onSubmit} className={`form form_${formName}`}>
+      <h2 className={`form__heading form__heading_${formName}`}>{title}</h2>
+      {children}
       <div className="form__buttons">
+        <span
+          className={`form__message form__message_${resultError ? 'error' : 'success'}`}>{resultMessage}</span>
         <Button
-          type="submit"
-          status={`${name !== 'edit' ? 'black button_form-auth' : ''} form__button  button_${name} `}
-          text={buttonText}
+          type="submit" onclick={onButtonClick}
+          status={`${formName !== 'edit' ? 'black button_form-auth' : ''} form__button  button_${formName}`}
+          text={buttonText} isDisable={buttonDisabled}
         />
         <div className="form__caption">
           <span className="form__link-caption">{spanText}</span>
-          <Link className={`link form__link form__link_${name}`} to={link}>{linkText}</Link>
+          <Link onClick={onLinkClick} className={`link form__link form__link_${formName}`}
+                to={link}>{linkText}</Link>
         </div>
       </div>
     </form>

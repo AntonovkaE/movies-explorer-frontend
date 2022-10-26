@@ -9,7 +9,7 @@ function NotFoundPage() {
         404
       </h1>
       <p className="notFoundPage__subtitle">Страница не найдена</p>
-      <Link className={`link link_back`} to="/">Назад</Link>
+      <Link className={`link link_back`} to={-1}>Назад</Link>
     </section>
   )
 }

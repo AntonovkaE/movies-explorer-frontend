@@ -3,6 +3,9 @@
 # ссылка на макет
 https://disk.yandex.ru/d/cM7wFvYO041klQ
 
-Чтобы меню было для неавторизованного пользователя в файле App в компонент Header нужно передать пропсы isAuth со значением false isAuth={false}
+# Фронтенд часть на сервере
+https://movie.antonovskaya.nomoredomains.sbs
 
-Для изменения состояния кнопок в карточке фильма передать пропс type="success" text ="" или type="" и text "Сохранить"  в MovieCard.js в компонент <Button type="" status="movie" text="Сохранить"></Button>
+## Pull request
+
+https://github.com/AntonovkaE/movies-explorer-frontend/pull/2

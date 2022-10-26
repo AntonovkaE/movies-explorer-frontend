@@ -4,10 +4,10 @@ import logo from '../../images/logo.svg';
 import { NavLink, useLocation } from 'react-router-dom';
 import Navigation from '../Navigation/Navigation';
 
-function Header({ showMenu }) {
+function Header({ showMenu, isAuth }) {
   const location = useLocation().pathname;
   const isNavigationHidden = (location === '/signup' || location === '/signin' || location === '/404');
-  const isAuth = (location !== '/' )
+  // const isAuth = (location !== '/' )
   const headerHidden = (location === '/404')
   return (
     <header className={`header ${headerHidden ? 'header_hidden': ''}`}>
