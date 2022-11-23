@@ -1,5 +1,9 @@
 # Дипломный проект Movie Explorer
 
+https://user-images.githubusercontent.com/67238673/203472435-ee019c8c-1c66-469e-a3b9-be4ec808e4ef.mov
+
+
+
 [Фронтенд часть на сервере](https://movie.antonovskaya.nomoredomains.sbs)
 
 [Бэкенд часть на GitHub](https://github.com/AntonovkaE/movies-explorer-api)
